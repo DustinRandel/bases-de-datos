@@ -9,6 +9,7 @@ Apuntes del módulo 0484, DAW/DAM, curso 2026-2027. Cada unidad de trabajo (UT) 
 | UT | Contenido |
 |---|---|
 | [UT1. Almacenamiento de la información](UT1-dosier.md) | Ficheros, bases de datos y modelos, SGBD, arquitectura y bases de datos distribuidas |
+| [UT3. El modelo relacional](UT3-dosier.md) | Modelo relacional, claves, índices, NULL, vistas, usuarios, permisos y roles |
 
 Cada dosier se puede descargar también en PDF desde Classroom.
 
