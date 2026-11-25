@@ -44,25 +44,25 @@ Al terminar esta UT deberías ser capaz de:
 
 ## Índice
 
-**Bloque 1. Los ficheros**\
+[**Bloque 1. Los ficheros**](#bloque-1-los-ficheros)\
 1.1 Por qué empezamos por los ficheros, 1.2 Qué es un fichero, 1.3 Estructura interna, 1.4 Tipos según su función, 1.5 Soportes y tipos de acceso, 1.6 Organizaciones de ficheros, 1.7 Parámetros de utilización, 1.8 Los límites del enfoque de ficheros
 
-**Bloque 2. Las bases de datos**\
+[**Bloque 2. Las bases de datos**](#bloque-2-las-bases-de-datos)\
 2.1 Qué es una base de datos, 2.2 Elementos, 2.3 Conceptos clave, 2.4 Quién las utiliza, 2.5 Dónde se usan, 2.6 Ubicación física de la información
 
-**Bloque 3. Los modelos de bases de datos**\
+[**Bloque 3. Los modelos de bases de datos**](#bloque-3-los-modelos-de-bases-de-datos)\
 3.1 Qué es un modelo, 3.2 Jerárquico, 3.3 En red, 3.4 Relacional, 3.5 Orientado a objetos, 3.6 Objeto-relacional, 3.7 Otros modelos y NoSQL
 
-**Bloque 4. Los sistemas de gestión de bases de datos (SGBD)**\
+[**Bloque 4. Los sistemas de gestión de bases de datos (SGBD)**](#bloque-4-los-sistemas-de-gestion-de-bases-de-datos-sgbd)\
 4.1 Qué es un SGBD, 4.2 El SGBD y su entorno, 4.3 Ventajas, 4.4 Funciones, 4.5 Componentes
 
-**Bloque 5. Arquitectura y tipos**\
+[**Bloque 5. Arquitectura y tipos**](#bloque-5-arquitectura-y-tipos)\
 5.1 Los tres niveles de abstracción, 5.2 Independencia de datos, 5.3 Tipos de bases de datos, 5.4 Tipos de SGBD
 
-**Bloque 6. Bases de datos centralizadas y distribuidas**\
+[**Bloque 6. Bases de datos centralizadas y distribuidas**](#bloque-6-bases-de-datos-centralizadas-y-distribuidas)\
 6.1 Centralizadas, 6.2 Distribuidas, 6.3 El SGBD distribuido, 6.4 Ventajas y desventajas, 6.5 La fragmentación, 6.6 Reglas de la fragmentación, 6.7 Fragmentación horizontal, vertical e híbrida
 
-**Material de repaso**\
+[**Material de repaso**](#material-de-repaso)\
 Glosario, mapa resumen y autoevaluación
 
 <!-- Fuente: dosieres UF1 Parte 1 y Parte 2 del curso pasado (Drive, «0484. Bases de datos/UF1/Markdown e imágenes»), unidos en un solo dosier. Las soluciones de la autoevaluación no se publican aquí. -->
