@@ -3,6 +3,7 @@ nav:
     - UT1. Almacenamiento de la información: UT1-dosier.md
     - UT3. El modelo relacional: UT3-dosier.md
     - UT4. Transformación y normalización: UT4-dosier.md
+    - "UT5. SQL: definir y consultar": UT5-dosier.md
 
 # Cómo funciona este fichero:
 #   - Define el menú lateral. Si una página .md no aparece aquí, NO se ve en el menú.
