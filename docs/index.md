@@ -9,6 +9,7 @@ Apuntes del módulo 0484, DAW/DAM, curso 2026-2027. Cada unidad de trabajo (UT) 
 | UT | Contenido |
 |---|---|
 | [UT1. Almacenamiento de la información](UT1-dosier.md) | Ficheros, bases de datos y modelos, SGBD, arquitectura y bases de datos distribuidas |
+| [UT2. Interpretación de modelos E/R](UT2-dosier.md) | Entidades, relaciones, cardinalidades, jerarquías y agregación |
 | [UT3. El modelo relacional](UT3-dosier.md) | Modelo relacional, claves, índices, NULL, vistas, usuarios, permisos y roles |
 | [UT4. Transformación y normalización](UT4-dosier.md) | Del diagrama E/R a tablas, dependencias y formas normales (1FN, 2FN y 3FN) |
 | [UT5. SQL: definir y consultar](UT5-dosier.md) | SQL declarativo, DDL y DML, transacciones y restricciones |

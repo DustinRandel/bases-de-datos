@@ -1,6 +1,7 @@
 nav:
     - Inicio: index.md
     - UT1. Almacenamiento de la información: UT1-dosier.md
+    - UT2. Interpretación de modelos E/R: UT2-dosier.md
     - UT3. El modelo relacional: UT3-dosier.md
     - UT4. Transformación y normalización: UT4-dosier.md
     - "UT5. SQL: definir y consultar": UT5-dosier.md
