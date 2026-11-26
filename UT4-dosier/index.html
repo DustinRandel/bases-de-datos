@@ -1,0 +1,4003 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Apuntes del módulo 0484, DAW/DAM, curso 2026-2027">
+      
+      
+        <meta name="author" content="Dustin Randel de Lara García">
+      
+      
+        <link rel="canonical" href="https://dustinrandel.github.io/bases-de-datos/UT4-dosier/">
+      
+      
+        <link rel="prev" href="../UT3-dosier/">
+      
+      
+        <link rel="next" href="../UT5-dosier/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Transformación al modelo relacional y normalización - Bases de datos</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Carlito:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Carlito";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link rel="icon" type="image/png" sizes="48x48" href="../assets/favicon-48.png">
+  <link rel="icon" sizes="any" href="../assets/favicon.ico">
+  <link rel="apple-touch-icon" href="../assets/logo.png">
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ut4-transformacion-al-modelo-relacional-y-normalizacion" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href=".." title="Bases de datos" class="md-header__button md-logo" aria-label="Bases de datos" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bases de datos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Transformación al modelo relacional y normalización
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/DustinRandel/bases-de-datos" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Bases de datos" class="md-nav__button md-logo" aria-label="Bases de datos" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    Bases de datos
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/DustinRandel/bases-de-datos" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UT1-dosier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT1. Almacenamiento de la información
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UT2-dosier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT2. Interpretación de modelos E/R
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UT3-dosier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT3. El modelo relacional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT4. Transformación y normalización
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT4. Transformación y normalización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#como-usar-este-dosier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo usar este dosier
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo usar este dosier">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-vas-a-aprender" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué vas a aprender
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Índice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-1-del-diagrama-er-al-modelo-relacional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 1. Del diagrama E/R al modelo relacional
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 1. Del diagrama E/R al modelo relacional">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-del-mundo-conceptual-al-mundo-logico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Del mundo conceptual al mundo lógico
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 Del mundo conceptual al mundo lógico">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-leer-los-diagramas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo leer los diagramas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-los-cinco-pasos-generales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Los cinco pasos generales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-un-ejemplo-completo-profesores-alumnado-notas-y-asignaturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Un ejemplo completo: profesores, alumnado, notas y asignaturas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-asi-se-vera-en-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Así se verá en SQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-2-entidades-fuertes-y-debiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 2. Entidades fuertes y débiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 2. Entidades fuertes y débiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-entidades-fuertes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Entidades fuertes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-entidades-debiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Entidades débiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Entidades débiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-entidad-debil-por-identificacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1 Entidad débil por identificación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-entidad-debil-por-existencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2 Entidad débil por existencia
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-3-atributos-multivaluados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 3. Atributos multivaluados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 3. Atributos multivaluados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-por-que-necesitan-una-tabla-aparte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Por qué necesitan una tabla aparte
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-como-se-transforma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Cómo se transforma
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-4-relaciones-binarias-nm-1n-y-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 4. Relaciones binarias: N:M, 1:N y 1:1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 4. Relaciones binarias: N:M, 1:N y 1:1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-relaciones-nm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Relaciones N:M
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-relaciones-1n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Relaciones 1:N
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-relaciones-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Relaciones 1:1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-5-relaciones-reflexivas-y-ternarias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 5. Relaciones reflexivas y ternarias
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 5. Relaciones reflexivas y ternarias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-relaciones-reflexivas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Relaciones reflexivas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-relaciones-ternarias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Relaciones ternarias
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-6-jerarquias-herencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 6. Jerarquías (herencia)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 6. Jerarquías (herencia)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-supertipo-y-subtipos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Supertipo y subtipos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-como-se-transforma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Cómo se transforma
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-otras-soluciones-que-te-encontraras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Otras soluciones que te encontrarás
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-7-por-que-normalizar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 7. Por qué normalizar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 7. Por qué normalizar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-que-es-la-normalizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Qué es la normalización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-las-anomalias-el-problema-de-repetir-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Las anomalías: el problema de repetir datos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-las-formas-normales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Las formas normales
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-8-dependencias-entre-atributos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 8. Dependencias entre atributos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 8. Dependencias entre atributos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-dependencia-funcional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Dependencia funcional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-dependencia-funcional-completa-y-parcial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Dependencia funcional completa y parcial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-dependencia-transitiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Dependencia transitiva
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-ejemplo-resuelto-empleado-y-libro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 Ejemplo resuelto: EMPLEADO y LIBRO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-9-primera-forma-normal-1fn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 9. Primera forma normal (1FN)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 9. Primera forma normal (1FN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-definicion-y-requisitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Definición y requisitos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-como-se-consigue-la-1fn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Cómo se consigue la 1FN
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-10-segunda-forma-normal-2fn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 10. Segunda forma normal (2FN)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 10. Segunda forma normal (2FN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-definicion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Definición
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-como-se-consigue-la-2fn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Cómo se consigue la 2FN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-ejemplo-estudiantes-y-cursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Ejemplo: estudiantes y cursos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-11-tercera-forma-normal-3fn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 11. Tercera forma normal (3FN)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 11. Tercera forma normal (3FN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-definicion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 Definición
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-como-se-consigue-la-3fn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 Cómo se consigue la 3FN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-ejemplo-empleados-y-departamentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 Ejemplo: empleados y departamentos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-el-ejemplo-de-la-matricula-terminado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.4 El ejemplo de la matrícula, terminado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#115-las-tres-formas-normales-de-un-vistazo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.5 Las tres formas normales, de un vistazo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#material-de-repaso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Material de repaso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Material de repaso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#glosario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Glosario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapa-resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa resumen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoevaluacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autoevaluación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Autoevaluación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1-transformacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 1. Transformación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2-normalizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 2. Normalización
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UT5-dosier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT5. SQL: definir y consultar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UT6-dosier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT6. SQL: unir tablas y resumir
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UT7-dosier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT7. SQL: procedimientos almacenados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#como-usar-este-dosier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo usar este dosier
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo usar este dosier">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-vas-a-aprender" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué vas a aprender
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Índice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-1-del-diagrama-er-al-modelo-relacional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 1. Del diagrama E/R al modelo relacional
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 1. Del diagrama E/R al modelo relacional">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-del-mundo-conceptual-al-mundo-logico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Del mundo conceptual al mundo lógico
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 Del mundo conceptual al mundo lógico">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-leer-los-diagramas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo leer los diagramas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-los-cinco-pasos-generales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Los cinco pasos generales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-un-ejemplo-completo-profesores-alumnado-notas-y-asignaturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Un ejemplo completo: profesores, alumnado, notas y asignaturas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-asi-se-vera-en-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Así se verá en SQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-2-entidades-fuertes-y-debiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 2. Entidades fuertes y débiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 2. Entidades fuertes y débiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-entidades-fuertes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Entidades fuertes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-entidades-debiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Entidades débiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Entidades débiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-entidad-debil-por-identificacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1 Entidad débil por identificación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-entidad-debil-por-existencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2 Entidad débil por existencia
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-3-atributos-multivaluados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 3. Atributos multivaluados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 3. Atributos multivaluados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-por-que-necesitan-una-tabla-aparte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Por qué necesitan una tabla aparte
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-como-se-transforma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Cómo se transforma
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-4-relaciones-binarias-nm-1n-y-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 4. Relaciones binarias: N:M, 1:N y 1:1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 4. Relaciones binarias: N:M, 1:N y 1:1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-relaciones-nm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Relaciones N:M
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-relaciones-1n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Relaciones 1:N
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-relaciones-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Relaciones 1:1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-5-relaciones-reflexivas-y-ternarias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 5. Relaciones reflexivas y ternarias
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 5. Relaciones reflexivas y ternarias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-relaciones-reflexivas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Relaciones reflexivas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-relaciones-ternarias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Relaciones ternarias
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-6-jerarquias-herencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 6. Jerarquías (herencia)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 6. Jerarquías (herencia)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-supertipo-y-subtipos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Supertipo y subtipos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-como-se-transforma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Cómo se transforma
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-otras-soluciones-que-te-encontraras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Otras soluciones que te encontrarás
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-7-por-que-normalizar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 7. Por qué normalizar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 7. Por qué normalizar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-que-es-la-normalizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Qué es la normalización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-las-anomalias-el-problema-de-repetir-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Las anomalías: el problema de repetir datos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-las-formas-normales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Las formas normales
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-8-dependencias-entre-atributos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 8. Dependencias entre atributos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 8. Dependencias entre atributos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-dependencia-funcional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Dependencia funcional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-dependencia-funcional-completa-y-parcial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Dependencia funcional completa y parcial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-dependencia-transitiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Dependencia transitiva
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-ejemplo-resuelto-empleado-y-libro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 Ejemplo resuelto: EMPLEADO y LIBRO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-9-primera-forma-normal-1fn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 9. Primera forma normal (1FN)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 9. Primera forma normal (1FN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-definicion-y-requisitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Definición y requisitos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-como-se-consigue-la-1fn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Cómo se consigue la 1FN
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-10-segunda-forma-normal-2fn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 10. Segunda forma normal (2FN)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 10. Segunda forma normal (2FN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-definicion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Definición
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-como-se-consigue-la-2fn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Cómo se consigue la 2FN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-ejemplo-estudiantes-y-cursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Ejemplo: estudiantes y cursos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-11-tercera-forma-normal-3fn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 11. Tercera forma normal (3FN)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 11. Tercera forma normal (3FN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-definicion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 Definición
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-como-se-consigue-la-3fn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 Cómo se consigue la 3FN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-ejemplo-empleados-y-departamentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 Ejemplo: empleados y departamentos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-el-ejemplo-de-la-matricula-terminado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.4 El ejemplo de la matrícula, terminado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#115-las-tres-formas-normales-de-un-vistazo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.5 Las tres formas normales, de un vistazo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#material-de-repaso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Material de repaso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Material de repaso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#glosario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Glosario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapa-resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa resumen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoevaluacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autoevaluación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Autoevaluación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1-transformacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 1. Transformación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2-normalizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parte 2. Normalización
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ut4-transformacion-al-modelo-relacional-y-normalizacion">UT4. Transformación al modelo relacional y normalización<a class="headerlink" href="#ut4-transformacion-al-modelo-relacional-y-normalizacion" title="Permanent link">&para;</a></h1>
+<h2 class="nobreak" id="como-usar-este-dosier">Cómo usar este dosier<a class="headerlink" href="#como-usar-este-dosier" title="Permanent link">&para;</a></h2>
+<p>Esta unidad tiene dos partes. En la primera aprenderás a coger un diagrama entidad-relación (E/R) y convertirlo, paso a paso, en las tablas que después crearás con SQL. Es una traducción con reglas concretas: si las aplicas con orden, el resultado sale casi solo.</p>
+<p>En la segunda revisarás esas tablas para quitar la información repetida que da problemas al insertar, modificar o borrar. Esa revisión se llama <strong>normalización</strong> y consiste en comprobar una serie de reglas, las <strong>formas normales</strong>.</p>
+<p>Cada bloque presenta una situación (una entidad débil, una relación 1:N, la segunda forma normal…) con su regla y un ejemplo resuelto.</p>
+<p>Para escribir las tablas usamos siempre la misma notación:</p>
+<ul>
+<li><code>TABLA(columna1, columna2, …)</code> es el nombre de la tabla y sus columnas entre paréntesis.</li>
+<li>La <strong>clave primaria</strong> lleva el sufijo <code>_PK</code> y las <strong>claves ajenas</strong>, el sufijo <code>_FK</code>. Si una columna es a la vez parte de la clave primaria y clave ajena, lleva <code>_PK_FK</code> (primero PK y después FK). Por ejemplo: <code>ROOM(id_hotel_PK_FK, room_number_PK, dimensions, num_beds)</code>.</li>
+<li>En los dibujos de tablas, la columna de la izquierda indica <strong>PK</strong>, <strong>FK</strong> o <strong>PK, FK</strong>. La clave va subrayada y cada clave ajena indica a qué tabla apunta (<code>→ HOTEL</code>).</li>
+<li><code>A → B</code> se lee «A determina B». En los diagramas de dependencias, las flechas salen del atributo que determina y apuntan al que depende de él.</li>
+</ul>
+<p>Los nombres de tablas y columnas de los ejemplos (<code>PERSON</code>, <code>id_hotel</code>, <code>DNIAl</code>…) se mantienen tal cual, igual que las palabras clave de SQL (<code>PRIMARY KEY</code>, <code>FOREIGN KEY</code>, <code>NOT NULL</code>…), porque así es como los verás en la base de datos.</p>
+<p>Encontrarás cuatro tipos de caja:</p>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p>Un término que tienes que saber explicar con tus palabras. Si solo sabes repetirlo de memoria, todavía no lo has aprendido.</p>
+</div>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p>Un caso concreto, resuelto paso a paso. Léelo despacio y con lápiz: aquí es donde la regla se entiende.</p>
+</div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Un error típico o dos casos que se suelen confundir. Son las preguntas que salen en el examen.</p>
+</div>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+<p>De tres a cinco preguntas al final de cada bloque. Contesta sin mirar atrás. Si te atascas, vuelve a leer el bloque.</p>
+</div>
+<p>Al final tienes un <strong>glosario</strong>, un <strong>mapa resumen</strong> y una <strong>autoevaluación</strong>.</p>
+<h3 id="que-vas-a-aprender">Qué vas a aprender<a class="headerlink" href="#que-vas-a-aprender" title="Permanent link">&para;</a></h3>
+<p>Al terminar esta unidad deberías ser capaz de:</p>
+<ul>
+<li>Explicar qué significa pasar del diseño conceptual (diagrama E/R) al diseño lógico (modelo relacional).</li>
+<li>Aplicar los cinco pasos generales de la transformación y justificar cuándo se fusionan tablas.</li>
+<li>Transformar entidades fuertes y débiles, atributos multivaluados, relaciones binarias, reflexivas y ternarias, y jerarquías.</li>
+<li>Escribir el esquema relacional resultante con su notación (claves primarias y ajenas) y relacionarlo con el <code>CREATE TABLE</code> de SQL.</li>
+<li>Explicar qué es la normalización y reconocer las anomalías de inserción, modificación y borrado.</li>
+<li>Identificar dependencias funcionales completas, parciales y transitivas, y escribirlas con la notación <code>A → B</code>.</li>
+<li>Comprobar si una tabla está en 1FN, 2FN o 3FN y normalizarla separando atributos en tablas nuevas enlazadas con claves ajenas.</li>
+</ul>
+<h3 id="indice">Índice<a class="headerlink" href="#indice" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Bloque</th>
+<th>Tema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#bloque-1-del-diagrama-er-al-modelo-relacional">1</a></td>
+<td>Del diagrama E/R al modelo relacional</td>
+</tr>
+<tr>
+<td><a href="#bloque-2-entidades-fuertes-y-debiles">2</a></td>
+<td>Entidades fuertes y débiles</td>
+</tr>
+<tr>
+<td><a href="#bloque-3-atributos-multivaluados">3</a></td>
+<td>Atributos multivaluados</td>
+</tr>
+<tr>
+<td><a href="#bloque-4-relaciones-binarias-nm-1n-y-11">4</a></td>
+<td>Relaciones binarias: N:M, 1:N y 1:1</td>
+</tr>
+<tr>
+<td><a href="#bloque-5-relaciones-reflexivas-y-ternarias">5</a></td>
+<td>Relaciones reflexivas y ternarias</td>
+</tr>
+<tr>
+<td><a href="#bloque-6-jerarquias-herencia">6</a></td>
+<td>Jerarquías (herencia)</td>
+</tr>
+<tr>
+<td><a href="#bloque-7-por-que-normalizar">7</a></td>
+<td>Por qué normalizar</td>
+</tr>
+<tr>
+<td><a href="#bloque-8-dependencias-entre-atributos">8</a></td>
+<td>Dependencias entre atributos</td>
+</tr>
+<tr>
+<td><a href="#bloque-9-primera-forma-normal-1fn">9</a></td>
+<td>Primera forma normal (1FN)</td>
+</tr>
+<tr>
+<td><a href="#bloque-10-segunda-forma-normal-2fn">10</a></td>
+<td>Segunda forma normal (2FN)</td>
+</tr>
+<tr>
+<td><a href="#bloque-11-tercera-forma-normal-3fn">11</a></td>
+<td>Tercera forma normal (3FN)</td>
+</tr>
+<tr>
+<td>Repaso</td>
+<td>Glosario, mapa resumen y autoevaluación</td>
+</tr>
+</tbody>
+</table>
+<h2 id="bloque-1-del-diagrama-er-al-modelo-relacional">Bloque 1. Del diagrama E/R al modelo relacional<a class="headerlink" href="#bloque-1-del-diagrama-er-al-modelo-relacional" title="Permanent link">&para;</a></h2>
+<h3 id="11-del-mundo-conceptual-al-mundo-logico">1.1 Del mundo conceptual al mundo lógico<a class="headerlink" href="#11-del-mundo-conceptual-al-mundo-logico" title="Permanent link">&para;</a></h3>
+<p>Cuando dibujas un diagrama E/R estás en el <strong>mundo conceptual</strong>: describes la realidad con entidades, relaciones y atributos, sin pensar todavía en cómo se guardará. Para crear la base de datos necesitas pasar al <strong>mundo lógico</strong>, donde los datos se representan con el <strong>modelo relacional</strong>: tablas, columnas y registros (filas).</p>
+<p><img alt="Del mundo conceptual (diagrama E/R) al mundo lógico (tablas)" src="../imagenes/UT4-diagrama-conceptual-logico.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Mundo conceptual (diagrama E/R)</th>
+<th>Mundo lógico (modelo relacional)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entidades</td>
+<td>Tablas</td>
+</tr>
+<tr>
+<td>Atributos</td>
+<td>Columnas</td>
+</tr>
+<tr>
+<td>Ocurrencias de una entidad</td>
+<td>Registros (filas)</td>
+</tr>
+<tr>
+<td>Relaciones</td>
+<td>Tablas propias o claves ajenas dentro de otras tablas</td>
+</tr>
+<tr>
+<td>Identificador (atributo clave)</td>
+<td>Clave primaria</td>
+</tr>
+</tbody>
+</table>
+<h4 id="como-leer-los-diagramas">Cómo leer los diagramas<a class="headerlink" href="#como-leer-los-diagramas" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Símbolo</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rectángulo / doble rectángulo</td>
+<td>Entidad / entidad débil</td>
+</tr>
+<tr>
+<td>Rombo / doble rombo</td>
+<td>Relación / relación de identificación</td>
+</tr>
+<tr>
+<td>Elipse (doble, discontinua)</td>
+<td>Atributo (multivaluado, derivado)</td>
+</tr>
+<tr>
+<td>Atributo subrayado / subrayado discontinuo</td>
+<td>Clave / clave parcial</td>
+</tr>
+<tr>
+<td><strong>1</strong>, <strong>N</strong>, <strong>M</strong> junto al rombo</td>
+<td>Cardinalidad de la relación (1:N, N:M…)</td>
+</tr>
+<tr>
+<td>Barra doble en la línea</td>
+<td>Uno y obligatorio (la FK lleva <code>NOT NULL</code>)</td>
+</tr>
+<tr>
+<td>Círculo y barra</td>
+<td>Cero o uno (la FK admite <code>NULL</code>)</td>
+</tr>
+<tr>
+<td>Pata de gallo y barra</td>
+<td>Uno o muchos</td>
+</tr>
+<tr>
+<td>Pata de gallo y círculo</td>
+<td>Cero o muchos</td>
+</tr>
+</tbody>
+</table>
+<p>El símbolo que hay junto a una entidad dice <strong>cuántas ocurrencias de esa entidad</strong> se relacionan con cada ocurrencia de la otra: la barra indica un mínimo de 1 (obligatorio) y el círculo, un mínimo de 0 (opcional).</p>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Existen varias notaciones para los diagramas E/R: pares (mín,máx) junto a cada entidad, patas de gallo, UML… En este módulo usamos la de Chen con la cardinalidad <strong>1 / N</strong> junto al rombo y <strong>patas de gallo</strong> en las líneas. La leyenda de cada diagrama explica todos los símbolos que aparecen en él.</p>
+</div>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p><strong>Transformar</strong> (o <em>traducir</em>) un diagrama E/R es obtener, a partir de él, el <strong>esquema relacional</strong>: la lista de tablas con sus columnas, su clave primaria y sus claves ajenas.</p>
+</div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Recuerda la diferencia entre las fases del diseño: el diagrama E/R es el <strong>diseño conceptual</strong>; el esquema relacional que obtienes en esta unidad es el <strong>diseño lógico</strong>; el <code>CREATE TABLE</code> concreto para MySQL, Oracle o PostgreSQL será el <strong>diseño físico</strong>.</p>
+</div>
+<h3 id="12-los-cinco-pasos-generales">1.2 Los cinco pasos generales<a class="headerlink" href="#12-los-cinco-pasos-generales" title="Permanent link">&para;</a></h3>
+<p>Para hacer una traducción correcta, sigue estos pasos en orden:</p>
+<ol>
+<li><strong>Cada entidad se convierte en una tabla.</strong></li>
+<li><strong>Elige una clave primaria para cada tabla.</strong></li>
+<li><strong>Para cada relación, crea una tabla</strong> que incluya los atributos propios de la relación y las claves primarias de las entidades que conecta.</li>
+<li><strong>Elige la clave primaria de cada una de estas tablas de relación.</strong></li>
+<li><strong>Valora fusionar tablas</strong>, añadiendo la clave primaria de una tabla dentro de otra, para reducir la redundancia y no tener tablas innecesarias.</li>
+</ol>
+<p>Los pasos 1 a 4 son mecánicos y siempre funcionan. El paso 5 es el que exige pensar: depende de las cardinalidades, y es lo que estudiarás en el bloque 4.</p>
+<p><img alt="Pasos 1 a 4: cada entidad da una tabla con su clave primaria; cada relación, una tabla con las claves que une y sus atributos" src="../imagenes/UT4-diagrama-pasos-generales.png" /></p>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p>Una <strong>clave ajena</strong> (<em>foreign key</em>, FK) es una columna (o grupo de columnas) de una tabla cuyos valores tienen que existir como clave primaria en otra tabla. Es lo que «enlaza» las tablas y sustituye a las líneas del diagrama E/R.</p>
+</div>
+<h3 id="13-un-ejemplo-completo-profesores-alumnado-notas-y-asignaturas">1.3 Un ejemplo completo: profesores, alumnado, notas y asignaturas<a class="headerlink" href="#13-un-ejemplo-completo-profesores-alumnado-notas-y-asignaturas" title="Permanent link">&para;</a></h3>
+<p>El siguiente diagrama tiene cuatro entidades: <code>PROFESOR</code>, <code>ALUMNO</code>, <code>NOTA</code> y <code>ASIGNATURA</code>. Cada nota es de un alumno, de una asignatura y la pone un profesor; además, cada profesor imparte varias asignaturas y cada asignatura la pueden impartir varios profesores.</p>
+<p><img alt="Ejemplo completo: del diagrama E/R a las tablas en cinco pasos" src="../imagenes/UT4-diagrama-ejemplo-completo.png" /></p>
+<p><strong>Pasos 1 y 2.</strong> Una tabla por entidad, con su clave primaria:</p>
+<table>
+<thead>
+<tr>
+<th>Tabla</th>
+<th>Columnas</th>
+<th>Clave primaria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PROFESOR</code></td>
+<td><code>NomPr</code>, <code>DNIPr</code>, <code>titulo</code></td>
+<td><code>DNIPr</code></td>
+</tr>
+<tr>
+<td><code>ALUMNO</code></td>
+<td><code>NomAl</code>, <code>DNIAl</code></td>
+<td><code>DNIAl</code></td>
+</tr>
+<tr>
+<td><code>NOTA</code></td>
+<td><code>id</code>, <code>nota</code>, <code>fecha</code></td>
+<td><code>id</code></td>
+</tr>
+<tr>
+<td><code>ASIGNATURA</code></td>
+<td><code>NomAs</code>, <code>curso</code></td>
+<td>(<code>NomAs</code>, <code>curso</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pasos 3 y 4.</strong> Una tabla por relación y su clave primaria:</p>
+<table>
+<thead>
+<tr>
+<th>Tabla de relación</th>
+<th>Columnas</th>
+<th>Clave primaria</th>
+<th>Por qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>R_Al_Nota</code></td>
+<td><code>DNIAl</code>, <code>id</code></td>
+<td><code>id</code></td>
+<td>Cada nota es de un solo alumno</td>
+</tr>
+<tr>
+<td><code>R_Nota_As</code></td>
+<td><code>id</code>, <code>NomAs</code>, <code>curso</code></td>
+<td><code>id</code></td>
+<td>Cada nota es de una sola asignatura</td>
+</tr>
+<tr>
+<td><code>R_Pr_Nota</code></td>
+<td><code>DNIPr</code>, <code>id</code></td>
+<td><code>id</code></td>
+<td>Cada nota la pone un solo profesor</td>
+</tr>
+<tr>
+<td><code>R_Pr_As</code></td>
+<td><code>DNIPr</code>, <code>NomAs</code>, <code>curso</code></td>
+<td>(<code>DNIPr</code>, <code>NomAs</code>, <code>curso</code>)</td>
+<td>Un profesor da varias asignaturas y una asignatura la dan varios profesores</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Paso 5.</strong> Las tres primeras tablas de relación tienen la <strong>misma clave primaria que <code>NOTA</code></strong> (<code>id</code>). Eso quiere decir que por cada nota hay como mucho una fila en cada una de ellas: se pueden <strong>fusionar</strong> con <code>NOTA</code>, que se queda con las claves ajenas. <code>R_Pr_As</code>, en cambio, no se puede fusionar con nadie (es N:M).</p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p>Esquema relacional final:<br />
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>PROFESOR(DNIPr_PK, NomPr, titulo)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ALUMNO(DNIAl_PK, NomAl)
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>ASIGNATURA(NomAs_PK, curso_PK)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>NOTA(id_PK, nota, fecha, DNIPr_FK, DNIAl_FK, NomAs_FK, curso_FK)
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>R_Pr_As(DNIPr_PK_FK, NomAs_PK_FK, curso_PK_FK)   (DNIPr apunta a PROFESOR y (NomAs, curso) a ASIGNATURA)
+</code></pre></div></p>
+</div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>La pista para saber si puedes fusionar es la <strong>clave primaria</strong>: si una tabla de relación tiene como clave la misma clave que una de las entidades, se puede meter dentro de esa entidad. Si su clave es la combinación de las dos claves, no se puede fusionar.</p>
+</div>
+<h3 id="14-asi-se-vera-en-sql">1.4 Así se verá en SQL<a class="headerlink" href="#14-asi-se-vera-en-sql" title="Permanent link">&para;</a></h3>
+<p>Lo que escribes en el esquema relacional se traduce casi palabra por palabra a SQL. Lo trabajarás a fondo en la próxima unidad, pero fíjate ya en la correspondencia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">NOTA</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">id</span><span class="w">      </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="n">nota</span><span class="w">    </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="n">fecha</span><span class="w">   </span><span class="nb">DATE</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="n">DNIAl</span><span class="w">   </span><span class="nb">CHAR</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w">      </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="n">NomAs</span><span class="w">   </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w">  </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="n">curso</span><span class="w">   </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w">  </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="n">DNIPr</span><span class="w">   </span><span class="nb">CHAR</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w">      </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">DNIAl</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">ALUMNO</span><span class="p">(</span><span class="n">DNIAl</span><span class="p">),</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">NomAs</span><span class="p">,</span><span class="w"> </span><span class="n">curso</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">ASIGNATURA</span><span class="p">(</span><span class="n">NomAs</span><span class="p">,</span><span class="w"> </span><span class="n">curso</span><span class="p">),</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">DNIPr</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">PROFESOR</span><span class="p">(</span><span class="n">DNIPr</span><span class="p">)</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">);</span>
+</code></pre></div>
+<p>Las claves ajenas llevan <code>NOT NULL</code> porque en el diagrama cada nota tiene <strong>obligatoriamente</strong> un alumno, una asignatura y un profesor (barra doble junto a <code>ALUMNO</code>, <code>ASIGNATURA</code> y <code>PROFESOR</code>: uno y obligatorio).</p>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+<ol>
+<li>¿Qué es el mundo conceptual y qué es el mundo lógico? ¿Con qué se representa cada uno?</li>
+<li>Enumera los cinco pasos de la transformación.</li>
+<li>En el ejemplo, ¿por qué <code>R_Al_Nota</code> se puede fusionar con <code>NOTA</code> y <code>R_Pr_As</code> no?</li>
+<li>¿Qué es una clave ajena y qué representa respecto al diagrama E/R?</li>
+<li>¿Por qué la clave primaria de <code>ASIGNATURA</code> tiene dos columnas?</li>
+</ol>
+</div>
+<h2 id="bloque-2-entidades-fuertes-y-debiles">Bloque 2. Entidades fuertes y débiles<a class="headerlink" href="#bloque-2-entidades-fuertes-y-debiles" title="Permanent link">&para;</a></h2>
+<h3 id="21-entidades-fuertes">2.1 Entidades fuertes<a class="headerlink" href="#21-entidades-fuertes" title="Permanent link">&para;</a></h3>
+<p>Para cada entidad fuerte del diagrama:</p>
+<ol>
+<li>Crea una tabla con el mismo nombre que la entidad. Sus columnas son todos los <strong>atributos simples</strong> de la entidad.</li>
+<li>Si la entidad tiene <strong>atributos compuestos</strong>, no se crea una columna para el atributo compuesto, sino <strong>una columna por cada atributo simple</strong> que lo forma.</li>
+<li>Elige uno de los atributos identificadores de la entidad como <strong>clave primaria</strong> de la tabla.</li>
+<li>Si la clave es <strong>compuesta</strong> (varios atributos), todos los atributos simples que la forman son, juntos, la clave primaria.</li>
+</ol>
+<p><img alt="Una entidad fuerte con un atributo compuesto (address) transformada en tabla" src="../imagenes/UT4-diagrama-entidad-fuerte.png" /></p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p><code>PERSON</code> tiene el identificador <code>id</code>, los atributos <code>name</code> y <code>date_birth</code>, y el atributo compuesto <code>address</code> (formado por <code>city</code>, <code>street</code> y <code>zip_code</code>). El atributo compuesto «desaparece» y quedan sus componentes:<br />
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>PERSON(id_PK, name, date_birth, city, street, zip_code)
+</code></pre></div></p>
+</div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Una tabla no puede tener una columna «address» que contenga dentro tres valores. Cada columna guarda <strong>un solo valor</strong> por fila (valores atómicos). Por eso los atributos compuestos se descomponen.</p>
+</div>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p>Una <strong>clave candidata</strong> es cualquier atributo (o grupo mínimo de atributos) que identifica cada fila sin repetirse. La <strong>clave primaria</strong> es la candidata que eliges; las demás quedan como <strong>claves alternativas</strong> y en SQL se marcan con <code>UNIQUE</code>.</p>
+</div>
+<h3 id="22-entidades-debiles">2.2 Entidades débiles<a class="headerlink" href="#22-entidades-debiles" title="Permanent link">&para;</a></h3>
+<p>Una <strong>entidad débil</strong> es la que depende de otra entidad, llamada <strong>entidad propietaria</strong> (o fuerte). Hay dos tipos de dependencia y cada uno se transforma de manera distinta:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Dependencia en <strong>identificación</strong> (ID)</th>
+<th>Dependencia en <strong>existencia</strong> (E)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>¿Puede existir sin la propietaria?</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>¿Se identifica sola?</td>
+<td>No: necesita la clave de la propietaria</td>
+<td>Sí: tiene su propia clave</td>
+</tr>
+<tr>
+<td>En el diagrama</td>
+<td>Rombo doble con «ID»</td>
+<td>Rombo con «E»</td>
+</tr>
+<tr>
+<td>Clave primaria de la tabla</td>
+<td>Clave de la propietaria + clave parcial de la débil</td>
+<td>Clave propia de la débil</td>
+</tr>
+<tr>
+<td>Clave de la propietaria</td>
+<td>Es parte de la PK <strong>y</strong> clave ajena</td>
+<td>Solo clave ajena, <code>NOT NULL</code></td>
+</tr>
+<tr>
+<td>Ejemplo</td>
+<td>Habitación de un hotel</td>
+<td>Permiso de conducir de un empleado</td>
+</tr>
+</tbody>
+</table>
+<h4 id="221-entidad-debil-por-identificacion">2.2.1 Entidad débil por identificación<a class="headerlink" href="#221-entidad-debil-por-identificacion" title="Permanent link">&para;</a></h4>
+<p>Para cada entidad débil con dependencia en identificación:</p>
+<ol>
+<li>Crea una tabla con el mismo nombre que la entidad débil, con todos sus atributos simples (o los componentes simples de sus atributos compuestos).</li>
+<li>Añade la clave de la entidad propietaria como <strong>clave ajena</strong> (compuesta, si la clave de la propietaria lo es). Así se representa la relación de identificación.</li>
+<li>La <strong>clave primaria</strong> de la tabla es la combinación de la clave primaria de la propietaria y la <strong>clave parcial</strong> (discriminador) de la entidad débil.</li>
+</ol>
+<p>La clave primaria de la propietaria cumple aquí un doble papel: forma parte de la clave primaria <strong>y</strong> es clave ajena, lo que garantiza la integridad referencial entre las dos tablas.</p>
+<p><img alt="Entidad débil por identificación: HOTEL y ROOM" src="../imagenes/UT4-diagrama-entidad-debil-identificacion-v2.png" /></p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p>Un hotel tiene varias habitaciones. El número de habitación (<code>room_number</code>) se repite de un hotel a otro: la habitación 101 existe en muchos hoteles. Por eso <code>room_number</code> solo es una <strong>clave parcial</strong>: para identificar una habitación hace falta saber también de qué hotel es.<br />
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>HOTEL(id_hotel_PK, category, city, street, zip_code)
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>ROOM(id_hotel_PK_FK, room_number_PK, dimensions, num_beds)   (id_hotel es parte de la clave y, además, FK a HOTEL)
+</code></pre></div></p>
+</div>
+<table>
+<thead>
+<tr>
+<th><code>id_hotel</code></th>
+<th><code>room_number</code></th>
+<th><code>dimensions</code></th>
+<th><code>num_beds</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H01</td>
+<td>101</td>
+<td>20 m²</td>
+<td>2</td>
+</tr>
+<tr>
+<td>H01</td>
+<td>102</td>
+<td>25 m²</td>
+<td>3</td>
+</tr>
+<tr>
+<td>H02</td>
+<td>101</td>
+<td>18 m²</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>La habitación 101 aparece dos veces, pero la pareja (<code>id_hotel</code>, <code>room_number</code>) no se repite nunca.</p>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p>La <strong>clave parcial</strong> (o discriminador) de una entidad débil es el atributo que distingue sus ocurrencias <strong>dentro de una misma entidad propietaria</strong>, pero no en general. En el diagrama se subraya con línea discontinua.</p>
+</div>
+<h4 id="222-entidad-debil-por-existencia">2.2.2 Entidad débil por existencia<a class="headerlink" href="#222-entidad-debil-por-existencia" title="Permanent link">&para;</a></h4>
+<p>Para cada entidad débil con dependencia en existencia:</p>
+<ol>
+<li>Crea una tabla con el mismo nombre que la entidad débil, con todos sus atributos simples (o los componentes simples de sus atributos compuestos).</li>
+<li>La <strong>clave primaria</strong> es el identificador propio de la entidad débil.</li>
+<li>Incluye la clave primaria de la propietaria como <strong>clave ajena</strong>, para establecer la relación.</li>
+</ol>
+<p>Las claves ajenas que apuntan a la propietaria <strong>no pueden ser nulas</strong>: si lo fueran, habría ocurrencias que existen sin propietaria y ya no sería una entidad débil.</p>
+<p><img alt="Entidad débil por existencia: EMPLOYEE y DRIVING_PERMIT" src="../imagenes/UT4-diagrama-entidad-debil-existencia.png" /></p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p>Un permiso de conducir tiene su propio número, que lo identifica por sí solo; pero no tiene sentido guardarlo si no es de un empleado:<br />
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>EMPLOYEE(id_employee_PK, name, city, street, zip_code)
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>DRIVING_PERMIT(permit_number_PK, expedition_date, validity_date, id_employee_FK)   (id_employee_FK `NOT NULL`)
+</code></pre></div></p>
+</div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>En este ejemplo la relación es <strong>1:1</strong>: cada empleado tiene como mucho un permiso. Además de <code>NOT NULL</code>, la clave ajena <code>id_employee</code> debe ser <code>UNIQUE</code>; si no, la base de datos dejaría guardar dos permisos para el mismo empleado.</p>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">DRIVING_PERMIT</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="n">permit_number</span><span class="w">   </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="n">expedition_date</span><span class="w"> </span><span class="nb">DATE</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="n">validity_date</span><span class="w">   </span><span class="nb">DATE</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="n">id_employee</span><span class="w">     </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">,</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id_employee</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">EMPLOYEE</span><span class="p">(</span><span class="n">id_employee</span><span class="p">)</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">);</span>
+</code></pre></div>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+<ol>
+<li>¿Qué haces con un atributo compuesto al pasar una entidad a tabla?</li>
+<li>¿Cuál es la clave primaria de una entidad débil por identificación? ¿Y la de una débil por existencia?</li>
+<li>¿Por qué <code>room_number</code> no puede ser, por sí solo, la clave primaria de <code>ROOM</code>?</li>
+<li>¿Por qué la clave ajena hacia la propietaria nunca puede ser <code>NULL</code> en una entidad débil?</li>
+<li>En <code>DRIVING_PERMIT</code>, ¿qué restricción añadirías para que un empleado no tenga dos permisos?</li>
+</ol>
+</div>
+<h2 id="bloque-3-atributos-multivaluados">Bloque 3. Atributos multivaluados<a class="headerlink" href="#bloque-3-atributos-multivaluados" title="Permanent link">&para;</a></h2>
+<h3 id="31-por-que-necesitan-una-tabla-aparte">3.1 Por qué necesitan una tabla aparte<a class="headerlink" href="#31-por-que-necesitan-una-tabla-aparte" title="Permanent link">&para;</a></h3>
+<p>Un <strong>atributo multivaluado</strong> puede tener <strong>varios valores</strong> para una misma ocurrencia: una persona puede tener varios correos electrónicos o varios teléfonos. En el diagrama se dibuja con un óvalo doble.</p>
+<p>Como cada celda de una tabla solo puede guardar un valor, no puedes meter todos los correos en una columna, ni crear <code>email1</code>, <code>email2</code>, <code>email3</code>… (¿y si alguien tiene cuatro?). La solución es sacarlos a otra tabla.</p>
+<h3 id="32-como-se-transforma">3.2 Cómo se transforma<a class="headerlink" href="#32-como-se-transforma" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Crea una tabla nueva</strong> para cada atributo multivaluado, con el mismo nombre que el atributo.</li>
+<li><strong>Define la clave primaria</strong>: asigna un identificador único (ID) a cada valor de la nueva tabla.</li>
+<li><strong>Añade una clave ajena</strong> que apunte a la clave primaria de la entidad a la que pertenece el atributo (la entidad «padre»).</li>
+</ol>
+<p><img alt="Atributo multivaluado (emails) transformado en una tabla aparte" src="../imagenes/UT4-diagrama-atributo-multivaluado.png" /></p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p>La entidad tiene el identificador <code>id</code>, el atributo compuesto <code>atr_1</code> (formado por <code>atr_2</code> y <code>atr_3</code>), los atributos <code>atr_4</code> y <code>atr_5</code>, y el atributo multivaluado <code>emails</code>, sus correos electrónicos:<br />
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ENTITY(id_PK, atr_4, atr_2, atr_3, atr_5)
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>EMAILS(id_email_PK, email, id_entity_FK)
+</code></pre></div></p>
+</div>
+<table>
+<thead>
+<tr>
+<th><code>id_email</code></th>
+<th><code>email</code></th>
+<th><code>id_Entity</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>ana@correo.es</td>
+<td>7</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ana.lopez@trabajo.com</td>
+<td>7</td>
+</tr>
+<tr>
+<td>3</td>
+<td>pau@correo.es</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<p>La persona 7 tiene dos correos y la 9 uno: no importa cuántos tenga cada una.</p>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Otra solución muy habitual es no añadir un ID y usar como clave primaria la pareja (clave del padre, valor): EMAILS(id_entity_PK_FK, email_PK). Así, además, la base de datos impide guardar dos veces el mismo correo para la misma persona. Las dos soluciones son correctas; con el ID, si quieres evitar duplicados, añade <code>UNIQUE (id_entity, email)</code>.</p>
+</div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p><code>atr_5</code> está dibujado con línea discontinua: es un <strong>atributo derivado</strong> (se calcula a partir de otros, como la edad a partir de la fecha de nacimiento). Se puede guardar como columna, como en el ejemplo, pero lo habitual es no guardarlo y calcularlo en la consulta, para que nunca quede desactualizado.</p>
+</div>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+<ol>
+<li>¿Por qué un atributo multivaluado no puede ser una columna normal?</li>
+<li>¿Qué columnas tiene la tabla que sale de un atributo multivaluado?</li>
+<li>¿Qué inconveniente tiene crear columnas <code>telefono1</code>, <code>telefono2</code>, <code>telefono3</code>?</li>
+<li>Escribe dos claves primarias posibles para la tabla <code>Telefonos</code> de un <code>CLIENTE</code>.</li>
+</ol>
+</div>
+<h2 id="bloque-4-relaciones-binarias-nm-1n-y-11">Bloque 4. Relaciones binarias: N:M, 1:N y 1:1<a class="headerlink" href="#bloque-4-relaciones-binarias-nm-1n-y-11" title="Permanent link">&para;</a></h2>
+<p>Una relación <strong>binaria</strong> une dos entidades, A y B. Siempre empiezas igual (pasos 1 a 4): una tabla para A, otra para B y una tabla de relación <code>R_A_B</code> con las dos claves y los atributos de la relación. Lo que cambia según la <strong>cardinalidad</strong> es la clave primaria de <code>R_A_B</code> y si se puede fusionar (paso 5).</p>
+<table>
+<thead>
+<tr>
+<th>Cardinalidad</th>
+<th>Clave primaria de <code>R_A_B</code></th>
+<th>¿Se fusiona?</th>
+<th>Resultado habitual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>N:M</strong></td>
+<td>(id_A, id_B)</td>
+<td>No</td>
+<td>3 tablas</td>
+</tr>
+<tr>
+<td><strong>1:N</strong></td>
+<td>id_B (la del lado N)</td>
+<td>Sí, con B</td>
+<td>2 tablas; B lleva id_A_FK</td>
+</tr>
+<tr>
+<td><strong>1:1</strong></td>
+<td>id_A o id_B</td>
+<td>Sí, con A o con B (o las dos en una)</td>
+<td>2 tablas, o 1 si las dos participaciones son obligatorias</td>
+</tr>
+</tbody>
+</table>
+<h3 id="41-relaciones-nm">4.1 Relaciones N:M<a class="headerlink" href="#41-relaciones-nm" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Crea una tabla de intersección.</strong> Como un elemento de A se puede relacionar con varios de B, y al revés, se crea una tabla nueva, <code>R_A_B</code>, para representar la relación.</li>
+<li><strong>Define la clave primaria</strong>: es la <strong>combinación</strong> de las claves primarias de A y de B. Así cada pareja es única.</li>
+<li><strong>No fusiones.</strong> Por la naturaleza de las relaciones N:M no es posible: <code>R_A_B</code> hace de <strong>tabla puente</strong> entre A y B.</li>
+</ol>
+<p><img alt="Relación N:M: tres tablas" src="../imagenes/UT4-diagrama-relacion-nm.png" /></p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p>Un alumno se matricula de varias asignaturas y en cada asignatura hay varios alumnos. La matrícula tiene un atributo propio, la nota final:<br />
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ALUMNO(DNIAl_PK, NomAl)
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>ASIGNATURA(codAs_PK, NomAs)
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>MATRICULA(DNIAl_PK_FK, codAs_PK_FK, notaFinal)   (DNIAl apunta a ALUMNO y codAs a ASIGNATURA)
+</code></pre></div></p>
+</div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Si intentas meter la relación dentro de una de las dos tablas, tendrías que repetir filas o poner varias claves en una celda. Por eso una N:M <strong>siempre</strong> da una tabla propia.</p>
+</div>
+<h3 id="42-relaciones-1n">4.2 Relaciones 1:N<a class="headerlink" href="#42-relaciones-1n" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Identifica la relación.</strong> Cada elemento de B se relaciona con <strong>un solo</strong> elemento de A, así que la clave de B no se repite en <code>R_A_B</code> y la identifica.</li>
+<li><strong>Elige la clave primaria</strong>: la clave de B es la clave primaria de <code>R_A_B</code>.</li>
+<li><strong>Fusiona <code>R_A_B</code> con B</strong>: B recibe la clave de A como clave ajena y, si la relación tiene atributos, también pasan a B. Así no hace falta una tabla intermedia.</li>
+</ol>
+<p><img alt="Relación 1:N: la clave del lado 1 viaja al lado N" src="../imagenes/UT4-diagrama-relacion-1n.png" /></p>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p>Regla práctica de la 1:N: <strong>la clave del lado 1 viaja, como clave ajena, a la tabla del lado N.</strong></p>
+</div>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p>Un departamento tiene muchos empleados y cada empleado pertenece a un único departamento:<br />
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>DEPARTAMENTO(codDep_PK, nombre)
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>EMPLEADO(idEmp_PK, nombre, codDep_FK)
+</code></pre></div></p>
+</div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Fíjate en el símbolo junto a la entidad del lado 1. Si es un <strong>círculo</strong> (mínimo 0: puede haber empleados sin departamento), la clave ajena admite <code>NULL</code>. Si es una <strong>barra</strong> (mínimo 1: todo empleado tiene departamento), la clave ajena lleva <code>NOT NULL</code>.</p>
+</div>
+<h3 id="43-relaciones-11">4.3 Relaciones 1:1<a class="headerlink" href="#43-relaciones-11" title="Permanent link">&para;</a></h3>
+<p>En una relación 1:1, cada elemento de A se relaciona como mucho con uno de B, y al revés. La tabla <code>R_A_B</code> puede tener como clave primaria <strong>cualquiera de las dos claves</strong>, y por eso se puede fusionar con A o con B. Dónde conviene fusionarla lo deciden las <strong>participaciones</strong> (si cada entidad participa de forma opcional u obligatoria). En el diagrama lo ves en los extremos de las líneas: la <strong>barra</strong> junto a una entidad indica que es obligatoria y el <strong>círculo</strong>, que es opcional:</p>
+<table>
+<thead>
+<tr>
+<th>Situación</th>
+<th>Qué hacer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Todo A tiene siempre un B, pero no todo B tiene un A</td>
+<td>Fusiona con <strong>A</strong>: A lleva id_B_FK (<code>NOT NULL</code>, <code>UNIQUE</code>)</td>
+</tr>
+<tr>
+<td>Todo B tiene siempre un A, pero no todo A tiene un B</td>
+<td>Fusiona con <strong>B</strong>: B lleva id_A_FK (<code>NOT NULL</code>, <code>UNIQUE</code>)</td>
+</tr>
+<tr>
+<td>Las dos participaciones son opcionales</td>
+<td>Puedes decidir: la FK va en A o en B (admitirá <code>NULL</code>)</td>
+</tr>
+<tr>
+<td>Las dos participaciones son obligatorias</td>
+<td>Une A y B en <strong>una sola tabla</strong> AB con todos los atributos; la clave primaria puede ser id_A o id_B</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Relación 1:1: según las participaciones se fusiona con A, con B o en una sola tabla" src="../imagenes/UT4-diagrama-relacion-11.png" /></p>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Solo puedes juntar A y B en una única tabla cuando la participación es obligatoria <strong>por los dos lados</strong>: cada A tiene exactamente un B y cada B exactamente un A. Si un solo lado es obligatorio, tendrías filas a medio rellenar llenas de <code>NULL</code>.</p>
+</div>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p>Cada centro tiene un único director y cada director dirige un único centro; puede haber profesores que no dirigen nada, pero todo centro tiene director:<br />
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>PROFESOR(idProf_PK, nombre)
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>CENTRO(codCentro_PK, nombre, idDirector_FK)   (idDirector_FK `NOT NULL UNIQUE`)
+</code></pre></div>
+La FK va en <code>CENTRO</code> porque todo centro tiene director: así nunca queda vacía.</p>
+</div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Una FK en una 1:1 necesita <code>UNIQUE</code>. Sin esa restricción, la base de datos permitiría que el mismo director apareciera en dos centros, y la relación se convertiría en 1:N sin que te dieras cuenta.</p>
+</div>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+<ol>
+<li>¿Cuál es la clave primaria de la tabla que sale de una relación N:M? ¿Por qué no se puede fusionar?</li>
+<li>En una relación 1:N, ¿a qué tabla viaja la clave ajena?</li>
+<li>¿Cuándo admite <code>NULL</code> la clave ajena de una 1:N?</li>
+<li>¿En qué caso una relación 1:1 se convierte en una sola tabla?</li>
+<li>¿Qué restricción tiene que llevar la FK de una relación 1:1 y por qué?</li>
+</ol>
+</div>
+<h2 id="bloque-5-relaciones-reflexivas-y-ternarias">Bloque 5. Relaciones reflexivas y ternarias<a class="headerlink" href="#bloque-5-relaciones-reflexivas-y-ternarias" title="Permanent link">&para;</a></h2>
+<h3 id="51-relaciones-reflexivas">5.1 Relaciones reflexivas<a class="headerlink" href="#51-relaciones-reflexivas" title="Permanent link">&para;</a></h3>
+<p>Una relación <strong>reflexiva</strong> (o recursiva) relaciona una entidad <strong>consigo misma</strong>: un empleado supervisa a otros empleados; un alumno (el delegado) representa a los demás alumnos.</p>
+<p>Para transformarla:</p>
+<ol>
+<li><strong>Identifica la relación reflexiva</strong>: la misma entidad aparece en los dos extremos. Suele indicar una jerarquía (por ejemplo, un empleado que es supervisor de otro).</li>
+<li><strong>Convierte la relación en binaria</strong>: imagina que hay dos «papeles» de la misma entidad, uno que hace de «padre» y otro de «hijo» (por ejemplo, supervisor y subordinado).</li>
+<li><strong>Aplica el método binario que corresponda</strong> (1:1, 1:N o N:M) a esa nueva relación.</li>
+</ol>
+<p><img alt="Relación reflexiva: el delegado es un alumno que supervisa a otros alumnos" src="../imagenes/UT4-diagrama-relacion-reflexiva.png" /></p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p><code>Alumno</code> se relaciona consigo mismo mediante <code>Supervisa</code>: el delegado es un alumno que supervisa a varios alumnos. Si lo pensamos con dos papeles, <strong>delegado</strong> (lado 1: cada alumno tiene un delegado) y <strong>alumno</strong> (lado N: un delegado supervisa a uno o muchos alumnos), es una relación <strong>1:N</strong>.<br />
+Pasos 1 a 4: DELEGADO(DNI_del_PK), ALUMNO(DNI_Al_PK), R_Al_Del(DNI_Al_PK_FK, DNI_del_FK).<br />
+La tabla <code>DELEGADO</code> sobra: un delegado <strong>es</strong> un alumno, ya está en la tabla <code>ALUMNO</code>.<br />
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Paso 5 (fusión 1:N): ALUMNO(DNI_Al_PK, nombre, DNI_del_FK)   (DNI_del_FK apunta a la propia tabla ALUMNO)
+</code></pre></div></p>
+</div>
+<table>
+<thead>
+<tr>
+<th><code>DNI_Al</code></th>
+<th><code>nombre</code></th>
+<th><code>DNI_del</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>11111111A</td>
+<td>Marta</td>
+<td>11111111A</td>
+</tr>
+<tr>
+<td>22222222B</td>
+<td>Joan</td>
+<td>11111111A</td>
+</tr>
+<tr>
+<td>33333333C</td>
+<td>Laia</td>
+<td>11111111A</td>
+</tr>
+</tbody>
+</table>
+<p>La clave ajena apunta <strong>a la misma tabla</strong>: Joan y Laia tienen como delegada a Marta, que también es alumna de la tabla.</p>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>En una reflexiva <strong>no se crea una tabla nueva para el segundo papel</strong>. Los dos papeles son la misma entidad, así que es la propia tabla la que lleva una clave ajena hacia sí misma (en SQL, <code>FOREIGN KEY (DNI_del) REFERENCES ALUMNO(DNI_Al)</code>). Si la reflexiva fuera N:M, sí habría una tabla de relación con dos columnas que apuntan a la misma tabla.</p>
+</div>
+<h3 id="52-relaciones-ternarias">5.2 Relaciones ternarias<a class="headerlink" href="#52-relaciones-ternarias" title="Permanent link">&para;</a></h3>
+<p>Una relación <strong>ternaria</strong> une tres entidades a la vez: por ejemplo, un profesor imparte una asignatura en un grupo. Para transformarla:</p>
+<ol>
+<li><strong>Crea una tabla nueva</strong> para la relación ternaria, con:</li>
+<li>las claves primarias de las tres entidades, como <strong>claves ajenas</strong>;</li>
+<li>los atributos propios de la relación, si los tiene.</li>
+<li><strong>Decide la clave primaria según la cardinalidad</strong>:</li>
+<li><strong>N:M:P</strong>: la clave primaria son <strong>las tres</strong> claves ajenas juntas: hace falta la combinación de las tres para identificar cada fila.</li>
+<li><strong>1:N:M</strong>: la clave primaria son <strong>las dos</strong> claves de los lados N y M. La clave del lado 1 se queda en la tabla como clave ajena, pero fuera de la clave primaria.</li>
+<li><strong>1:1:N</strong>: la clave primaria es la clave del lado N <strong>más una</strong> de las dos claves de lado 1 (la que prefieras). Hay dos claves candidatas.</li>
+<li><strong>1:1:1</strong>: la clave primaria es <strong>cualquier pareja</strong> de las tres claves. Hay tres claves candidatas.</li>
+</ol>
+<p>En todos los casos la tabla lleva siempre las tres claves ajenas; lo único que cambia es cuáles forman la clave primaria.</p>
+<p><img alt="Relaciones ternarias: la clave primaria según la cardinalidad" src="../imagenes/UT4-diagrama-relacion-ternaria.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Cardinalidad</th>
+<th>Clave primaria de R</th>
+<th>Claves candidatas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N:M:P</td>
+<td>(id_A, id_B, id_C)</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1:N:M (A en el lado 1)</td>
+<td>(id_B, id_C)</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1:1:N (C en el lado N)</td>
+<td>(id_A, id_C) o (id_B, id_C)</td>
+<td>2</td>
+</tr>
+<tr>
+<td>1:1:1</td>
+<td>(id_A, id_B), (id_A, id_C) o (id_B, id_C)</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>La regla rápida «quita la clave del lado 1» solo funciona tal cual cuando hay <strong>un único</strong> lado 1 (caso 1:N:M). Si hay dos o tres lados 1, quitas <strong>solo una</strong> de esas claves: la clave primaria siempre tiene dos claves ajenas. La combinación que no eliges como clave primaria se puede declarar <code>UNIQUE</code>.</p>
+</div>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p>Un profesor imparte una asignatura en un grupo. En cada grupo, cada asignatura la da un solo profesor (lado 1 = PROFESOR), pero un profesor da varias asignaturas en varios grupos:<br />
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>IMPARTE(codAs_PK_FK, codGrupo_PK_FK, idProf_FK, horasSemana)
+</code></pre></div>
+Con (asignatura, grupo) ya sabes quién es el profesor: por eso <code>idProf</code> no forma parte de la clave.</p>
+</div>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+<ol>
+<li>¿Qué es una relación reflexiva? Pon un ejemplo distinto de los del dosier.</li>
+<li>En el ejemplo del delegado, ¿por qué desaparece la tabla <code>Delegado</code>?</li>
+<li>¿Cuántas claves ajenas tiene siempre la tabla de una relación ternaria?</li>
+<li>¿Cuál es la clave primaria de una ternaria N:M:P? ¿Y de una 1:N:M?</li>
+<li>En una ternaria 1:1:N, ¿cuántas claves candidatas hay?</li>
+</ol>
+</div>
+<h2 id="bloque-6-jerarquias-herencia">Bloque 6. Jerarquías (herencia)<a class="headerlink" href="#bloque-6-jerarquias-herencia" title="Permanent link">&para;</a></h2>
+<h3 id="61-supertipo-y-subtipos">6.1 Supertipo y subtipos<a class="headerlink" href="#61-supertipo-y-subtipos" title="Permanent link">&para;</a></h3>
+<p>Una <strong>jerarquía</strong> (generalización/especialización o relación <em>ISA</em>, «es un») tiene una entidad general, el <strong>supertipo</strong>, y varias entidades más concretas, los <strong>subtipos</strong>, que heredan sus atributos y añaden los suyos. Por ejemplo, <code>EMPLEADO</code> (supertipo) con <code>PROFESOR</code> y <code>ADMINISTRATIVO</code> (subtipos).</p>
+<p>Las jerarquías se clasifican de dos maneras:</p>
+<table>
+<thead>
+<tr>
+<th>Clasificación</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Total</strong></td>
+<td>Todo elemento del supertipo pertenece a algún subtipo</td>
+</tr>
+<tr>
+<td><strong>Parcial</strong></td>
+<td>Puede haber elementos del supertipo que no pertenecen a ningún subtipo</td>
+</tr>
+<tr>
+<td><strong>Exclusiva</strong></td>
+<td>Un elemento solo puede pertenecer a un subtipo</td>
+</tr>
+<tr>
+<td><strong>Solapada</strong></td>
+<td>Un elemento puede pertenecer a varios subtipos a la vez</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-como-se-transforma">6.2 Cómo se transforma<a class="headerlink" href="#62-como-se-transforma" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Crea una tabla para cada entidad</strong> de la jerarquía, tanto el supertipo como cada subtipo.</li>
+<li><strong>Clave primaria de los subtipos</strong>: cada tabla de subtipo incluye la clave primaria del supertipo, que actúa a la vez como:</li>
+<li>la <strong>clave primaria</strong> de la tabla del subtipo;</li>
+<li>una <strong>clave ajena</strong> que la enlaza con la tabla del supertipo.</li>
+<li><strong>Sirve para todos los tipos de jerarquía</strong>: este método funciona igual tanto si la jerarquía es total o parcial como si es exclusiva o solapada.</li>
+</ol>
+<p><img alt="Jerarquía ES UN: una tabla por entidad, con la clave del supertipo en los subtipos" src="../imagenes/UT4-diagrama-jerarquia.png" /></p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>EMPLEADO(idEmp_PK, nombre, telefono)
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>PROFESOR(idEmp_PK_FK, especialidad)   (idEmp apunta a EMPLEADO)
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>ADMINISTRATIVO(idEmp_PK_FK, departamento)   (idEmp apunta a EMPLEADO)
+</code></pre></div>
+Los datos comunes se guardan una sola vez, en <code>EMPLEADO</code>; cada subtipo guarda solo lo suyo.</p>
+</div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>En la tabla del subtipo la misma columna es <strong>a la vez</strong> clave primaria y clave ajena. Es el mismo doble papel que en la entidad débil por identificación, pero aquí la clave primaria es <strong>solo</strong> la del supertipo, sin ninguna clave parcial.</p>
+</div>
+<h3 id="63-otras-soluciones-que-te-encontraras">6.3 Otras soluciones que te encontrarás<a class="headerlink" href="#63-otras-soluciones-que-te-encontraras" title="Permanent link">&para;</a></h3>
+<p>El método de una tabla por entidad es el más general. En la práctica también verás estas alternativas, que conviene conocer:</p>
+<table>
+<thead>
+<tr>
+<th>Solución</th>
+<th>Cuándo encaja</th>
+<th>Inconveniente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Una tabla por entidad (la del apartado anterior)</td>
+<td>Siempre</td>
+<td>Para ver todos los datos de un profesor hay que unir dos tablas</td>
+</tr>
+<tr>
+<td>Una sola tabla con todos los atributos y una columna <code>tipo</code></td>
+<td>Subtipos con pocos atributos propios</td>
+<td>Muchas columnas a <code>NULL</code></td>
+</tr>
+<tr>
+<td>Solo tablas para los subtipos, cada una con los atributos del supertipo</td>
+<td>Jerarquías totales y exclusivas</td>
+<td>Los datos comunes se reparten entre varias tablas</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+<ol>
+<li>¿Qué diferencia hay entre una jerarquía total y una parcial? ¿Y entre exclusiva y solapada?</li>
+<li>¿Cuántas tablas salen de una jerarquía con un supertipo y tres subtipos?</li>
+<li>¿Qué doble papel tiene la clave primaria de un subtipo?</li>
+<li>¿Qué inconveniente tiene meter toda la jerarquía en una sola tabla?</li>
+</ol>
+</div>
+<h2 id="bloque-7-por-que-normalizar">Bloque 7. Por qué normalizar<a class="headerlink" href="#bloque-7-por-que-normalizar" title="Permanent link">&para;</a></h2>
+<h3 id="71-que-es-la-normalizacion">7.1 Qué es la normalización<a class="headerlink" href="#71-que-es-la-normalizacion" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p>La <strong>normalización</strong> es el proceso de aplicar a las tablas del modelo relacional una serie de reglas, mediante transformaciones sucesivas, para que cada tabla tenga los atributos necesarios y suficientes para describir la realidad que representa. Cuando una tabla guarda atributos que en realidad describen otra cosa, la normalización los separa en una tabla nueva.</p>
+</div>
+<p>La técnica la propuso <strong>Edgar F. Codd</strong> a principios de los años setenta (en 1972 describió la segunda y la tercera forma normal), junto con el propio modelo relacional. No sirve para hacer el diseño inicial: es un <strong>refinamiento</strong> que se aplica <strong>después</strong> de transformar el diagrama E/R en tablas (el paso del esquema conceptual al esquema lógico que viste en la Parte 1).</p>
+<p>Con la normalización se consigue:</p>
+<ul>
+<li><strong>Reducir la redundancia</strong>: que cada dato se guarde una sola vez.</li>
+<li><strong>Evitar problemas al insertar, modificar y borrar</strong> datos (las anomalías de 7.2) y facilitar el acceso a ellos.</li>
+<li><strong>Aprovechar mejor el almacenamiento</strong>, porque no se guardan copias inútiles.</li>
+</ul>
+<p>En resumen, la normalización asegura una base de datos estructurada, coherente y eficiente.</p>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Si el diagrama E/R está bien hecho, las tablas que salen de la transformación suelen estar ya casi normalizadas. La normalización es la <strong>comprobación final</strong>: detecta los fallos de diseño que se hayan colado (un atributo en la entidad equivocada, un multivaluado sin separar…).</p>
+</div>
+<h3 id="72-las-anomalias-el-problema-de-repetir-datos">7.2 Las anomalías: el problema de repetir datos<a class="headerlink" href="#72-las-anomalias-el-problema-de-repetir-datos" title="Permanent link">&para;</a></h3>
+<p>Fíjate en esta tabla de empleados. Cada empleado tiene un departamento, y cada departamento está en un edificio:</p>
+<table>
+<thead>
+<tr>
+<th>Employee_ID</th>
+<th>Employee_Name</th>
+<th>Department</th>
+<th>Department_Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Alice</td>
+<td>HR</td>
+<td>Building A</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bob</td>
+<td>HR</td>
+<td>Building A</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Charlie</td>
+<td>IT</td>
+<td>Building B</td>
+</tr>
+<tr>
+<td>4</td>
+<td>David</td>
+<td>IT</td>
+<td>Building B</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Eve</td>
+<td>Finance</td>
+<td>Building C</td>
+</tr>
+</tbody>
+</table>
+<p>El edificio de cada departamento se repite en todas las filas de sus empleados. Esa repetición provoca tres tipos de problema, llamados <strong>anomalías</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Anomalía</th>
+<th>Qué pasa en el ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>De inserción</strong></td>
+<td>Se crea el departamento Marketing en el Building D, pero todavía no tiene empleados: no hay dónde guardarlo sin inventar un empleado.</td>
+</tr>
+<tr>
+<td><strong>De modificación</strong></td>
+<td>IT se muda al Building D. Hay que cambiar <strong>dos</strong> filas; si se olvida una, la tabla dice a la vez que IT está en B y en D.</td>
+</tr>
+<tr>
+<td><strong>De borrado</strong></td>
+<td>Eve deja la empresa y se borra su fila. Con ella se pierde que Finance está en el Building C.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p>Una <strong>anomalía</strong> es un problema al insertar, modificar o borrar datos que aparece porque la misma información está repetida en varias filas o mezclada con información de otra cosa.</p>
+</div>
+<p>Normalizar consiste en partir esta tabla de forma que cada dato aparezca una sola vez. Lo resolverás en el bloque 11.</p>
+<h3 id="73-las-formas-normales">7.3 Las formas normales<a class="headerlink" href="#73-las-formas-normales" title="Permanent link">&para;</a></h3>
+<p>La normalización avanza por <strong>etapas</strong>. Cada etapa es una <strong>forma normal</strong>, con unos requisitos que la tabla tiene que cumplir: primera (1FN), segunda (2FN), tercera (3FN), Boyce-Codd (FNBC), cuarta (4FN), quinta (5FN) y forma normal dominio-clave (FNDK).</p>
+<p><img alt="Cada forma normal exige la anterior y añade una condición" src="../imagenes/UT4-diagrama-formas-normales-escalera.png" /></p>
+<p>Las reglas para avanzar son:</p>
+<ol>
+<li><strong>Se va en orden.</strong> Si una tabla no cumple una forma normal, no se analiza la siguiente.</li>
+<li><strong>Cada forma normal es más exigente</strong> que la anterior y hace el esquema más robusto.</li>
+<li>Como norma general, para que los datos se mantengan íntegros al modificarlos, se recomienda normalizar <strong>al menos hasta la 3FN</strong> (o hasta la FNBC). En este módulo llegamos a la 3FN.</li>
+</ol>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>En el examen, «normaliza la tabla» quiere decir llevarla hasta la 3FN y justificar cada paso: qué forma normal no cumplía, por qué, y cómo has repartido los atributos.</p>
+</div>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+<ol>
+<li>¿En qué momento del diseño se normaliza: antes o después de pasar del E/R a tablas?</li>
+<li>Di los tres objetivos de la normalización.</li>
+<li>En la tabla de empleados, ¿qué anomalía aparece si queremos registrar un departamento sin empleados?</li>
+<li>¿Se puede comprobar si una tabla está en 3FN sin saber si está en 2FN? ¿Por qué?</li>
+</ol>
+</div>
+<h2 id="bloque-8-dependencias-entre-atributos">Bloque 8. Dependencias entre atributos<a class="headerlink" href="#bloque-8-dependencias-entre-atributos" title="Permanent link">&para;</a></h2>
+<p>Para saber en qué forma normal está una tabla hay que analizar cómo <strong>dependen unos atributos de otros</strong>. Hay tres conceptos clave: dependencia funcional, dependencia funcional completa y dependencia transitiva.</p>
+<h3 id="81-dependencia-funcional">8.1 Dependencia funcional<a class="headerlink" href="#81-dependencia-funcional" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p>Dados dos atributos A y B, <strong>B depende funcionalmente de A</strong> si, y solo si, para cada valor de A existe un único valor de B, y siempre es el mismo. A se llama <strong>determinante</strong>, porque determina el valor de B. Se escribe <strong>A → B</strong> («A determina B»).</p>
+</div>
+<ul>
+<li>Las dependencias funcionales siempre se dan <strong>entre atributos de una misma tabla</strong>.</li>
+<li>Tanto A como B pueden ser <strong>un atributo o un conjunto de atributos</strong>: por ejemplo, <code>(Título_libro, Num_ejemplar) → Precio</code>.</li>
+</ul>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p>En una tabla de alumnado, <code>DNI → Nombre</code>: con un DNI concreto solo hay un nombre posible. En cambio, <code>Nombre → DNI</code> <strong>no</strong> se cumple: puede haber dos alumnas llamadas Laura con DNI distinto.</p>
+</div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Una dependencia funcional habla del <strong>significado</strong> de los datos, no de las filas que hay ahora. Aunque hoy no haya dos clientes con el mismo nombre, <code>Nombre → DNI</code> no es una dependencia: mañana puede llegar un segundo Juan García.</p>
+</div>
+<h3 id="82-dependencia-funcional-completa-y-parcial">8.2 Dependencia funcional completa y parcial<a class="headerlink" href="#82-dependencia-funcional-completa-y-parcial" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p>Dados los atributos A1, A2, …, Ak y B, <strong>B depende de forma completa</strong> del conjunto (A1, A2, …, Ak) si depende funcionalmente del conjunto entero y <strong>no de ningún subconjunto</strong> suyo. Si B ya queda determinado por una parte del conjunto, la dependencia es <strong>parcial</strong>.</p>
+</div>
+<p>La dependencia completa garantiza que <strong>toda la clave compuesta</strong> es necesaria para conocer B. Una dependencia parcial indica que B describe solo a una parte de la clave, y es justo lo que prohíbe la 2FN.</p>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Completa y parcial solo tienen sentido con <strong>claves compuestas</strong>. Si la clave es un solo atributo, no tiene partes: todas las dependencias de la clave son completas.</p>
+</div>
+<h3 id="83-dependencia-transitiva">8.3 Dependencia transitiva<a class="headerlink" href="#83-dependencia-transitiva" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p>Dados tres atributos A, B y C, hay una <strong>dependencia transitiva</strong> entre A y C si B depende funcionalmente de A y C depende funcionalmente de B. A determina C <strong>indirectamente</strong>, a través de B: <strong>A → B → C</strong>. Cada uno puede ser un atributo o un conjunto de atributos.</p>
+</div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Para que se considere transitiva, B <strong>no</strong> puede ser clave ni determinar a A. Si B también determinara a A (B → A), B sería otra clave candidata y no habría ningún problema que arreglar.</p>
+</div>
+<p><img alt="Los tres tipos de dependencia con atributos genéricos" src="../imagenes/UT4-diagrama-dependencias-tipos.png" /></p>
+<h3 id="84-ejemplo-resuelto-empleado-y-libro">8.4 Ejemplo resuelto: EMPLEADO y LIBRO<a class="headerlink" href="#84-ejemplo-resuelto-empleado-y-libro" title="Permanent link">&para;</a></h3>
+<p>Partimos de estas dos tablas:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>EMPLEADO(DNI_PK, Nombre, Dirección, Localidad, Cod_Localidad, Nombre_hijo, Edad_hijo)
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>LIBRO(Título_libro_PK, Num_ejemplar_PK, Autor, Editorial, Precio)
+</code></pre></div>
+<p>Y contestamos tres preguntas.</p>
+<p><strong>1. ¿Qué atributos de EMPLEADO dependen funcionalmente de su clave primaria?</strong></p>
+<p><code>Nombre</code>, <code>Dirección</code> y <code>Cod_Localidad</code> dependen funcionalmente de <code>DNI</code>: para un DNI concreto solo hay un nombre, una dirección y un código de localidad. <code>Localidad</code> también depende de <code>DNI</code>, pero indirectamente, a través de <code>Cod_Localidad</code> (lo verás en la pregunta 3).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>DNI → Nombre
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>DNI → Dirección
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>DNI → Cod_Localidad
+</code></pre></div>
+<p>En cambio, <code>Nombre_hijo</code> y <code>Edad_hijo</code> <strong>no</strong> dependen funcionalmente de <code>DNI</code>: un empleado puede tener varios hijos, así que un mismo DNI puede ir con varios valores de esos atributos.</p>
+<p><strong>2. ¿Qué atributos de LIBRO tienen dependencia funcional completa?</strong></p>
+<p>La clave primaria es compuesta: <code>Título_libro</code> y <code>Num_ejemplar</code>. Suponemos que cada ejemplar puede ser de una edición distinta, con su propia editorial y su propio precio.</p>
+<ul>
+<li><code>Editorial</code> y <code>Precio</code> dependen de <strong>la clave completa</strong>: hace falta saber el título y el número de ejemplar para conocerlos. Son dependencias <strong>completas</strong>.</li>
+<li><code>Autor</code> depende solo de <code>Título_libro</code>: todos los ejemplares de un mismo título tienen el mismo autor. Es una dependencia <strong>parcial</strong>.</li>
+</ul>
+<p><img alt="Dependencias en LIBRO: completas (verde) y parcial (ámbar)" src="../imagenes/UT4-diagrama-dependencias-libro.png" /></p>
+<p><strong>3. ¿Hay alguna dependencia transitiva en EMPLEADO?</strong></p>
+<p>Sí. <code>Cod_Localidad</code> depende funcionalmente de <code>DNI</code>, y <code>Localidad</code> depende funcionalmente de <code>Cod_Localidad</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>DNI → Cod_Localidad → Localidad
+</code></pre></div>
+<p>Por tanto, <code>Localidad</code> depende <strong>transitivamente</strong> de <code>DNI</code> a través de <code>Cod_Localidad</code>.</p>
+<p><img alt="Dependencias en EMPLEADO: la transitiva va por arriba" src="../imagenes/UT4-diagrama-dependencias-empleado.png" /></p>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+<ol>
+<li>Explica con tus palabras qué significa <code>A → B</code>.</li>
+<li>En <code>PEDIDO(NumPedido_PK, CodProducto_PK, Cantidad, NombreProducto)</code>, ¿qué dependencia es completa y cuál es parcial?</li>
+<li>¿Puede haber dependencias parciales en una tabla cuya clave primaria es un único atributo?</li>
+<li>En <code>ALUMNO(NIA_PK, Nombre, CodCiclo, NombreCiclo)</code>, escribe la dependencia transitiva.</li>
+</ol>
+</div>
+<h2 id="bloque-9-primera-forma-normal-1fn">Bloque 9. Primera forma normal (1FN)<a class="headerlink" href="#bloque-9-primera-forma-normal-1fn" title="Permanent link">&para;</a></h2>
+<h3 id="91-definicion-y-requisitos">9.1 Definición y requisitos<a class="headerlink" href="#91-definicion-y-requisitos" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p>Una tabla está en <strong>primera forma normal (1FN)</strong> cuando todos sus atributos contienen valores <strong>atómicos</strong> (indivisibles) y no hay <strong>grupos repetitivos</strong>. Además, tiene clave primaria, de modo que todos los atributos no clave dependen funcionalmente de ella.</p>
+</div>
+<p>Para estar en 1FN, una tabla tiene que cumplir:</p>
+<table>
+<thead>
+<tr>
+<th>Requisito</th>
+<th>Qué significa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Solo valores atómicos</strong></td>
+<td>Cada atributo guarda un único valor por fila: no hay atributos multivaluados (<code>"555-1234, 555-5678"</code> en una celda no vale).</td>
+</tr>
+<tr>
+<td><strong>Sin grupos repetitivos</strong></td>
+<td>No hay columnas que repiten el mismo dato (<code>Teléfono_1</code>, <code>Teléfono_2</code>…).</td>
+</tr>
+<tr>
+<td><strong>Estructura coherente</strong></td>
+<td>Todos los valores de una columna son del mismo tipo y formato.</td>
+</tr>
+<tr>
+<td><strong>Filas únicas</strong></td>
+<td>Una clave primaria identifica cada fila: no puede haber dos filas iguales.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>«Atómico» depende del uso. Una fecha (<code>2026-10-27</code>) se trata como un solo valor aunque tenga día, mes y año. Lo que rompe la 1FN es guardar <strong>varios valores del mismo tipo</strong> en una celda o en columnas repetidas.</p>
+</div>
+<h3 id="92-como-se-consigue-la-1fn">9.2 Cómo se consigue la 1FN<a class="headerlink" href="#92-como-se-consigue-la-1fn" title="Permanent link">&para;</a></h3>
+<p>Esta tabla guarda los teléfonos de cada estudiante en una sola columna: <code>Teléfonos</code> es multivaluado.</p>
+<table>
+<thead>
+<tr>
+<th>ID_Estudiante</th>
+<th>Nombre</th>
+<th>Teléfonos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Juan Pérez</td>
+<td>555-1234, 555-5678</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Ana Gómez</td>
+<td>555-4321</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Luis García</td>
+<td>555-8765, 555-3456</td>
+</tr>
+</tbody>
+</table>
+<p>Hay tres maneras de intentar arreglarlo, y solo una es buena.</p>
+<p><strong>Primer intento: una columna por teléfono.</strong> Parece lógico, pero no es práctico: ¿cuántas columnas pones? Si alguien tiene tres teléfonos hay que cambiar la tabla, y quien tiene uno deja huecos a <code>NULL</code>.</p>
+<table>
+<thead>
+<tr>
+<th>ID_Estudiante</th>
+<th>Nombre</th>
+<th>Teléfono_1</th>
+<th>Teléfono_2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Juan Pérez</td>
+<td>555-1234</td>
+<td>555-5678</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Ana Gómez</td>
+<td>555-4321</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Luis García</td>
+<td>555-8765</td>
+<td>555-3456</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Segundo intento: una fila por teléfono, repitiendo el resto.</strong> Ahora el nombre se copia en cada fila: es redundancia, y vuelven las anomalías del bloque 7.</p>
+<table>
+<thead>
+<tr>
+<th>ID_Estudiante</th>
+<th>Nombre</th>
+<th>Teléfono</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Juan Pérez</td>
+<td>555-1234</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Juan Pérez</td>
+<td>555-5678</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Ana Gómez</td>
+<td>555-4321</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Luis García</td>
+<td>555-8765</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Luis García</td>
+<td>555-3456</td>
+</tr>
+</tbody>
+</table>
+<p><strong>La solución correcta: separar el atributo multivaluado en una tabla nueva.</strong> Se identifican las columnas con valores múltiples que no pertenecen a la tabla principal, se llevan a una tabla nueva y se enlazan con la tabla de partida mediante una <strong>clave ajena</strong>.</p>
+<p>:::: {.g2}
+::: {.tb}
+<strong>ESTUDIANTE</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID_Estudiante</th>
+<th>Nombre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Juan Pérez</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Ana Gómez</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Luis García</td>
+</tr>
+<tr>
+<td>:::</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>::: {.tb}
+<strong>TELEFONO</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID_Estudiante</th>
+<th>Teléfono</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>555-1234</td>
+</tr>
+<tr>
+<td>1</td>
+<td>555-5678</td>
+</tr>
+<tr>
+<td>2</td>
+<td>555-4321</td>
+</tr>
+<tr>
+<td>3</td>
+<td>555-8765</td>
+</tr>
+<tr>
+<td>3</td>
+<td>555-3456</td>
+</tr>
+<tr>
+<td>:::</td>
+<td></td>
+</tr>
+<tr>
+<td>::::</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="1FN: los teléfonos pasan a la tabla TELEFONO" src="../imagenes/UT4-diagrama-1fn.png" /></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ESTUDIANTE(ID_Estudiante_PK, Nombre)
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>TELEFONO(ID_Estudiante_PK_FK, Teléfono_PK)
+</code></pre></div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>La tabla del segundo intento, con clave (<code>ID_Estudiante</code>, <code>Teléfono</code>), técnicamente sí está en 1FN: cada celda tiene un solo valor. Pero <code>Nombre</code> depende solo de <code>ID_Estudiante</code>, una parte de la clave, así que <strong>no</strong> está en 2FN. Separar en dos tablas resuelve los dos problemas a la vez.</p>
+</div>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p>Así se crearía la tabla de teléfonos en SQL:</p>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">TELEFONO</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span><span class="n">ID_Estudiante</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span><span class="n">Telefono</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">ID_Estudiante</span><span class="p">,</span><span class="w"> </span><span class="n">Telefono</span><span class="p">),</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">  </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">ID_Estudiante</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">ESTUDIANTE</span><span class="p">(</span><span class="n">ID_Estudiante</span><span class="p">)</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="p">);</span>
+</code></pre></div>
+<p>Es exactamente lo que hacías en la Parte 1 con los <strong>atributos multivaluados</strong> del diagrama E/R: si el diagrama estaba bien hecho, la tabla ya sale en 1FN.</p>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+<ol>
+<li>¿Qué dos cosas impiden que una tabla esté en 1FN?</li>
+<li>¿Por qué no es buena idea crear columnas <code>Email_1</code>, <code>Email_2</code>, <code>Email_3</code>?</li>
+<li>Pasa a 1FN: <code>CLIENTE(DNI_PK, Nombre, Emails)</code>, donde un cliente puede tener varios correos.</li>
+<li>¿Qué tiene que ver la 1FN con los atributos multivaluados del diagrama E/R?</li>
+</ol>
+</div>
+<h2 id="bloque-10-segunda-forma-normal-2fn">Bloque 10. Segunda forma normal (2FN)<a class="headerlink" href="#bloque-10-segunda-forma-normal-2fn" title="Permanent link">&para;</a></h2>
+<h3 id="101-definicion">10.1 Definición<a class="headerlink" href="#101-definicion" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p>Una tabla está en <strong>segunda forma normal (2FN)</strong> si, y solo si, está en 1FN y <strong>todos los atributos que no forman parte de la clave primaria dependen de ella de forma funcional y completa</strong>. Es decir, no hay dependencias parciales.</p>
+</div>
+<p>De aquí sale una consecuencia muy útil: <strong>una tabla en 1FN cuya clave primaria es un solo atributo ya está en 2FN</strong>, porque una clave simple no tiene partes de las que depender.</p>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>La 2FN solo hay que mirarla con detalle cuando la clave es <strong>compuesta</strong>. Con clave simple, contesta «está en 2FN porque la clave tiene un solo atributo» y pasa a la 3FN.</p>
+</div>
+<h3 id="102-como-se-consigue-la-2fn">10.2 Cómo se consigue la 2FN<a class="headerlink" href="#102-como-se-consigue-la-2fn" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Busca las <strong>dependencias parciales</strong>: atributos no clave que dependen solo de una parte de la clave.</li>
+<li>Crea una tabla con la clave completa y los atributos que dependen de <strong>toda</strong> la clave. Su clave primaria es la misma que la de la tabla inicial, y ya está en 2FN.</li>
+<li>Por cada parte de la clave de la que dependan atributos, crea otra tabla con esa parte como <strong>clave primaria</strong> y los atributos que dependen de ella.</li>
+<li>En la tabla de la clave completa, cada parte de la clave pasa a ser también <strong>clave ajena</strong> hacia su nueva tabla (<code>_PK_FK</code>).</li>
+<li>Comprueba que todas las tablas nuevas están en 2FN. Si alguna no lo está, repite el proceso con ella.</li>
+</ol>
+<h3 id="103-ejemplo-estudiantes-y-cursos">10.3 Ejemplo: estudiantes y cursos<a class="headerlink" href="#103-ejemplo-estudiantes-y-cursos" title="Permanent link">&para;</a></h3>
+<p>Esta tabla registra en qué cursos está cada estudiante. Su clave primaria es compuesta: (<code>ID_Estudiante</code>, <code>ID_Curso</code>).</p>
+<table>
+<thead>
+<tr>
+<th>ID_Estudiante</th>
+<th>ID_Curso</th>
+<th>Nombre</th>
+<th>Instructor</th>
+<th>Oficina_Instructor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>101</td>
+<td>Alice</td>
+<td>Dr. Smith</td>
+<td>Aula 101</td>
+</tr>
+<tr>
+<td>1</td>
+<td>102</td>
+<td>Alice</td>
+<td>Dr. Jones</td>
+<td>Aula 102</td>
+</tr>
+<tr>
+<td>2</td>
+<td>101</td>
+<td>Bob</td>
+<td>Dr. Smith</td>
+<td>Aula 101</td>
+</tr>
+<tr>
+<td>2</td>
+<td>103</td>
+<td>Bob</td>
+<td>Dr. Brown</td>
+<td>Aula 103</td>
+</tr>
+</tbody>
+</table>
+<p>Está en 1FN (valores atómicos y clave primaria), pero no en 2FN, porque hay dependencias parciales:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ID_Estudiante → Nombre                          (parcial)
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>ID_Curso      → Instructor, Oficina_Instructor  (parcial)
+</code></pre></div>
+<p>Fíjate en los datos: «Alice» aparece dos veces y «Dr. Smith, Aula 101» también. Si Alice cambia de nombre hay que tocar dos filas: anomalía de modificación.</p>
+<p>Aplicamos los pasos:</p>
+<ul>
+<li>Ningún atributo depende de la clave <strong>completa</strong>, así que la tabla de la clave completa (<code>MATRICULA</code>) solo guarda la pareja de claves: indica qué estudiante está en qué curso.</li>
+<li><code>Nombre</code> se va con <code>ID_Estudiante</code> a la tabla <code>ESTUDIANTE</code>.</li>
+<li><code>Instructor</code> y <code>Oficina_Instructor</code> se van con <code>ID_Curso</code> a la tabla <code>CURSO</code>.</li>
+</ul>
+<p><img alt="2FN: cada atributo se va con la parte de la clave de la que depende" src="../imagenes/UT4-diagrama-2fn.png" /></p>
+<p>:::: {.g2}
+::: {.tb}
+<strong>ESTUDIANTE</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID_Estudiante</th>
+<th>Nombre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Alice</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bob</td>
+</tr>
+<tr>
+<td>:::</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>::: {.tb}
+<strong>MATRICULA</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID_Estudiante</th>
+<th>ID_Curso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>101</td>
+</tr>
+<tr>
+<td>1</td>
+<td>102</td>
+</tr>
+<tr>
+<td>2</td>
+<td>101</td>
+</tr>
+<tr>
+<td>2</td>
+<td>103</td>
+</tr>
+<tr>
+<td>:::</td>
+<td></td>
+</tr>
+<tr>
+<td>::::</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>::: {.tb}
+<strong>CURSO</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID_Curso</th>
+<th>Instructor</th>
+<th>Oficina_Instructor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>Dr. Smith</td>
+<td>Aula 101</td>
+</tr>
+<tr>
+<td>102</td>
+<td>Dr. Jones</td>
+<td>Aula 102</td>
+</tr>
+<tr>
+<td>103</td>
+<td>Dr. Brown</td>
+<td>Aula 103</td>
+</tr>
+<tr>
+<td>:::</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ESTUDIANTE(ID_Estudiante_PK, Nombre)
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>MATRICULA(ID_Estudiante_PK_FK, ID_Curso_PK_FK)
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>CURSO(ID_Curso_PK, Instructor, Oficina_Instructor)
+</code></pre></div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Un error típico es dejar <code>Nombre</code> en la tabla de la pareja: <code>(ID_Estudiante, ID_Curso, Nombre)</code>. Esa tabla sigue sin estar en 2FN, porque <code>Nombre</code> sigue dependiendo solo de <code>ID_Estudiante</code> y se repite en cada curso del estudiante.</p>
+</div>
+<p>Las tres tablas están en 2FN. Pero <code>CURSO</code> todavía esconde un problema: el despacho es del instructor, no del curso. Lo resolverás en el bloque 11.</p>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+<ol>
+<li>¿Qué tiene que cumplir una tabla para estar en 2FN?</li>
+<li>¿Por qué una tabla en 1FN con clave simple ya está en 2FN?</li>
+<li>En <code>LIBRO(Título_libro_PK, Num_ejemplar_PK, Autor, Editorial, Precio)</code>, ¿qué atributo rompe la 2FN? Normalízala.</li>
+<li>Después de normalizar, ¿qué columnas de <code>MATRICULA</code> son clave ajena y a qué tablas apuntan?</li>
+</ol>
+</div>
+<h2 id="bloque-11-tercera-forma-normal-3fn">Bloque 11. Tercera forma normal (3FN)<a class="headerlink" href="#bloque-11-tercera-forma-normal-3fn" title="Permanent link">&para;</a></h2>
+<h3 id="111-definicion">11.1 Definición<a class="headerlink" href="#111-definicion" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p>Una tabla está en <strong>tercera forma normal (3FN)</strong> si, y solo si, está en 2FN y <strong>ningún atributo que no forma parte de la clave primaria depende transitivamente de ella</strong>. Dicho de otro modo: ningún atributo no clave depende de otro atributo no clave.</p>
+</div>
+<h3 id="112-como-se-consigue-la-3fn">11.2 Cómo se consigue la 3FN<a class="headerlink" href="#112-como-se-consigue-la-3fn" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Busca las <strong>dependencias transitivas</strong>: <code>clave → B → C</code>, donde B y C no son clave.</li>
+<li>Deja en la tabla inicial los atributos que <strong>no</strong> dependen transitivamente de la clave. Esta tabla ya está en 3FN.</li>
+<li>Con el resto, crea otra tabla con los dos atributos no clave que forman la dependencia transitiva (B y C). Elige como clave primaria el <strong>determinante</strong> (B), siempre que cumpla los requisitos de una clave primaria (valores únicos y nunca nulos).</li>
+<li>Si el determinante no sirve como clave primaria, mete los dos atributos en la tabla nueva y añade un <strong>identificador nuevo</strong> (por ejemplo, un número autoincremental) como clave primaria.</li>
+<li>En la tabla inicial, B se queda como <strong>clave ajena</strong> hacia la tabla nueva.</li>
+<li>Comprueba que tanto la tabla inicial como la nueva están en 3FN.</li>
+</ol>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>En la tabla inicial <strong>se queda</strong> el determinante (B), ahora como clave ajena. Lo que se va es lo que dependía de él (C). Si quitas también B, pierdes la relación entre las dos tablas.</p>
+</div>
+<h3 id="113-ejemplo-empleados-y-departamentos">11.3 Ejemplo: empleados y departamentos<a class="headerlink" href="#113-ejemplo-empleados-y-departamentos" title="Permanent link">&para;</a></h3>
+<p>Volvemos a la tabla del bloque 7. Su clave es <code>Employee_ID</code>, un solo atributo, así que está en 2FN. Pero tiene una dependencia transitiva:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Employee_ID → Department → Department_Location
+</code></pre></div>
+<p><code>Department_Location</code> no describe al empleado, sino a su departamento. Por eso se repite y provoca las tres anomalías que viste en 7.2.</p>
+<p><img alt="3FN: el par Department – Department_Location pasa a su propia tabla" src="../imagenes/UT4-diagrama-3fn.png" /></p>
+<p>:::: {.g2}
+::: {.tb}
+<strong>EMPLOYEE</strong></p>
+<table>
+<thead>
+<tr>
+<th>Employee_ID</th>
+<th>Employee_Name</th>
+<th>Department</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Alice</td>
+<td>HR</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bob</td>
+<td>HR</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Charlie</td>
+<td>IT</td>
+</tr>
+<tr>
+<td>4</td>
+<td>David</td>
+<td>IT</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Eve</td>
+<td>Finance</td>
+</tr>
+<tr>
+<td>:::</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>::: {.tb}
+<strong>DEPARTMENT</strong></p>
+<table>
+<thead>
+<tr>
+<th>Department</th>
+<th>Department_Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HR</td>
+<td>Building A</td>
+</tr>
+<tr>
+<td>IT</td>
+<td>Building B</td>
+</tr>
+<tr>
+<td>Finance</td>
+<td>Building C</td>
+</tr>
+<tr>
+<td>:::</td>
+<td></td>
+</tr>
+<tr>
+<td>::::</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>EMPLOYEE(Employee_ID_PK, Employee_Name, Department_FK)
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>DEPARTMENT(Department_PK, Department_Location)
+</code></pre></div>
+<p>Repasa las anomalías: Marketing ya se puede dar de alta sin empleados; si IT se muda, se cambia una sola fila; y si Eve se va, <code>Finance</code> sigue en el Building C.</p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p>Así quedan las dos tablas en SQL. <code>EMPLOYEE</code> se crea después de <code>DEPARTMENT</code>, porque su clave ajena apunta a ella:</p>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">DEPARTMENT</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="n">Department</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span><span class="n">Department_Location</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="p">);</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">EMPLOYEE</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">  </span><span class="n">Employee_ID</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">  </span><span class="n">Employee_Name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">  </span><span class="n">Department</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">  </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">Department</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">DEPARTMENT</span><span class="p">(</span><span class="n">Department</span><span class="p">)</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="p">);</span>
+</code></pre></div>
+<h3 id="114-el-ejemplo-de-la-matricula-terminado">11.4 El ejemplo de la matrícula, terminado<a class="headerlink" href="#114-el-ejemplo-de-la-matricula-terminado" title="Permanent link">&para;</a></h3>
+<p>En el bloque 10 la tabla <code>CURSO(ID_Curso_PK, Instructor, Oficina_Instructor)</code> quedaba en 2FN. Pero cada instructor tiene su despacho, sea cual sea el curso:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>ID_Curso → Instructor → Oficina_Instructor
+</code></pre></div>
+<p>Es una dependencia transitiva: <code>Oficina_Instructor</code> se va con <code>Instructor</code> a una tabla nueva, e <code>Instructor</code> se queda en <code>CURSO</code> como clave ajena.</p>
+<p><img alt="La matrícula en 3FN: cuatro tablas" src="../imagenes/UT4-diagrama-matricula-3fn.png" /></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>ESTUDIANTE(ID_Estudiante_PK, Nombre)
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>MATRICULA(ID_Estudiante_PK_FK, ID_Curso_PK_FK)
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>CURSO(ID_Curso_PK, Instructor_FK)
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>INSTRUCTOR(Instructor_PK, Oficina_Instructor)
+</code></pre></div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Aquí <code>Instructor</code> sirve como clave primaria porque suponemos que no hay dos instructores con el mismo nombre. En una base de datos real usarías un identificador (<code>ID_Instructor</code>), justo lo que dice el paso 4 de 11.2.</p>
+</div>
+<h3 id="115-las-tres-formas-normales-de-un-vistazo">11.5 Las tres formas normales, de un vistazo<a class="headerlink" href="#115-las-tres-formas-normales-de-un-vistazo" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Forma normal</th>
+<th>Qué prohíbe</th>
+<th>Pregunta que te haces</th>
+<th>Cómo se arregla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1FN</strong></td>
+<td>Valores múltiples y grupos repetitivos</td>
+<td>¿Hay alguna celda con varios valores o columnas repetidas?</td>
+<td>Tabla aparte para el atributo multivaluado, con clave ajena</td>
+</tr>
+<tr>
+<td><strong>2FN</strong></td>
+<td>Dependencias parciales</td>
+<td>¿Algún atributo depende solo de una parte de la clave?</td>
+<td>Tabla para cada parte de la clave con sus atributos</td>
+</tr>
+<tr>
+<td><strong>3FN</strong></td>
+<td>Dependencias transitivas</td>
+<td>¿Algún atributo no clave depende de otro no clave?</td>
+<td>Tabla para el determinante y lo que determina; el determinante queda como FK</td>
+</tr>
+</tbody>
+</table>
+<p>Más allá de la 3FN están la <strong>forma normal de Boyce-Codd (FNBC)</strong> y las formas cuarta, quinta y dominio-clave. La FNBC es una versión más estricta de la 3FN: exige que <strong>todo determinante sea clave candidata</strong>. Casi todas las tablas en 3FN ya cumplen la FNBC, y en este módulo no iremos más allá.</p>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+<ol>
+<li>¿Qué tiene que cumplir una tabla para estar en 3FN?</li>
+<li>En la normalización a 3FN, ¿qué atributo se queda en la tabla inicial como clave ajena?</li>
+<li>Normaliza <code>ALUMNO(NIA_PK, Nombre, CodCiclo, NombreCiclo)</code> hasta la 3FN.</li>
+<li>¿Qué haces si el determinante de la dependencia transitiva no sirve como clave primaria?</li>
+<li>Lleva <code>EMPLEADO</code> (bloque 8) hasta la 3FN.</li>
+</ol>
+</div>
+<h2 id="material-de-repaso">Material de repaso<a class="headerlink" href="#material-de-repaso" title="Permanent link">&para;</a></h2>
+<h3 id="glosario">Glosario<a class="headerlink" href="#glosario" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1FN</strong></td>
+<td>Valores atómicos, sin grupos repetitivos y con clave primaria.</td>
+</tr>
+<tr>
+<td><strong>2FN</strong></td>
+<td>1FN y sin dependencias parciales.</td>
+</tr>
+<tr>
+<td><strong>3FN</strong></td>
+<td>2FN y sin dependencias transitivas.</td>
+</tr>
+<tr>
+<td><strong>Anomalía</strong></td>
+<td>Problema al insertar, modificar o borrar datos causado por información repetida o mezclada.</td>
+</tr>
+<tr>
+<td><strong>Atributo compuesto</strong></td>
+<td>Atributo formado por otros más simples (<code>address</code> = <code>city</code> + <code>street</code> + <code>zip_code</code>). Se descompone en columnas.</td>
+</tr>
+<tr>
+<td><strong>Atributo derivado</strong></td>
+<td>Atributo que se calcula a partir de otros. Normalmente no se guarda.</td>
+</tr>
+<tr>
+<td><strong>Atributo multivaluado</strong></td>
+<td>Atributo que puede tener varios valores para la misma ocurrencia. Da una tabla aparte.</td>
+</tr>
+<tr>
+<td><strong>Atómico</strong></td>
+<td>Valor indivisible: una sola cosa por celda.</td>
+</tr>
+<tr>
+<td><strong>Clave ajena (FK)</strong></td>
+<td>Columna cuyos valores deben existir como clave primaria en otra tabla. Enlaza tablas. En el esquema lleva el sufijo <code>_FK</code>.</td>
+</tr>
+<tr>
+<td><strong>Clave alternativa</strong></td>
+<td>Clave candidata que no se ha elegido como primaria. En SQL, <code>UNIQUE</code>.</td>
+</tr>
+<tr>
+<td><strong>Clave candidata</strong></td>
+<td>Atributo o grupo mínimo de atributos que identifica cada fila.</td>
+</tr>
+<tr>
+<td><strong>Clave parcial</strong></td>
+<td>Atributo que distingue las ocurrencias de una entidad débil dentro de una misma propietaria.</td>
+</tr>
+<tr>
+<td><strong>Clave primaria (PK)</strong></td>
+<td>Clave candidata elegida para identificar cada fila. En el esquema lleva el sufijo <code>_PK</code>.</td>
+</tr>
+<tr>
+<td><strong>Dependencia completa</strong></td>
+<td>B depende de toda la clave compuesta y de ninguna parte suya.</td>
+</tr>
+<tr>
+<td><strong>Dependencia funcional</strong></td>
+<td>B depende de A si cada valor de A va siempre con un único valor de B. Se escribe <code>A → B</code>.</td>
+</tr>
+<tr>
+<td><strong>Dependencia parcial</strong></td>
+<td>B depende solo de una parte de la clave compuesta.</td>
+</tr>
+<tr>
+<td><strong>Dependencia transitiva</strong></td>
+<td>A → B → C con B no clave: C depende de A a través de B.</td>
+</tr>
+<tr>
+<td><strong>Determinante</strong></td>
+<td>Atributo (o conjunto) del que depende otro: en <code>A → B</code>, A.</td>
+</tr>
+<tr>
+<td><strong>Diseño conceptual</strong></td>
+<td>Fase del diseño en la que se dibuja el diagrama E/R.</td>
+</tr>
+<tr>
+<td><strong>Diseño lógico</strong></td>
+<td>Fase del diseño en la que se obtiene el esquema relacional.</td>
+</tr>
+<tr>
+<td><strong>Entidad débil por existencia</strong></td>
+<td>Entidad que no puede existir sin su propietaria pero tiene clave propia.</td>
+</tr>
+<tr>
+<td><strong>Entidad débil por identificación</strong></td>
+<td>Entidad que necesita la clave de su propietaria para identificarse.</td>
+</tr>
+<tr>
+<td><strong>Entidad fuerte</strong></td>
+<td>Entidad que existe y se identifica por sí misma.</td>
+</tr>
+<tr>
+<td><strong>Entidad propietaria</strong></td>
+<td>Entidad fuerte de la que depende una entidad débil.</td>
+</tr>
+<tr>
+<td><strong>Esquema relacional</strong></td>
+<td>Conjunto de tablas con sus columnas, claves primarias y claves ajenas.</td>
+</tr>
+<tr>
+<td><strong>FNBC</strong></td>
+<td>Forma normal de Boyce-Codd: todo determinante es clave candidata.</td>
+</tr>
+<tr>
+<td><strong>Forma normal</strong></td>
+<td>Conjunto de requisitos que cumple una tabla en una etapa de la normalización.</td>
+</tr>
+<tr>
+<td><strong>Fusionar</strong></td>
+<td>Meter una tabla de relación dentro de una de las tablas de entidad, añadiendo una clave ajena.</td>
+</tr>
+<tr>
+<td><strong>Grupo repetitivo</strong></td>
+<td>Columnas que repiten el mismo dato (<code>Teléfono_1</code>, <code>Teléfono_2</code>…) o celdas con varios valores.</td>
+</tr>
+<tr>
+<td><strong>Jerarquía (ISA)</strong></td>
+<td>Relación entre un supertipo y sus subtipos, que heredan sus atributos.</td>
+</tr>
+<tr>
+<td><strong>Normalización</strong></td>
+<td>Proceso que aplica reglas sucesivas a las tablas para quitar redundancia y anomalías.</td>
+</tr>
+<tr>
+<td><strong>Redundancia</strong></td>
+<td>Guardar el mismo dato en varios sitios.</td>
+</tr>
+<tr>
+<td><strong>Relación reflexiva</strong></td>
+<td>Relación de una entidad consigo misma.</td>
+</tr>
+<tr>
+<td><strong>Relación ternaria</strong></td>
+<td>Relación que une tres entidades.</td>
+</tr>
+<tr>
+<td><strong>Tabla de intersección</strong></td>
+<td>Tabla que representa una relación N:M; su clave es la combinación de las dos claves.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mapa-resumen">Mapa resumen<a class="headerlink" href="#mapa-resumen" title="Permanent link">&para;</a></h3>
+<p>Transformación al modelo relacional:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>DIAGRAMA E/R  ──(transformar)──►  ESQUEMA RELACIONAL
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>Pasos: 1 entidad → tabla · 2 elegir PK · 3 relación → tabla
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>       4 elegir PK de la relación · 5 fusionar si se puede
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>ENTIDADES
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>  Fuerte ............ tabla; compuestos → sus componentes
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>  Débil por ID ...... PK = PK propietaria + clave parcial
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>  Débil por E ....... PK propia + FK a propietaria NOT NULL
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>ATRIBUTOS
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>  Multivaluado ...... tabla aparte (id, valor, FK al padre)
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>RELACIONES BINARIAS
+<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a>  N:M ............... tabla puente, PK = (id_A, id_B)
+<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a>  1:N ............... PK del lado 1 → FK en el lado N
+<a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>  1:1 ............... FK UNIQUE en el lado obligatorio
+<a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a>                      obligatoria por los 2 lados → 1 tabla
+<a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>REFLEXIVA ........... dos papeles → método binario
+<a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a>                      1:N → FK hacia la propia tabla
+<a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a>TERNARIA ............ tabla con las 3 FK
+<a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a>  N:M:P → PK 3 FK · 1:N:M → PK sin la del lado 1
+<a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a>  1:1:N / 1:1:1 → PK de 2 FK (varias candidatas)
+<a id="__codelineno-25-21" name="__codelineno-25-21" href="#__codelineno-25-21"></a>JERARQUÍA ........... tabla por entidad;
+<a id="__codelineno-25-22" name="__codelineno-25-22" href="#__codelineno-25-22"></a>                      PK subtipo = PK supertipo (y FK)
+</code></pre></div>
+<p>Normalización:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>DIAGRAMA E/R ──(transformar)──► TABLAS ──(normalizar)──► TABLAS EN 3FN
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>DEPENDENCIAS
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>  A → B ............ A determina B (un valor de A, un valor de B)
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>  completa ......... depende de TODA la clave compuesta
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>  parcial .......... depende de una PARTE de la clave   → rompe 2FN
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>  transitiva ....... clave → B → C (B no clave)         → rompe 3FN
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>1FN  valores atómicos, sin grupos repetitivos, con PK
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>     arreglo: multivaluado → tabla aparte con FK (_PK_FK)
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>2FN  1FN + sin dependencias parciales
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>     clave simple → ya está en 2FN
+<a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>     arreglo: cada parte de la clave → su tabla; la pareja queda _PK_FK
+<a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>3FN  2FN + sin dependencias transitivas
+<a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>     arreglo: (B, C) → tabla nueva con B_PK; B se queda como _FK
+<a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>FNBC, 4FN, 5FN, FNDK: más exigentes (fuera del módulo)
+</code></pre></div>
+<h3 id="autoevaluacion">Autoevaluación<a class="headerlink" href="#autoevaluacion" title="Permanent link">&para;</a></h3>
+<h4 id="parte-1-transformacion">Parte 1. Transformación<a class="headerlink" href="#parte-1-transformacion" title="Permanent link">&para;</a></h4>
+<p><strong>Preguntas cortas</strong></p>
+<ol>
+<li>¿Qué diferencia hay entre una relación del diagrama E/R y una relación (tabla) del modelo relacional?</li>
+<li>¿Por qué la clave primaria de una entidad débil por identificación tiene, como mínimo, dos columnas?</li>
+<li>Explica con tus palabras la regla de la relación 1:N.</li>
+<li>¿Qué tiene de especial la clave ajena de una relación reflexiva?</li>
+</ol>
+<p><strong>Tipo test</strong> (una respuesta correcta)</p>
+<ol>
+<li>Una relación N:M entre <code>LIBRO</code> y <code>AUTOR</code> da lugar a:
+   a) dos tablas, con la clave de <code>AUTOR</code> en <code>LIBRO</code>; b) tres tablas; c) una sola tabla; d) dos tablas, con la clave de <code>LIBRO</code> en <code>AUTOR</code>.</li>
+<li>El atributo compuesto <code>direccion</code> (calle, numero, cp) de <code>CLIENTE</code> se transforma en:
+   a) una tabla <code>DIRECCION</code>; b) una columna <code>direccion</code>; c) tres columnas <code>calle</code>, <code>numero</code> y <code>cp</code> en <code>CLIENTE</code>; d) una clave ajena.</li>
+<li>En una ternaria 1:N:M, la clave primaria está formada por:
+   a) las tres claves ajenas; b) las claves de los lados N y M; c) la clave del lado 1; d) un ID nuevo.</li>
+<li>En una jerarquía, la clave primaria de la tabla de un subtipo es:
+   a) un ID nuevo; b) la clave del supertipo, que además es FK; c) la clave del supertipo más una clave parcial; d) no tiene clave.</li>
+</ol>
+<p><strong>Razona</strong></p>
+<ol>
+<li>Transforma este diagrama: <code>CLIENTE</code> (<code>dni</code>, <code>nombre</code>, <code>telefonos</code> multivaluado) <em>realiza</em> <code>PEDIDO</code> (<code>numPedido</code>, <code>fecha</code>), una 1:N en la que cada pedido es de exactamente un cliente y un cliente puede hacer cero o muchos pedidos; <code>PEDIDO</code> <em>contiene</em> <code>PRODUCTO</code> (<code>codProd</code>, <code>precio</code>), una N:M con el atributo <code>cantidad</code> en la que un pedido tiene uno o muchos productos y un producto puede estar en cero o muchos pedidos.</li>
+<li>Un <code>EMPLEADO</code> tiene como mucho una <code>TAQUILLA</code> y cada taquilla es de como mucho un empleado; hay empleados sin taquilla y taquillas libres. ¿Dónde pones la clave ajena? ¿Qué restricciones le pones?</li>
+</ol>
+<h4 id="parte-2-normalizacion">Parte 2. Normalización<a class="headerlink" href="#parte-2-normalizacion" title="Permanent link">&para;</a></h4>
+<p><strong>Preguntas cortas</strong></p>
+<ol>
+<li>¿Qué es la normalización y cuándo se aplica?</li>
+<li>Explica la diferencia entre dependencia completa y parcial.</li>
+<li>¿Qué condición tiene que cumplir B en <code>A → B → C</code> para que la dependencia sea transitiva?</li>
+<li>¿Qué tres anomalías evita la normalización? Pon un ejemplo de una.</li>
+</ol>
+<p><strong>Tipo test</strong> (una respuesta correcta)</p>
+<ol>
+<li>Una tabla en 1FN con clave primaria simple…
+    a) nunca está en 2FN. b) siempre está en 2FN. c) siempre está en 3FN. d) no puede tener claves ajenas.</li>
+<li>En <code>FACTURA(NumFactura_PK, Fecha, DNI_Cliente, NombreCliente)</code>, la dependencia <code>NumFactura → DNI_Cliente → NombreCliente</code> es…
+    a) parcial. b) completa. c) transitiva. d) multivaluada.</li>
+<li>¿Qué forma normal incumple una tabla con las columnas <code>Telefono1</code>, <code>Telefono2</code> y <code>Telefono3</code>?
+    a) 1FN. b) 2FN. c) 3FN. d) Ninguna.</li>
+<li>Al pasar a 3FN, el determinante de la dependencia transitiva…
+    a) desaparece de la tabla inicial. b) se queda en la tabla inicial como clave ajena. c) pasa a ser la clave primaria de la tabla inicial. d) se duplica en todas las tablas.</li>
+</ol>
+<p><strong>Razonar</strong></p>
+<ol>
+<li>Normaliza hasta la 3FN la tabla <code>PRESTAMO(Num_socio_PK, ISBN_PK, Fecha_prestamo, Nombre_socio, Titulo, Cod_editorial, Nombre_editorial)</code>. Cada socio tiene un nombre; cada libro (ISBN) tiene un título y una editorial, y cada editorial tiene un nombre. Indica en cada paso qué dependencias quitas.</li>
+<li>Un compañero dice: «Si mi diagrama E/R está bien, no hace falta normalizar». ¿Tiene razón? Explica qué aporta la normalización aunque el diagrama esté bien.</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../UT3-dosier/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: UT3. El modelo relacional">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                UT3. El modelo relacional
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../UT5-dosier/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: UT5. SQL: definir y consultar">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                UT5. SQL: definir y consultar
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Dustin Randel de Lara García, Sant Josep Obrer. Material docente del módulo 0484.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.top", "navigation.footer", "navigation.indexes", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

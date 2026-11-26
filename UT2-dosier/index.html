@@ -1,0 +1,3987 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Apuntes del módulo 0484, DAW/DAM, curso 2026-2027">
+      
+      
+        <meta name="author" content="Dustin Randel de Lara García">
+      
+      
+        <link rel="canonical" href="https://dustinrandel.github.io/bases-de-datos/UT2-dosier/">
+      
+      
+        <link rel="prev" href="../UT1-dosier/">
+      
+      
+        <link rel="next" href="../UT3-dosier/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Interpretación de modelos E/R - Bases de datos</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Carlito:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Carlito";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link rel="icon" type="image/png" sizes="48x48" href="../assets/favicon-48.png">
+  <link rel="icon" sizes="any" href="../assets/favicon.ico">
+  <link rel="apple-touch-icon" href="../assets/logo.png">
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ut2-interpretacion-de-modelos-er" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href=".." title="Bases de datos" class="md-header__button md-logo" aria-label="Bases de datos" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bases de datos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Interpretación de modelos E/R
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/DustinRandel/bases-de-datos" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Bases de datos" class="md-nav__button md-logo" aria-label="Bases de datos" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    Bases de datos
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/DustinRandel/bases-de-datos" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UT1-dosier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT1. Almacenamiento de la información
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT2. Interpretación de modelos E/R
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT2. Interpretación de modelos E/R
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#como-usar-este-dosier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo usar este dosier
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo usar este dosier">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-vas-a-aprender" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué vas a aprender
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Índice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-1-entidades-y-atributos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 1. Entidades y atributos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 1. Entidades y atributos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-que-es-un-modelo-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Qué es un modelo de datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 Qué es un modelo de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dos-clasificaciones-que-no-hay-que-mezclar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dos clasificaciones que no hay que mezclar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-modelo-er-y-el-trabajo-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El modelo E/R y el trabajo de diseño
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-entidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Entidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-atributos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Atributos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-tipos-de-atributos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Tipos de atributos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 Tipos de atributos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-obligatorio-u-opcional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.1 Obligatorio u opcional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-simple-o-compuesto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.2 Simple o compuesto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-monovaluado-o-multivaluado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.3 Monovaluado o multivaluado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-derivado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.4 Derivado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-representacion-grafica-de-los-atributos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Representación gráfica de los atributos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-2-relaciones-y-cardinalidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 2. Relaciones y cardinalidades
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 2. Relaciones y cardinalidades">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-relaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Relaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-cardinalidad-de-las-relaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Cardinalidad de las relaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-cardinalidad-de-entidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Cardinalidad de entidades
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Cardinalidad de entidades">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-leer-el-ejemplo-jugador-equipo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo leer el ejemplo JUGADOR : EQUIPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-el-diagrama-de-conjuntos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 El diagrama de conjuntos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-atributos-de-una-relacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Atributos de una relación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-ejemplo-practico-la-escuela" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Ejemplo práctico: la escuela
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 Ejemplo práctico: la escuela">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-enunciado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El enunciado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-marcar-el-enunciado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1 : Marcar el enunciado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-el-diagrama-resultante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2 : El diagrama resultante
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-3-entidades-fuertes-y-debiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 3. Entidades fuertes y débiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 3. Entidades fuertes y débiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-tipos-de-entidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Tipos de entidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-dependencia-existencial-y-de-identificacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Dependencia existencial y de identificación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-ejemplos-de-entidades-debiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Ejemplos de entidades débiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 Ejemplos de entidades débiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-1-hotel-y-habitacion-dependencia-de-identificacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo 1 : Hotel y habitación, dependencia de identificación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-2-hotel-y-habitacion-dependencia-existencial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo 2 : Hotel y habitación, dependencia existencial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-3-empleado-y-permiso-de-conducir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo 3 : Empleado y permiso de conducir
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-4-el-grado-de-las-relaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 4. El grado de las relaciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 4. El grado de las relaciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-grado-de-una-relacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Grado de una relación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-relaciones-reflexivas-o-recursivas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Relaciones reflexivas o recursivas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Relaciones reflexivas o recursivas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#otros-ejemplos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otros ejemplos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-relaciones-ternarias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Relaciones ternarias
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Relaciones ternarias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-de-relacion-ternaria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo de relación ternaria
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-relaciones-dobles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Relaciones dobles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-otras-notaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Otras notaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-5-restricciones-sobre-las-relaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 5. Restricciones sobre las relaciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 5. Restricciones sobre las relaciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-el-modelo-er-extendido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 El modelo E/R extendido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-restriccion-de-exclusividad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Restricción de exclusividad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-restriccion-de-exclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Restricción de exclusión
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-restriccion-de-inclusividad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Restricción de inclusividad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-restriccion-de-inclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Restricción de inclusión
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-las-cuatro-restricciones-cara-a-cara" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 Las cuatro restricciones, cara a cara
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-6-generalizacion-y-especializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 6. Generalización y especialización
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 6. Generalización y especialización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-superclases-y-subclases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Superclases y subclases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-como-detectar-una-generalizacion-o-especializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Cómo detectar una generalización o especialización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-jerarquias-y-herencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Jerarquías y herencia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-restricciones-semanticas-en-la-generalizacionespecializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Restricciones semánticas en la generalización/especialización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-ejemplo-turismos-y-camiones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Ejemplo: turismos y camiones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-7-agregacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 7. Agregación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 7. Agregación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-que-es-la-agregacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Qué es la agregación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-el-problema-alumnos-deportes-y-profesores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 El problema: alumnos, deportes y profesores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-por-que-la-ternaria-esta-mal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Por qué la ternaria está mal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-la-solucion-con-agregacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 La solución con agregación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-otro-ejemplo-empleados-sucursales-y-managers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 Otro ejemplo: empleados, sucursales y managers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#material-de-repaso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Material de repaso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Material de repaso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#glosario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Glosario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapa-resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa resumen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoevaluacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autoevaluación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glosario-del-er-extendido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Glosario del E/R extendido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glosario_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Glosario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapa-resumen_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa resumen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoevaluacion_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autoevaluación
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UT3-dosier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT3. El modelo relacional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UT4-dosier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT4. Transformación y normalización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UT5-dosier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT5. SQL: definir y consultar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UT6-dosier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT6. SQL: unir tablas y resumir
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UT7-dosier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT7. SQL: procedimientos almacenados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#como-usar-este-dosier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo usar este dosier
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo usar este dosier">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-vas-a-aprender" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué vas a aprender
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Índice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-1-entidades-y-atributos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 1. Entidades y atributos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 1. Entidades y atributos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-que-es-un-modelo-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Qué es un modelo de datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 Qué es un modelo de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dos-clasificaciones-que-no-hay-que-mezclar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dos clasificaciones que no hay que mezclar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-modelo-er-y-el-trabajo-de-diseno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El modelo E/R y el trabajo de diseño
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-entidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Entidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-atributos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Atributos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-tipos-de-atributos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Tipos de atributos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 Tipos de atributos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-obligatorio-u-opcional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.1 Obligatorio u opcional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-simple-o-compuesto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.2 Simple o compuesto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-monovaluado-o-multivaluado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.3 Monovaluado o multivaluado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-derivado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.4 Derivado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-representacion-grafica-de-los-atributos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Representación gráfica de los atributos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-2-relaciones-y-cardinalidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 2. Relaciones y cardinalidades
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 2. Relaciones y cardinalidades">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-relaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Relaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-cardinalidad-de-las-relaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Cardinalidad de las relaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-cardinalidad-de-entidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Cardinalidad de entidades
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Cardinalidad de entidades">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-leer-el-ejemplo-jugador-equipo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo leer el ejemplo JUGADOR : EQUIPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-el-diagrama-de-conjuntos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 El diagrama de conjuntos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-atributos-de-una-relacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Atributos de una relación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-ejemplo-practico-la-escuela" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Ejemplo práctico: la escuela
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 Ejemplo práctico: la escuela">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-enunciado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El enunciado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-marcar-el-enunciado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1 : Marcar el enunciado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-el-diagrama-resultante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2 : El diagrama resultante
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-3-entidades-fuertes-y-debiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 3. Entidades fuertes y débiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 3. Entidades fuertes y débiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-tipos-de-entidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Tipos de entidades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-dependencia-existencial-y-de-identificacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Dependencia existencial y de identificación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-ejemplos-de-entidades-debiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Ejemplos de entidades débiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 Ejemplos de entidades débiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-1-hotel-y-habitacion-dependencia-de-identificacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo 1 : Hotel y habitación, dependencia de identificación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-2-hotel-y-habitacion-dependencia-existencial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo 2 : Hotel y habitación, dependencia existencial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-3-empleado-y-permiso-de-conducir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo 3 : Empleado y permiso de conducir
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-4-el-grado-de-las-relaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 4. El grado de las relaciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 4. El grado de las relaciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-grado-de-una-relacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Grado de una relación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-relaciones-reflexivas-o-recursivas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Relaciones reflexivas o recursivas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Relaciones reflexivas o recursivas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#otros-ejemplos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otros ejemplos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-relaciones-ternarias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Relaciones ternarias
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Relaciones ternarias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-de-relacion-ternaria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo de relación ternaria
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-relaciones-dobles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Relaciones dobles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-otras-notaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Otras notaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-5-restricciones-sobre-las-relaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 5. Restricciones sobre las relaciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 5. Restricciones sobre las relaciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-el-modelo-er-extendido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 El modelo E/R extendido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-restriccion-de-exclusividad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Restricción de exclusividad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-restriccion-de-exclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Restricción de exclusión
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-restriccion-de-inclusividad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Restricción de inclusividad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-restriccion-de-inclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Restricción de inclusión
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-las-cuatro-restricciones-cara-a-cara" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 Las cuatro restricciones, cara a cara
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-6-generalizacion-y-especializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 6. Generalización y especialización
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 6. Generalización y especialización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-superclases-y-subclases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Superclases y subclases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-como-detectar-una-generalizacion-o-especializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Cómo detectar una generalización o especialización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-jerarquias-y-herencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Jerarquías y herencia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-restricciones-semanticas-en-la-generalizacionespecializacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Restricciones semánticas en la generalización/especialización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-ejemplo-turismos-y-camiones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Ejemplo: turismos y camiones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloque-7-agregacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloque 7. Agregación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bloque 7. Agregación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-que-es-la-agregacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Qué es la agregación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-el-problema-alumnos-deportes-y-profesores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 El problema: alumnos, deportes y profesores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-por-que-la-ternaria-esta-mal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Por qué la ternaria está mal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-la-solucion-con-agregacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 La solución con agregación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-otro-ejemplo-empleados-sucursales-y-managers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 Otro ejemplo: empleados, sucursales y managers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#material-de-repaso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Material de repaso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Material de repaso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#glosario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Glosario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapa-resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa resumen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoevaluacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autoevaluación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glosario-del-er-extendido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Glosario del E/R extendido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glosario_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Glosario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapa-resumen_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa resumen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoevaluacion_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autoevaluación
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ut2-interpretacion-de-modelos-er">UT2. Interpretación de modelos E/R<a class="headerlink" href="#ut2-interpretacion-de-modelos-er" title="Permanent link">&para;</a></h1>
+<h2 class="nobreak" id="como-usar-este-dosier">Cómo usar este dosier<a class="headerlink" href="#como-usar-este-dosier" title="Permanent link">&para;</a></h2>
+<p>Este dosier recoge lo que trabajamos en clase sobre el modelo entidad-relación: leer y dibujar el plano de una base de datos antes de construirla.</p>
+<p>Encontrarás cuatro tipos de caja:</p>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+<p>Un término que tienes que saber explicar con tus palabras. Si solo sabes repetirlo de memoria, todavía no lo has aprendido.</p>
+</div>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+<p>Un caso concreto. Léelo despacio: aquí es donde la idea se entiende.</p>
+</div>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+<p>Un error típico o dos conceptos que se suelen confundir. Son las preguntas que salen en el examen.</p>
+</div>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+<p>Preguntas al final de cada bloque. Contesta sin mirar atrás.</p>
+</div>
+<p>Al final tienes un <strong>glosario</strong>, un <strong>mapa resumen</strong> y una <strong>autoevaluación</strong> (sin soluciones: contrastalas en clase).</p>
+<h3 id="que-vas-a-aprender">Qué vas a aprender<a class="headerlink" href="#que-vas-a-aprender" title="Permanent link">&para;</a></h3>
+<p>Al terminar esta UT deberías ser capaz de:</p>
+<ul>
+<li>Reconocer y dibujar entidades, atributos y relaciones con la notación de clase.</li>
+<li>Clasificar atributos y fijar cardinalidades (1:1, 1:N, N:M) y participación.</li>
+<li>Distinguir entidades fuertes y débiles, y el grado de las relaciones.</li>
+<li>Aplicar restricciones entre relaciones, jerarquías ISA y agregación.</li>
+</ul>
+<h3 id="indice">Índice<a class="headerlink" href="#indice" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Bloque</th>
+<th>Tema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#bloque-1-entidades-y-atributos">1</a></td>
+<td><a href="#bloque-1-entidades-y-atributos">Entidades y atributos</a></td>
+</tr>
+<tr>
+<td><a href="#bloque-2-relaciones-y-cardinalidades">2</a></td>
+<td><a href="#bloque-2-relaciones-y-cardinalidades">Relaciones y cardinalidades</a></td>
+</tr>
+<tr>
+<td><a href="#bloque-3-entidades-fuertes-y-debiles">3</a></td>
+<td><a href="#bloque-3-entidades-fuertes-y-debiles">Entidades fuertes y débiles</a></td>
+</tr>
+<tr>
+<td><a href="#bloque-4-el-grado-de-las-relaciones">4</a></td>
+<td><a href="#bloque-4-el-grado-de-las-relaciones">El grado de las relaciones</a></td>
+</tr>
+<tr>
+<td><a href="#bloque-5-restricciones-sobre-las-relaciones">5</a></td>
+<td><a href="#bloque-5-restricciones-sobre-las-relaciones">Restricciones sobre las relaciones</a></td>
+</tr>
+<tr>
+<td><a href="#bloque-6-generalizacion-y-especializacion">6</a></td>
+<td><a href="#bloque-6-generalizacion-y-especializacion">Generalización y especialización</a></td>
+</tr>
+<tr>
+<td><a href="#bloque-7-agregacion">7</a></td>
+<td><a href="#bloque-7-agregacion">Agregación</a></td>
+</tr>
+<tr>
+<td>Repaso</td>
+<td><a href="#material-de-repaso">Glosario, mapa resumen y autoevaluación</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="bloque-1-entidades-y-atributos">Bloque 1. Entidades y atributos<a class="headerlink" href="#bloque-1-entidades-y-atributos" title="Permanent link">&para;</a></h2>
+<h3 id="11-que-es-un-modelo-de-datos">1.1 Qué es un modelo de datos<a class="headerlink" href="#11-que-es-un-modelo-de-datos" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Colección de herramientas conceptuales que permite describir los <strong>datos</strong>, sus <strong>relaciones</strong>, su <strong>semántica</strong> (su significado) y las <strong>restricciones</strong> que se les pueden aplicar.</p>
+<p>Recuerda de la UT1 que los SGBD tienen una arquitectura pensada para simplificar el trabajo de los distintos usuarios. Su objetivo principal es <strong>separar los programas de aplicación de la base de datos física</strong>, y para ello propone tres niveles de abstracción:</p>
+<table>
+<thead>
+<tr>
+<th>Nivel</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Interno o físico</strong></td>
+<td>Describe cómo se almacenan físicamente los datos en el sistema</td>
+</tr>
+<tr>
+<td><strong>Lógico o conceptual</strong></td>
+<td>Define la estructura global de la base de datos y las relaciones entre los datos</td>
+</tr>
+<tr>
+<td><strong>Externo o de vista de usuario</strong></td>
+<td>Presenta diferentes vistas personalizadas para distintos tipos de usuarios</td>
+</tr>
+</tbody>
+</table>
+<p>El nivel que más nos interesa es el <strong>lógico o conceptual</strong>, porque es el que contiene la estructura global de los datos: qué datos hay y cómo se relacionan. Esa estructura es justo lo que vas a aprender a dibujar en esta UT.</p>
+<h4 id="dos-clasificaciones-que-no-hay-que-mezclar"><em>Dos clasificaciones que no hay que mezclar</em><a class="headerlink" href="#dos-clasificaciones-que-no-hay-que-mezclar" title="Permanent link">&para;</a></h4>
+<p>En la UT1 viste la palabra «nivel» usada para <strong>dos cosas distintas</strong>. Conviene separarlas desde el principio:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Niveles de abstracción del SGBD</th>
+<th>Tipos de modelos de datos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Qué clasifican</strong></td>
+<td>Cómo está organizado por dentro un SGBD que ya funciona (arquitectura ANSI/SPARC)</td>
+<td>Las fases por las que pasa el diseño de una base de datos</td>
+</tr>
+<tr>
+<td><strong>Cuáles son</strong></td>
+<td>Externo , conceptual (o lógico) , interno (o físico)</td>
+<td>Conceptual , lógico , físico</td>
+</tr>
+<tr>
+<td><strong>Dónde lo viste</strong></td>
+<td>UT1, Parte 2 (independencia de datos)</td>
+<td>UT1, Parte 1 (qué es un modelo de base de datos)</td>
+</tr>
+</tbody>
+</table>
+<p>En la segunda clasificación, <strong>conceptual y lógico son cosas distintas</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Tipo de modelo</th>
+<th>Fase</th>
+<th>Ejemplo</th>
+<th>¿Depende del SGBD?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Conceptual</strong></td>
+<td>Análisis</td>
+<td><strong>Modelo Entidad/Relación</strong></td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Lógico</strong></td>
+<td>Diseño</td>
+<td>Modelo relacional (tablas y claves)</td>
+<td>Del tipo de SGBD</td>
+</tr>
+<tr>
+<td><strong>Físico</strong></td>
+<td>Implementación</td>
+<td>Organización de ficheros, índices</td>
+<td>Del SGBD concreto</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+</div>
+<p>El E/R describe qué datos hay y cómo se relacionan <strong>sin depender de ningún SGBD</strong>: es un modelo <strong>conceptual</strong>, no lógico. La conexión entre las dos clasificaciones es esta: el nivel conceptual del SGBD contiene la estructura global de los datos; esa estructura primero se dibuja con un modelo conceptual (<strong>E/R</strong>) y después se traduce a un modelo lógico (<strong>relacional</strong>) para que el SGBD la entienda.</p>
+<h4 id="el-modelo-er-y-el-trabajo-de-diseno"><em>El modelo E/R y el trabajo de diseño</em><a class="headerlink" href="#el-modelo-er-y-el-trabajo-de-diseno" title="Permanent link">&para;</a></h4>
+<p>El modelo Entidad/Relación lo propuso Peter Chen en 1976. Es la herramienta con la que se hace el <strong>plano</strong> de una base de datos antes de construirla. Igual que un arquitecto no empieza a poner ladrillos sin un plano, un diseñador no escribe <code>CREATE TABLE</code> sin un diagrama E/R. El camino que vas a recorrer en el módulo es este:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a> Enunciado Diagrama E/R Modelo relacional SQL
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a> (lenguaje ──► (entidades, ──► (tablas, claves) ──► CREATE TABLE ...
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a> natural) relaciones)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a> MODELO MODELO MODELO
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a> CONCEPTUAL LÓGICO FÍSICO
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a> ▲
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a> └── estás aquí
+</code></pre></div>
+<h3 id="12-entidades">1.2 Entidades<a class="headerlink" href="#12-entidades" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Entidad que existe de forma <strong>independiente</strong>: su existencia no depende de la existencia de otras entidades. En el modelo E/R se representa con su nombre encerrado en un <strong>rectángulo</strong>.</p>
+<p><img alt="Una entidad: PERSONA" src="../imagenes/UT2-diapositiva-03.png" /></p>
+<p>Una entidad es «un tipo de cosa» sobre la que queremos guardar información: PERSONA, ALUMNO, CURSO, PRODUCTO. Por eso su nombre suele ser un <strong>sustantivo</strong> y se escribe en <strong>singular</strong>.</p>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+</div>
+<p>PERSONA es la <strong>entidad</strong> (el molde). <em>Marta Ruiz</em> o <em>Joan Pons</em> son <strong>ocurrencias</strong> (o instancias) de esa entidad: los casos concretos. En el diagrama solo se dibuja la entidad, una vez; las ocurrencias serán después las filas de la tabla. En el apartado 2.4 verás las ocurrencias dibujadas con un diagrama de conjuntos.</p>
+<h3 id="13-atributos">1.3 Atributos<a class="headerlink" href="#13-atributos" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Propiedad o característica de una entidad. Los atributos contienen los <strong>datos específicos</strong> que queremos almacenar. En el modelo E/R se representan con su nombre encerrado en un <strong>óvalo</strong>.</p>
+<p><img alt="Un atributo" src="../imagenes/UT2-diapositiva-04.png" /></p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p>De la entidad PERSONA nos interesa guardar <code>dni</code>, <code>nombre</code>, <code>dirección</code> y <code>fecha_nac</code>. Cada uno es un atributo y se dibuja como un óvalo unido al rectángulo de PERSONA con una línea.</p>
+<h3 id="14-tipos-de-atributos">1.4 Tipos de atributos<a class="headerlink" href="#14-tipos-de-atributos" title="Permanent link">&para;</a></h3>
+<p>Los atributos se clasifican de varias formas. Cada clasificación responde a una pregunta distinta, así que <strong>un mismo atributo tiene una etiqueta en cada una</strong> (por ejemplo, <code>email</code> puede ser a la vez opcional, simple y multivaluado).</p>
+<h4 id="141-obligatorio-u-opcional">1.4.1 Obligatorio u opcional<a class="headerlink" href="#141-obligatorio-u-opcional" title="Permanent link">&para;</a></h4>
+<p><em>¿Tiene que tener siempre valor?</em></p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Obligatorio</strong></td>
+<td>Siempre debe estar definido para una entidad o relación. Una <strong>clave o identificador</strong> es un atributo obligatorio.</td>
+<td><code>dni</code></td>
+</tr>
+<tr>
+<td><strong>Opcional</strong></td>
+<td>Puede estar definido o no. Pueden existir ocurrencias de la entidad para las que este atributo no tenga valor.</td>
+<td><code>num_tlf</code></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Obligatorio: dni" src="../imagenes/UT2-diapositiva-05-1.png" /></p>
+<p><img alt="Opcional: num_tlf" src="../imagenes/UT2-diapositiva-05-2.png" /></p>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Atributo (o conjunto de atributos) cuyo valor distingue a cada ocurrencia de todas las demás. En los diagramas se señala <strong>subrayando</strong> su nombre, como verás en <code>email</code>, <code>Code</code> o <code>hotel_id</code> en los ejemplos de este dosier.</p>
+<h4 id="142-simple-o-compuesto">1.4.2 Simple o compuesto<a class="headerlink" href="#142-simple-o-compuesto" title="Permanent link">&para;</a></h4>
+<p><em>¿Se puede dividir en partes con significado propio?</em></p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Simple</strong></td>
+<td>No se puede dividir en otras partes o atributos; presenta un solo elemento. No es posible extraer partes más pequeñas que tengan significado.</td>
+<td><code>nombre</code></td>
+</tr>
+<tr>
+<td><strong>Compuesto</strong></td>
+<td>Se puede dividir en subpartes, que constituyen otros atributos con significado propio.</td>
+<td><code>dirección</code> (calle, ciudad, código postal)</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Simple: nombre" src="../imagenes/UT2-diapositiva-05-3.png" /></p>
+<p><img alt="Compuesto: dirección" src="../imagenes/UT2-diapositiva-06-1.png" /></p>
+<h4 id="143-monovaluado-o-multivaluado">1.4.3 Monovaluado o multivaluado<a class="headerlink" href="#143-monovaluado-o-multivaluado" title="Permanent link">&para;</a></h4>
+<p><em>¿Cuántos valores puede tener una misma ocurrencia?</em></p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Monovaluado</strong></td>
+<td>Tiene un solo valor para cada ocurrencia de la entidad.</td>
+<td><code>fecha_nac</code>: cada persona tiene una</td>
+</tr>
+<tr>
+<td><strong>Multivaluado</strong></td>
+<td>Puede tomar diferentes valores para cada ocurrencia de la entidad.</td>
+<td><code>email</code>: una persona puede tener varios</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Monovaluado: fecha_nac" src="../imagenes/UT2-diapositiva-06-2.png" /></p>
+<p><img alt="Multivaluado: email" src="../imagenes/UT2-diapositiva-06-3.png" /></p>
+<h4 id="144-derivado">1.4.4 Derivado<a class="headerlink" href="#144-derivado" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Derivado</strong></td>
+<td>Su valor se puede obtener a partir del valor o valores de otros atributos relacionados.</td>
+<td><code>edad</code>, que se calcula a partir de <code>fecha_nac</code></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Derivado: edad" src="../imagenes/UT2-diapositiva-06-4.png" /></p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p>Si guardas <code>fecha_nac = 2008-03-14</code>, la edad se calcula sola cada día. Si guardaras la edad como un número fijo (17), el año que viene el dato sería falso y alguien tendría que acordarse de actualizarlo. Un atributo derivado <strong>no hace falta almacenarlo</strong>: se calcula cuando se necesita.</p>
+<p><strong>OJO : Compuesto no es multivaluado</strong>
+ <strong>Compuesto</strong> = un solo valor que se puede <strong>partir en trozos</strong> (una dirección tiene calle, ciudad y código postal). <strong>Multivaluado</strong> = <strong>varios valores</strong> del mismo tipo (tres correos electrónicos distintos). Una persona puede tener una sola dirección compuesta y varios correos simples.</p>
+<h3 id="15-representacion-grafica-de-los-atributos">1.5 Representación gráfica de los atributos<a class="headerlink" href="#15-representacion-grafica-de-los-atributos" title="Permanent link">&para;</a></h3>
+<p>Cada tipo de atributo tiene su propio dibujo:</p>
+<table>
+<thead>
+<tr>
+<th>Tipo de atributo</th>
+<th>Cómo se dibuja</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple</td>
+<td>Óvalo sencillo conectado a la entidad</td>
+</tr>
+<tr>
+<td>Compuesto</td>
+<td>Óvalo del que salen otros óvalos (sus partes)</td>
+</tr>
+<tr>
+<td>Multivaluado</td>
+<td><strong>Óvalo doble</strong></td>
+</tr>
+<tr>
+<td>Derivado</td>
+<td><strong>Óvalo punteado</strong>, para indicar que se calcula</td>
+</tr>
+<tr>
+<td>Clave</td>
+<td>Nombre <strong>subrayado</strong> <em>(ampliación)</em></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Representación gráfica de atributos: entidad CLIENT" src="../imagenes/UT2-diapositiva-07.png" /></p>
+<p>Cómo leer el diagrama de la entidad CLIENT:</p>
+<ul>
+<li><code>date_birth</code> es un atributo <strong>simple</strong>.</li>
+<li><code>address</code> es <strong>compuesto</strong>: se divide en <code>street</code>, <code>city</code> y <code>zip_code</code>.</li>
+<li><code>phone_num</code> es <strong>multivaluado</strong> (óvalo doble): un cliente puede tener varios teléfonos.</li>
+<li><code>age</code> es <strong>derivado</strong> (óvalo punteado): se calcula a partir de <code>date_birth</code>.</li>
+</ul>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+</div>
+<ol>
+<li>¿Qué describe un modelo de datos? Nombra las cuatro cosas.</li>
+<li>¿El modelo E/R es un modelo conceptual, lógico o físico? ¿Por qué?</li>
+<li>¿Con qué figura se dibuja una entidad? ¿Y un atributo?</li>
+<li>Clasifica <code>dirección</code> según las cuatro clasificaciones de atributos.</li>
+<li>¿Cómo se dibuja un atributo multivaluado? ¿Y uno derivado?</li>
+</ol>
+<h2 id="bloque-2-relaciones-y-cardinalidades">Bloque 2. Relaciones y cardinalidades<a class="headerlink" href="#bloque-2-relaciones-y-cardinalidades" title="Permanent link">&para;</a></h2>
+<h3 id="21-relaciones">2.1 Relaciones<a class="headerlink" href="#21-relaciones" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Elemento fundamental del modelo E/R que permite <strong>conectar datos</strong>. Una relación asocia elementos de una entidad con elementos de otra entidad, mostrando cómo están vinculados.</p>
+<p><img alt="Representación de una relación" src="../imagenes/UT2-diapositiva-08.png" /></p>
+<p>Hay dos ideas clave:</p>
+<ol>
+<li><strong>Regla fundamental.</strong> En una relación, <strong>la misma combinación de entidades no puede repetirse</strong>: la misma entidad no puede estar vinculada a otra de la misma manera más de una vez.</li>
+<li><strong>Representación gráfica.</strong> Una relación se dibuja con un <strong>rombo</strong> con su nombre dentro. El rombo se une con <strong>líneas rectas</strong> a las entidades que relaciona.</li>
+</ol>
+<p><strong>Cómo nombrar una relación.</strong> El nombre debe referirse al <strong>propósito o razón</strong> de la asociación. Normalmente se usan <strong>verbos en singular</strong>: «forma», «posee», «contrata», «enseña», «aloja».</p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p>En la relación PROFESOR <em>enseña</em> CURSO, la pareja (Laura, Bases de datos) solo puede aparecer <strong>una vez</strong>. No tiene sentido decir dos veces que Laura enseña Bases de datos. Si hiciera falta guardar que la enseña en dos cursos académicos distintos, habría que cambiar el diseño, pero no repetir la pareja.</p>
+<p><strong>OJO : Sustantivos y verbos</strong>
+ Un truco para leer un enunciado: los <strong>sustantivos</strong> suelen ser entidades o atributos, y los <strong>verbos</strong> que los unen suelen ser relaciones. «Un profesor <strong>enseña</strong> cursos» → PROFESOR, CURSO y la relación <em>enseña</em>.</p>
+<h3 id="22-cardinalidad-de-las-relaciones">2.2 Cardinalidad de las relaciones<a class="headerlink" href="#22-cardinalidad-de-las-relaciones" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Número <strong>máximo</strong> de ocurrencias de una entidad que pueden estar asociadas con otra. Se aplica a las relaciones entre dos entidades y especifica cómo pueden vincularse.</p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Significado</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Uno a uno (1:1)</strong></td>
+<td>Una ocurrencia de A está vinculada a una ocurrencia de B.</td>
+<td>Un estudiante tiene un expediente, y cada expediente pertenece a un estudiante.</td>
+</tr>
+<tr>
+<td><strong>Uno a muchos (1:N)</strong></td>
+<td>Una ocurrencia de A está vinculada a muchas de B, pero B está vinculada solo a una A.</td>
+<td>Un profesor puede enseñar muchas materias, pero cada materia tiene solo un profesor.</td>
+</tr>
+<tr>
+<td><strong>Muchos a muchos (N:M)</strong></td>
+<td>Muchas ocurrencias de A pueden vincularse a muchas de B.</td>
+<td>Un estudiante puede inscribirse en muchos cursos, y un curso puede tener muchos estudiantes.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p>Haz <strong>dos preguntas</strong>, una en cada sentido, y quédate con la respuesta <strong>máxima</strong>:
+ 1. «Un profesor, ¿cuántas materias puede enseñar?» → <strong>muchas</strong> (N).
+ 2. «Una materia, ¿cuántos profesores puede tener?» → <strong>uno</strong> (1).
+ Resultado: <strong>1:N</strong>. Si las dos respuestas hubieran sido «muchos», sería N:M; si las dos «uno», 1:1.</p>
+<p><strong>OJO : La cardinalidad la decide el enunciado</strong>
+ No existe «la» cardinalidad de PROFESOR: MATERIA. En este instituto cada materia tiene un único profesor (1:N), pero en otro centro donde dos profesores comparten una materia sería N:M. Lee el enunciado y aplícalo tal cual, sin inventar.</p>
+<h3 id="23-cardinalidad-de-entidades">2.3 Cardinalidad de entidades<a class="headerlink" href="#23-cardinalidad-de-entidades" title="Permanent link">&para;</a></h3>
+<p>La cardinalidad de la relación solo dice el <strong>máximo</strong>. La cardinalidad de entidades afina más: dice el <strong>mínimo y el máximo</strong>.</p>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Grado en que una entidad participa en una relación: el número <strong>mínimo y máximo</strong> de asociaciones que cada instancia de la entidad puede tener. Se escribe con dos números entre paréntesis: <strong>(cardinalidad mínima, cardinalidad máxima)</strong>.</p>
+<p>La cardinalidad <strong>mínima</strong> indica si la participación es obligatoria u opcional:</p>
+<table>
+<thead>
+<tr>
+<th>Participación</th>
+<th>Cuándo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Obligatoria (total)</strong></td>
+<td>La cardinalidad mínima es <strong>1</strong></td>
+</tr>
+<tr>
+<td><strong>Opcional (parcial)</strong></td>
+<td>La cardinalidad mínima es <strong>0</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ejemplos de notación:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Notación</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(0,1)</td>
+<td>Opcional, máximo una vez</td>
+</tr>
+<tr>
+<td>(1,1)</td>
+<td>Obligatoria, exactamente una vez</td>
+</tr>
+<tr>
+<td>(0,N)</td>
+<td>Opcional, sin límite superior</td>
+</tr>
+<tr>
+<td>(1,N)</td>
+<td>Obligatoria, al menos una vez</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Cardinalidades: JUGADOR juega en EQUIPO" src="../imagenes/UT2-diapositiva-10.png" /></p>
+<h4 id="como-leer-el-ejemplo-jugador-equipo">Cómo leer el ejemplo JUGADOR : EQUIPO<a class="headerlink" href="#como-leer-el-ejemplo-jugador-equipo" title="Permanent link">&para;</a></h4>
+<p>La relación es <strong>N:1</strong> (muchos jugadores, un equipo). Los paréntesis se leen así:</p>
+<ul>
+<li><strong>(0,1)</strong>, junto a EQUIPO: fijado <strong>un jugador</strong>, ¿en cuántos equipos juega? En ninguno o en uno. La participación del jugador es <strong>opcional</strong> (puede haber jugadores sin equipo).</li>
+<li><strong>(1,n)</strong>, junto a JUGADOR: fijado <strong>un equipo</strong>, ¿cuántos jugadores tiene? Al menos uno y sin límite. La participación del equipo es <strong>obligatoria</strong>.</li>
+</ul>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+</div>
+<p>En los diagramas de este módulo, la pareja (mín, máx) que describe cómo participa una entidad se escribe <strong>en el extremo contrario</strong>, junto a la otra entidad. Para no liarte, usa siempre el mismo método: <strong>tapa una entidad, fija una ocurrencia de ella y pregunta cuántas de la otra le corresponden</strong>. La respuesta se escribe junto a esa otra entidad. Otros libros usan el convenio contrario, así que fíjate siempre en la leyenda del diagrama que estés leyendo.</p>
+<p><strong>EJEMPLO : Del mínimo y máximo a la cardinalidad de la relación</strong>
+ Si las cardinalidades son (1,n) y (0,1), cogemos los <strong>máximos</strong>: n y 1. La relación es <strong>1:N</strong> (o N:1, leída al revés). La cardinalidad de la relación sale siempre de los máximos.</p>
+<h3 id="24-el-diagrama-de-conjuntos">2.4 El diagrama de conjuntos<a class="headerlink" href="#24-el-diagrama-de-conjuntos" title="Permanent link">&para;</a></h3>
+<p>Un <strong>diagrama de conjuntos</strong> dibuja las <strong>ocurrencias</strong> reales de cada entidad (como bolas dentro de dos óvalos) y une con flechas las que están relacionadas. Es la mejor forma de comprobar que una cardinalidad tiene sentido.</p>
+<p><img alt="Diagrama E/R y diagrama de conjuntos: Employees trabaja en Departments" src="../imagenes/UT2-diapositiva-11.png" /></p>
+<p>Cómo leer el ejemplo:</p>
+<ul>
+<li>Arriba está el diagrama E/R: <strong>Employees</strong> (<code>employee_ID</code> como clave primaria, <code>Name</code>, <code>hire date</code>, <code>salary</code>, <code>phone number</code>) se relaciona con <strong>Departments</strong> (<code>department_ID</code> como clave primaria, <code>department name</code>) a través de <strong>Work in</strong>, con cardinalidad <strong>N:1</strong>.</li>
+<li>Abajo, el diagrama de conjuntos. Cada flecha es una <strong>ocurrencia</strong> o instancia de la relación <em>Work in</em>: e237: d3, e849: d7, e152: d7, e604: d7, e983: d5.</li>
+<li>De cada empleado sale <strong>exactamente una</strong> flecha. Cada empleado <strong>debe</strong> unirse a un departamento obligatoriamente: su cardinalidad es <strong>(1,1)</strong>, escrita junto a Departments.</li>
+<li>A cada departamento le llegan <strong>cero o muchas</strong> flechas: d7 (Finance) tiene tres empleados y d1 (Marketing) y d2 (Sales) no tienen ninguno. Su cardinalidad es <strong>(0,N)</strong>, escrita junto a Employees.</li>
+</ul>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p>Si no sabes si un mínimo es 0 o 1, dibuja las bolas y pregúntate: ¿puede quedar alguna <strong>sin flecha</strong>? Si puede (un departamento recién creado, todavía sin empleados), el mínimo es 0.</p>
+<h3 id="25-atributos-de-una-relacion">2.5 Atributos de una relación<a class="headerlink" href="#25-atributos-de-una-relacion" title="Permanent link">&para;</a></h3>
+<p>Las relaciones <strong>también pueden tener atributos</strong>. Describen características de la <strong>conexión en sí</strong>, no de las entidades que une.</p>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Atributo que almacena información que pertenece específicamente a la <strong>asociación entre entidades</strong>, no a las entidades individuales.</p>
+<p><strong>EJEMPLO : La relación SE INSCRIBE</strong>
+ En una base de datos escolar con las entidades ESTUDIANTE y CURSO hay una relación SE INSCRIBE que indica qué cursos toma cada estudiante. El atributo <strong>calificación</strong> se añade a la relación para guardar la nota que cada estudiante obtuvo en cada curso.</p>
+<p><strong>OJO : La prueba del «de quién es»</strong>
+ Pregúntate de quién es el dato. ¿La nota es del estudiante? No: Marta tiene un 8 en Bases de datos y un 6 en Programación. ¿Es del curso? Tampoco: cada alumno saca una nota distinta. La nota solo existe <strong>cuando se juntan un estudiante y un curso concretos</strong>: es de la relación. Los atributos de relación aparecen casi siempre en relaciones <strong>N:M</strong>.</p>
+<h3 id="26-ejemplo-practico-la-escuela">2.6 Ejemplo práctico: la escuela<a class="headerlink" href="#26-ejemplo-practico-la-escuela" title="Permanent link">&para;</a></h3>
+<h4 id="el-enunciado">El enunciado<a class="headerlink" href="#el-enunciado" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Una escuela secundaria necesita un sistema para gestionar información de estudiantes. Para cada estudiante, almacenan nombre, apellido, edad, dirección y una dirección de correo electrónico. El sistema también rastreará los cursos ofrecidos en la escuela, almacenando el nombre del curso y el código. El sistema debe registrar en qué cursos está inscrito cada estudiante, junto con datos relevantes de rendimiento.</p>
+<p>La escuela también gestiona información sobre profesores, incluyendo su nombre, apellido, fecha de nacimiento, especialización en materia y un número de teléfono. Los profesores son responsables de enseñar cursos, y el sistema manejará la asignación de cursos a profesores.</p>
+<p>Además, el rendimiento de los estudiantes en sus cursos es importante, por lo que el sistema almacenará la calificación que cada estudiante obtiene en cada curso que completa.</p>
+</blockquote>
+<h4 id="paso-1-marcar-el-enunciado">Paso 1 : Marcar el enunciado<a class="headerlink" href="#paso-1-marcar-el-enunciado" title="Permanent link">&para;</a></h4>
+<p>El primer paso es <strong>colorear</strong> el enunciado. Es la técnica que tienes que aplicar tú:</p>
+<table>
+<thead>
+<tr>
+<th>Color</th>
+<th>Qué marca</th>
+<th>Lo que sale en este enunciado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Marrón</td>
+<td><strong>Entidades</strong></td>
+<td>estudiante, cursos, profesores</td>
+</tr>
+<tr>
+<td>Verde</td>
+<td><strong>Atributos</strong></td>
+<td>nombre, apellido, edad, dirección, correo , nombre del curso, código , nombre, apellido, fecha de nacimiento, especialización, teléfono , calificación</td>
+</tr>
+<tr>
+<td>Azul</td>
+<td><strong>Relaciones</strong></td>
+<td>«en qué cursos están inscritos los estudiantes» , «la asignación de los cursos a cada profesor»</td>
+</tr>
+</tbody>
+</table>
+<h4 id="paso-2-el-diagrama-resultante">Paso 2 : El diagrama resultante<a class="headerlink" href="#paso-2-el-diagrama-resultante" title="Permanent link">&para;</a></h4>
+<p><img alt="Diagrama E/R de la escuela" src="../imagenes/UT2-diapositiva-15.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>En el diagrama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Student</strong></td>
+<td>First name, Last name, <strong>email</strong> (clave, subrayada), Age, Address</td>
+</tr>
+<tr>
+<td><strong>Course</strong></td>
+<td>Name, <strong>Code</strong> (clave)</td>
+</tr>
+<tr>
+<td><strong>Teacher</strong></td>
+<td>First name, Last name, date of birth, Specialization, <strong>Phone number</strong> (clave)</td>
+</tr>
+<tr>
+<td><strong>enrolls</strong></td>
+<td>Student N : M Course, con el atributo de relación <strong>Grade</strong></td>
+</tr>
+<tr>
+<td><strong>teaches</strong></td>
+<td>Teacher 1 : N Course</td>
+</tr>
+</tbody>
+</table>
+<p>Cómo se justifican las cardinalidades:</p>
+<ul>
+<li><strong>enrolls es N:M</strong>: un estudiante se inscribe en muchos cursos y un curso tiene muchos estudiantes.</li>
+<li><strong>teaches es 1:N</strong>: un profesor enseña muchos cursos, y cada curso lo enseña un profesor.</li>
+<li><strong>Grade va en la relación</strong>: es la calificación de <em>un estudiante en un curso</em>, exactamente el caso del apartado 2.5.</li>
+</ul>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+</div>
+<p>En el apartado 1.5 <code>age</code> aparecía como derivado porque se calculaba a partir de <code>date_birth</code>. En la escuela, el enunciado pide guardar la <strong>edad</strong> del estudiante, pero <strong>no</strong> su fecha de nacimiento, así que no hay de dónde calcularla: se dibuja como atributo simple. Dibuja lo que dice el enunciado, no lo que harías tú.</p>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+</div>
+<ol>
+<li>¿Con qué figura se representa una relación y qué tipo de palabra se usa para nombrarla?</li>
+<li>¿Qué dice la regla fundamental de las relaciones?</li>
+<li>¿Qué significa (0,N)? ¿Y (1,1)?</li>
+<li>En Employees: Departments, ¿por qué la cardinalidad junto a Employees es (0,N) y no (1,N)?</li>
+<li>¿Por qué <code>Grade</code> es un atributo de la relación <em>enrolls</em> y no de Student?</li>
+</ol>
+<h2 id="bloque-3-entidades-fuertes-y-debiles">Bloque 3. Entidades fuertes y débiles<a class="headerlink" href="#bloque-3-entidades-fuertes-y-debiles" title="Permanent link">&para;</a></h2>
+<h3 id="31-tipos-de-entidades">3.1 Tipos de entidades<a class="headerlink" href="#31-tipos-de-entidades" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Definición</th>
+<th>Cómo se dibuja</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Entidad fuerte</strong></td>
+<td>Existe de forma independiente: su existencia no depende de la existencia de otras entidades.</td>
+<td>Nombre dentro de un <strong>rectángulo</strong></td>
+</tr>
+<tr>
+<td><strong>Entidad débil</strong></td>
+<td>Su existencia depende de la existencia de instancias de otras entidades.</td>
+<td>Nombre dentro de un <strong>rectángulo doble</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p>Un HOTEL existe por sí mismo. Una HABITACIÓN, en cambio, solo tiene sentido dentro de un hotel: «la habitación 101», sin decir de qué hotel, no identifica nada. HOTEL es fuerte y HABITACIÓN es débil.</p>
+<h3 id="32-dependencia-existencial-y-de-identificacion">3.2 Dependencia existencial y de identificación<a class="headerlink" href="#32-dependencia-existencial-y-de-identificacion" title="Permanent link">&para;</a></h3>
+<p>Las entidades débiles pueden representar <strong>dos tipos de dependencia</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Qué significa</th>
+<th>Frecuencia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dependencia existencial</strong> (E)</td>
+<td>Si desaparece una instancia de la entidad fuerte, desaparecen también las instancias de la entidad débil que dependen de ella.</td>
+<td>Más raras</td>
+</tr>
+<tr>
+<td><strong>Dependencia de identificación</strong> (ID)</td>
+<td>Además de la dependencia existencial, cada instancia de la entidad débil <strong>necesita</strong> a una instancia de la fuerte para identificarse por completo.</td>
+<td>Las más típicas</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+</div>
+<p>La de identificación <strong>incluye</strong> la existencial y añade algo más. Si la habitación se identifica con «hotel + número», al borrar el hotel la habitación no solo se queda sin sentido: se queda sin identificador.</p>
+<p><strong>Reglas de las relaciones con entidades débiles:</strong></p>
+<ul>
+<li>Son siempre <strong>binarias</strong>: una entidad fuerte y una débil.</li>
+<li>La cardinalidad puede ser <strong>1:N o 1:1</strong>, con la <strong>N siempre en el lado débil</strong>.</li>
+<li>Una relación con una entidad débil <strong>nunca</strong> puede ser <strong>N:M</strong>.</li>
+</ul>
+<h3 id="33-ejemplos-de-entidades-debiles">3.3 Ejemplos de entidades débiles<a class="headerlink" href="#33-ejemplos-de-entidades-debiles" title="Permanent link">&para;</a></h3>
+<p>Los tres ejemplos usan una notación algo distinta a la del Bloque 1: los atributos de cada entidad se agrupan en una <strong>caja</strong> (<em>Hotel atributes</em>, <em>Room atributes</em>…) en lugar de dibujar un óvalo por atributo. La clave sigue apareciendo <strong>subrayada</strong>. Es la forma habitual de hacerlo en herramientas como draw.io cuando hay muchos atributos.</p>
+<h4 id="ejemplo-1-hotel-y-habitacion-dependencia-de-identificacion">Ejemplo 1 : Hotel y habitación, dependencia de identificación<a class="headerlink" href="#ejemplo-1-hotel-y-habitacion-dependencia-de-identificacion" title="Permanent link">&para;</a></h4>
+<p><img alt="Hotel : Room con dependencia de identificación" src="../imagenes/UT2-diapositiva-17.png" /></p>
+<ul>
+<li><strong>Hotel</strong> es fuerte; <strong>Room</strong> es débil (rectángulo doble).</li>
+<li>La relación <strong>Has</strong> está marcada como <strong>ID</strong> y se dibuja con <strong>rombo doble</strong>.</li>
+<li>Cardinalidad <strong>1:N</strong>: un hotel tiene (1,n) habitaciones; cada habitación pertenece a (1,1) hotel.</li>
+<li><code>Room_number</code> es una <strong>clave parcial o discriminante</strong>: identifica la habitación <strong>dentro de su hotel</strong>, pero no sola. La habitación 101 existe en muchos hoteles; para identificarla hace falta <code>hotel_id</code> + <code>Room_number</code>.</li>
+</ul>
+<h4 id="ejemplo-2-hotel-y-habitacion-dependencia-existencial">Ejemplo 2 : Hotel y habitación, dependencia existencial<a class="headerlink" href="#ejemplo-2-hotel-y-habitacion-dependencia-existencial" title="Permanent link">&para;</a></h4>
+<p><img alt="Hotel : Room con dependencia existencial" src="../imagenes/UT2-diapositiva-18.png" /></p>
+<ul>
+<li>Las mismas entidades, pero ahora la relación <strong>Has</strong> está marcada como <strong>E</strong>.</li>
+<li>Aquí <code>Room_number</code> es una <strong>clave primaria</strong>: un número de habitación <strong>global para todos los hoteles</strong>. Cada habitación se identifica por sí sola, sin necesidad del hotel.</li>
+<li>Sigue habiendo dependencia: si el hotel desaparece, sus habitaciones también. Pero ya no hay dependencia de identificación.</li>
+</ul>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+</div>
+<p>Mismo dibujo, misma cardinalidad. La diferencia está en <code>Room_number</code>: si solo identifica <strong>dentro del hotel</strong> (discriminante), la dependencia es de <strong>identificación (ID)</strong>; si identifica <strong>por sí solo</strong> (clave global), es solo <strong>existencial (E)</strong>.</p>
+<h4 id="ejemplo-3-empleado-y-permiso-de-conducir">Ejemplo 3 : Empleado y permiso de conducir<a class="headerlink" href="#ejemplo-3-empleado-y-permiso-de-conducir" title="Permanent link">&para;</a></h4>
+<p><img alt="Employee : Driving permit con dependencia existencial" src="../imagenes/UT2-diapositiva-19.png" /></p>
+<ul>
+<li><strong>Employee</strong> es fuerte y <strong>Driving permit</strong> es débil.</li>
+<li>La relación <strong>Has</strong> es <strong>E</strong> (existencial) y su cardinalidad es <strong>1:1</strong>: un empleado tiene (0,1) permisos de conducir registrados; cada permiso es de (1,1) empleado.</li>
+<li><code>permit_number</code> es <strong>clave primaria</strong>: el número del permiso lo identifica por sí solo. Por eso la dependencia es existencial y no de identificación.</li>
+</ul>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p>Los tres ejemplos cumplen las reglas del apartado 3.2: son binarios, ninguno es N:M, y en los 1:N la N está en el lado débil (Room).</p>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+</div>
+<ol>
+<li>¿Cómo se dibuja una entidad débil?</li>
+<li>¿Qué diferencia hay entre dependencia existencial y dependencia de identificación?</li>
+<li>¿Qué es una clave parcial o discriminante? Pon un ejemplo.</li>
+<li>¿Puede una relación con una entidad débil ser N:M? ¿En qué lado va la N?</li>
+<li>En Employee: Driving permit, ¿por qué la dependencia es E y no ID?</li>
+</ol>
+<h2 id="bloque-4-el-grado-de-las-relaciones">Bloque 4. El grado de las relaciones<a class="headerlink" href="#bloque-4-el-grado-de-las-relaciones" title="Permanent link">&para;</a></h2>
+<h3 id="41-grado-de-una-relacion">4.1 Grado de una relación<a class="headerlink" href="#41-grado-de-una-relacion" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Número de <strong>entidades</strong> que intervienen en la relación.</p>
+<table>
+<thead>
+<tr>
+<th>Grado</th>
+<th>Nombre</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Reflexiva</strong></td>
+<td>Una sola entidad que se relaciona <strong>consigo misma</strong>. Ejemplo: «supervisa» dentro de EMPLEADO: un empleado supervisa a otro empleado.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Binaria</strong></td>
+<td>Dos entidades. Es la más común y en la que nos centramos por ahora.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Ternaria</strong></td>
+<td>Tres entidades al mismo tiempo.</td>
+</tr>
+<tr>
+<td>N</td>
+<td><strong>N-aria</strong></td>
+<td>Más de tres. Son poco comunes y deben <strong>simplificarse</strong> en relaciones binarias o ternarias.</td>
+</tr>
+</tbody>
+</table>
+<p>Hay además un caso especial que no depende del grado:</p>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Se produce cuando <strong>dos entidades</strong> se relacionan a través de <strong>dos relaciones diferentes</strong>. Es un tipo de relación más complejo de gestionar.</p>
+<p><strong>OJO : Grado no es cardinalidad</strong>
+ El <strong>grado</strong> cuenta <strong>entidades</strong> (¿cuántos rectángulos toca el rombo?). La <strong>cardinalidad</strong> cuenta <strong>ocurrencias</strong> (¿con cuántos se relaciona cada uno?). Una relación binaria puede ser 1:1, 1:N o N:M; sigue siendo de grado 2.</p>
+<h3 id="42-relaciones-reflexivas-o-recursivas">4.2 Relaciones reflexivas o recursivas<a class="headerlink" href="#42-relaciones-reflexivas-o-recursivas" title="Permanent link">&para;</a></h3>
+<p>Las relaciones reflexivas son especialmente útiles para modelar <strong>jerarquías</strong> organizativas, estructuras de supervisión o cualquier situación en la que elementos <strong>del mismo tipo</strong> se relacionan entre sí <strong>con papeles distintos</strong>.</p>
+<p><img alt="Relación reflexiva Supervises (dibujada con dos rectángulos)" src="../imagenes/UT2-diapositiva-22-1.png" /></p>
+<p><img alt="Relación reflexiva Supervises (dibujada con un solo rectángulo)" src="../imagenes/UT2-diapositiva-22-2.png" /></p>
+<p>Los dos dibujos representan <strong>lo mismo</strong>: la relación <strong>Supervises</strong>, 1:N, entre empleados. El primero repite el rectángulo Employee para que se vea mejor; el segundo usa un único rectángulo con dos líneas, que es la forma correcta en un diagrama definitivo. Cada empleado juega dos <strong>papeles</strong>: supervisor y supervisado.</p>
+<ul>
+<li>Un empleado supervisado tiene <strong>(1,1)</strong> supervisor.</li>
+<li>Un supervisor supervisa a <strong>(0,n)</strong> empleados.</li>
+</ul>
+<h4 id="otros-ejemplos">Otros ejemplos<a class="headerlink" href="#otros-ejemplos" title="Permanent link">&para;</a></h4>
+<p><img alt="Relación reflexiva 1:1: Person Married to" src="../imagenes/UT2-diapositiva-23.png" /></p>
+<p><strong>Married to (1:1).</strong> Una persona está casada con (0,1) personas. Las dos participaciones son opcionales: hay personas que no están casadas.</p>
+<p><img alt="Relación reflexiva N:M: Part decompost in, con atributo quantity" src="../imagenes/UT2-diapositiva-24.png" /></p>
+<p><strong>decompost in (N:M).</strong> Una pieza se descompone en (0,m) piezas y puede formar parte de (0,n) piezas. La relación tiene un atributo, <strong>quantity</strong>, que indica cuántas unidades de una pieza lleva otra. Es el típico «despiece» de un producto: una bicicleta lleva 2 ruedas; una rueda lleva 36 radios.</p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p>En <em>Supervises</em>, Laura (empleada) supervisa a Pau (empleado). En el diagrama hay una sola entidad, pero en cada ocurrencia de la relación una ocurrencia juega el papel de <strong>supervisor</strong> y la otra el de <strong>supervisado</strong>.</p>
+<h3 id="43-relaciones-ternarias">4.3 Relaciones ternarias<a class="headerlink" href="#43-relaciones-ternarias" title="Permanent link">&para;</a></h3>
+<p>Una relación ternaria une <strong>tres entidades a la vez</strong> con un único rombo. Sus cardinalidades se escriben con tres valores:</p>
+<p><img alt="Relación ternaria genérica y sus posibles cardinalidades" src="../imagenes/UT2-diapositiva-25.png" /></p>
+<p>Las combinaciones posibles son <strong>1:1:1</strong>, <strong>1:1:N</strong>, <strong>1:N:M</strong> y <strong>N:M:P</strong>.</p>
+<h4 id="ejemplo-de-relacion-ternaria">Ejemplo de relación ternaria<a class="headerlink" href="#ejemplo-de-relacion-ternaria" title="Permanent link">&para;</a></h4>
+<p>Las relaciones ternarias representan asociaciones que <strong>no pueden descomponerse en relaciones binarias sin perder información</strong>. Las entidades del ejemplo son:</p>
+<table>
+<thead>
+<tr>
+<th>Entidad</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Proveedor</strong></td>
+<td>Entidad que suministra productos</td>
+</tr>
+<tr>
+<td><strong>Producto</strong></td>
+<td>Artículo o servicio comercializado</td>
+</tr>
+<tr>
+<td><strong>Cliente</strong></td>
+<td>Empresa que recibe los productos</td>
+</tr>
+</tbody>
+</table>
+<p>La relación «suministra» conecta las tres entidades porque un proveedor concreto suministra un producto concreto para un cliente. Esa información no puede capturarse completamente con relaciones binarias separadas.</p>
+<p><img alt="Ejemplo de relación ternaria P-S-C" src="../imagenes/UT2-diapositiva-26.png" /></p>
+<p>Cómo leer el diagrama (P-S-C: <em>Products, Supliers, Clients</em>):</p>
+<ul>
+<li>En el centro está la ternaria <strong>P-S-C</strong>, con cardinalidad <strong>N:M:P</strong>.</li>
+<li>Alrededor están las tres relaciones binarias equivalentes: <em>Supplied by</em> (productos: proveedores), <em>Supply to</em> (proveedores: clientes) y <em>Are supplied</em> (productos: clientes). Las tres son N:M.</li>
+</ul>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p>Sabemos que Suministros Mar vende tornillos (productos: proveedores), que Suministros Mar trabaja para la empresa Obras Pons (proveedores: clientes) y que Obras Pons compra tornillos (productos: clientes). Con eso <strong>no</strong> sabemos si Obras Pons compra los tornillos <strong>a Suministros Mar</strong> o a otro proveedor. Solo la ternaria guarda el trío completo: (tornillos, Suministros Mar, Obras Pons).</p>
+<p>Las relaciones ternarias se usan cuando el hecho solo tiene sentido con las <strong>tres entidades a la vez</strong> y, al partirlo en binarias, se pierde información. Una buena comprobación es mirar las entidades de dos en dos: si todas las parejas son N:M, la ternaria tiene sentido; si alguna es 1:N, normalmente bastaría con binarias.</p>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+</div>
+<p>Las parejas N:M son la pista; la cardinalidad de la propia ternaria puede llevar algún 1. En PROFESOR: ASIGNATURA: GRUPO, cada asignatura de un grupo la da un solo profesor (1:N:M), y sigue siendo una ternaria correcta.</p>
+<h3 id="44-relaciones-dobles">4.4 Relaciones dobles<a class="headerlink" href="#44-relaciones-dobles" title="Permanent link">&para;</a></h3>
+<p>Las relaciones dobles se dan cuando <strong>dos entidades</strong> están conectadas mediante <strong>dos relaciones diferentes y distintas</strong>. Cada relación tiene su propio propósito y significado:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Qué representa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Primera relación</strong></td>
+<td>Un tipo específico de asociación entre las entidades, con sus propias reglas y cardinalidad</td>
+</tr>
+<tr>
+<td><strong>Segunda relación</strong></td>
+<td>Un tipo diferente de asociación entre las mismas entidades, independiente de la primera</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Relación doble: Employee : Project" src="../imagenes/UT2-diapositiva-27.png" /></p>
+<ul>
+<li><strong>Trabaja en</strong> (<em>Works on</em>, N:M): indica en qué proyecto trabaja cada empleado. Un empleado trabaja en (0,M) proyectos; un proyecto tiene (1,N) empleados.</li>
+<li><strong>Dirige</strong> (<em>Leads</em>, 1:1): indica qué empleado dirige cada proyecto. Un proyecto lo dirige (1,1) empleado; un empleado dirige (0,1) proyectos.</li>
+</ul>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p>Si solo existiera <em>Works on</em>, no sabríamos cuál de los empleados que trabajan en un proyecto es el que lo dirige. Son dos hechos distintos, con cardinalidades distintas: por eso son dos rombos.</p>
+<h3 id="45-otras-notaciones">4.5 Otras notaciones<a class="headerlink" href="#45-otras-notaciones" title="Permanent link">&para;</a></h3>
+<p>La notación de Chen (rectángulos, óvalos y rombos) no es la única. Muchas herramientas usan la notación de <strong>pata de gallo</strong> (<em>crow's foot</em>), que dibuja la cardinalidad con símbolos en los extremos de la línea:</p>
+<p><img alt="Notación de pata de gallo" src="../imagenes/UT2-diapositiva-28.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Símbolo en el extremo</th>
+<th>Significado</th>
+<th>Equivale a <em>(ampliación)</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raya vertical</td>
+<td>One (uno)</td>
+<td>máximo 1</td>
+</tr>
+<tr>
+<td>Pata de gallo</td>
+<td>Many (muchos)</td>
+<td>máximo N</td>
+</tr>
+<tr>
+<td>Doble raya</td>
+<td>One (and only one): uno y solo uno</td>
+<td>(1,1)</td>
+</tr>
+<tr>
+<td>Círculo + raya</td>
+<td>Zero or one: cero o uno</td>
+<td>(0,1)</td>
+</tr>
+<tr>
+<td>Raya + pata de gallo</td>
+<td>One or many: uno o muchos</td>
+<td>(1,N)</td>
+</tr>
+<tr>
+<td>Círculo + pata de gallo</td>
+<td>Zero or many: cero o muchos</td>
+<td>(0,N)</td>
+</tr>
+</tbody>
+</table>
+<p><em>(Ampliación: el truco para leerla es que el símbolo <strong>más cercano a la entidad</strong> es el máximo y el <strong>más alejado</strong> es el mínimo. El círculo es un 0, la raya es un 1 y la pata de gallo es «muchos». Es la notación que verás en MySQL Workbench.)</em></p>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+</div>
+<ol>
+<li>¿Qué mide el grado de una relación? ¿Qué nombre recibe cada grado?</li>
+<li>Pon un ejemplo de relación reflexiva y explica los dos papeles.</li>
+<li>¿Cuándo tiene sentido usar una ternaria? ¿Qué comprobación puedes hacer mirando las entidades de dos en dos?</li>
+<li>¿Qué es una relación doble? Explica el ejemplo de empleado y proyecto.</li>
+<li>En pata de gallo, ¿cómo se dibuja «cero o muchos»?</li>
+</ol>
+<h2 id="bloque-5-restricciones-sobre-las-relaciones">Bloque 5. Restricciones sobre las relaciones<a class="headerlink" href="#bloque-5-restricciones-sobre-las-relaciones" title="Permanent link">&para;</a></h2>
+<h3 id="51-el-modelo-er-extendido">5.1 El modelo E/R extendido<a class="headerlink" href="#51-el-modelo-er-extendido" title="Permanent link">&para;</a></h3>
+<p>El modelo E/R que viste en la Parte 1 se queda corto en algunas situaciones reales. Para cubrirlas se amplió con nuevos elementos, y el resultado se llama <strong>modelo E/R extendido</strong> (en inglés, <em>Extended E/R</em> o <em>EER</em>). Vamos a ver <strong>tres extensiones</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Extensión</th>
+<th>Qué añade</th>
+<th>Bloque</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Primera:</strong> restricciones sobre las relaciones</td>
+<td>Reglas entre dos relaciones que unen las mismas entidades</td>
+<td>5</td>
+</tr>
+<tr>
+<td><strong>Segunda:</strong> generalización y especialización</td>
+<td>Jerarquías de entidades con superclases y subclases</td>
+<td>6</td>
+</tr>
+<tr>
+<td><strong>Tercera:</strong> agregación o entidades asociativas</td>
+<td>Relaciones entre relaciones</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+<p>Las cuatro restricciones de este bloque se aplican siempre a una misma situación: <strong>dos entidades unidas por dos relaciones distintas</strong>. Es la <em>relación doble</em> que viste en el apartado 4.4 de la Parte 1. La restricción dice qué combinaciones de esas dos relaciones están permitidas.</p>
+<h3 id="52-restriccion-de-exclusividad">5.2 Restricción de exclusividad<a class="headerlink" href="#52-restriccion-de-exclusividad" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Una entidad puede participar en varias relaciones, pero <strong>cada ocurrencia</strong> de esa entidad solo puede pertenecer a <strong>una</strong> de esas relaciones.</p>
+<p><strong>EJEMPLO : El músico y la orquesta</strong>
+ Un músico solo toca o solo dirige; nunca puede hacer las dos cosas.</p>
+<p><img alt="Restricción de exclusividad: MÚSICO toca o dirige ORQUESTA" src="../imagenes/UT2-diapositiva-04-es.png" /></p>
+<p><strong>Cómo se dibuja:</strong> con un <strong>arco</strong> que corta las líneas de las dos relaciones, junto a la entidad a la que afecta la restricción (aquí, MÚSICO).</p>
+<p>Leído con ocurrencias: si Marta <strong>toca</strong> en la Orquesta de Palma, ya no puede <strong>dirigir</strong> ninguna orquesta, ni esa ni otra. Cada músico «elige» una de las dos relaciones.</p>
+<h3 id="53-restriccion-de-exclusion">5.3 Restricción de exclusión<a class="headerlink" href="#53-restriccion-de-exclusion" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Una instancia de una entidad puede formar parte de varias relaciones, pero no puede participar en más de una <strong>al mismo tiempo</strong>.</p>
+<p><strong>EJEMPLO : El monitor y los cursos</strong>
+ El monitor A puede <strong>impartir</strong> el curso A, pero no <strong>recibir</strong> el curso A.
+ El monitor A puede <strong>recibir</strong> el curso B.</p>
+<p><img alt="Restricción de exclusión: MONITOR imparte o recibe CURSO" src="../imagenes/UT2-diapositiva-05-es.png" /></p>
+<p><strong>Cómo se dibuja:</strong> con una <strong>línea discontinua</strong> que une los dos rombos.</p>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+</div>
+<p>Los ejemplos aclaran la definición: el monitor A <strong>sí</strong> participa en las dos relaciones (imparte el curso A y recibe el curso B). Lo que no puede es estar unido <strong>al mismo curso</strong> por las dos a la vez. Esa es la diferencia con la exclusividad, donde el músico no puede estar en las dos relaciones <strong>con nadie</strong>.</p>
+<h3 id="54-restriccion-de-inclusividad">5.4 Restricción de inclusividad<a class="headerlink" href="#54-restriccion-de-inclusividad" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Se usa para modelar situaciones en las que las ocurrencias de una entidad <strong>solo pueden asociarse mediante una relación después de haberse asociado mediante otra</strong>.</p>
+<p><strong>Cómo se dibuja:</strong></p>
+<ul>
+<li>Con un <strong>arco acabado en flecha</strong> entre las dos relaciones, junto a la entidad.</li>
+<li>La flecha une la <strong>relación que se exige primero</strong> con la <strong>segunda</strong>, la que depende de ella.</li>
+<li>La <strong>cardinalidad</strong> mínima y máxima se escribe junto a la flecha.</li>
+</ul>
+<p><img alt="Restricción de inclusividad: para impartir hay que haber recibido (2,n) cursos" src="../imagenes/UT2-diapositiva-06-es.png" /></p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p>(2,n) significa que un monitor debe haber completado <strong>al menos 2 cursos</strong> antes de poder impartir un curso. No importa cuáles: pueden ser cursos distintos del que va a impartir.</p>
+<p><strong>OJO : El sentido de la flecha</strong>
+ En este diagrama la punta de la flecha queda junto a <em>Recibe</em>, la relación que se cumple primero. No te quedes con hacia dónde apunta: lo que tienes que saber explicar es la idea: <strong>para participar en <em>Imparte</em>, antes hay que haber participado en <em>Recibe</em></strong>, y el (2,n) indica cuántas veces.</p>
+<h3 id="55-restriccion-de-inclusion">5.5 Restricción de inclusión<a class="headerlink" href="#55-restriccion-de-inclusion" title="Permanent link">&para;</a></h3>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Se establece cuando <strong>toda</strong> instancia de una entidad debe estar asociada con <strong>otro elemento</strong> de una entidad distinta a través de una segunda relación <strong>antes</strong> de poder participar en una asociación concreta.</p>
+<p><strong>Cómo se dibuja:</strong> con una <strong>flecha discontinua</strong> que une las dos relaciones.</p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p>Para divorciarse de una mujer, un hombre primero debe estar casado <strong>con ella</strong>.</p>
+<p><img alt="Restricción de inclusión: para divorciarse hay que estar casado" src="../imagenes/UT2-diapositiva-07-es.png" /></p>
+<p>Leído con ocurrencias: la pareja (Joan, Laura) solo puede aparecer en <em>se divorcia</em> si antes aparece en <em>se casa</em>. Toda pareja de <em>se divorcia</em> está <strong>incluida</strong> en <em>se casa</em>; de ahí el nombre.</p>
+<h3 id="56-las-cuatro-restricciones-cara-a-cara">5.6 Las cuatro restricciones, cara a cara<a class="headerlink" href="#56-las-cuatro-restricciones-cara-a-cara" title="Permanent link">&para;</a></h3>
+<p>Las cuatro restricciones se entienden mejor en dos parejas. En cada pareja, la diferencia es la misma: si la regla afecta a la entidad <strong>en general</strong> o a <strong>la misma pareja</strong> de ocurrencias.</p>
+<table>
+<thead>
+<tr>
+<th>Restricción</th>
+<th>Qué prohíbe o exige</th>
+<th>¿Con la misma ocurrencia de la otra entidad?</th>
+<th>Dibujo</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Exclusividad</strong></td>
+<td>Estar en las dos relaciones</td>
+<td>No: no puede estar en las dos con nadie</td>
+<td>Arco junto a la entidad</td>
+<td>Músico toca <strong>o</strong> dirige</td>
+</tr>
+<tr>
+<td><strong>Exclusión</strong></td>
+<td>Estar en las dos relaciones <strong>con el mismo</strong></td>
+<td>Sí</td>
+<td>Línea discontinua entre rombos</td>
+<td>Monitor no imparte y recibe <strong>el mismo</strong> curso</td>
+</tr>
+<tr>
+<td><strong>Inclusividad</strong></td>
+<td>Haber estado antes en la otra relación</td>
+<td>No: vale con cualquiera, (mín, máx) veces</td>
+<td>Arco con flecha y cardinalidad</td>
+<td>Recibir 2 cursos antes de impartir</td>
+</tr>
+<tr>
+<td><strong>Inclusión</strong></td>
+<td>Haber estado antes en la otra relación <strong>con el mismo</strong></td>
+<td>Sí</td>
+<td>Flecha discontinua entre rombos</td>
+<td>Casado <strong>con ella</strong> antes de divorciarse</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+</div>
+<p>Los nombres se parecen mucho y en el examen se confunden. Truco: las que acaban en <strong>-idad</strong> (exclusiv<strong>idad</strong>, inclusiv<strong>idad</strong>) hablan de la entidad <strong>en general</strong> y se dibujan con un <strong>arco</strong> junto a ella. Las que acaban en <strong>-ión</strong> (exclus<strong>ión</strong>, inclus<strong>ión</strong>) hablan de <strong>la misma pareja</strong> y se dibujan con una línea <strong>discontinua</strong> entre los rombos.</p>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+</div>
+<ol>
+<li>¿Qué tres extensiones forman el modelo E/R extendido?</li>
+<li>¿Qué diferencia hay entre exclusividad y exclusión? Pon el ejemplo de cada una.</li>
+<li>¿Qué significa (2,n) en el ejemplo del monitor?</li>
+<li>¿Por qué el ejemplo de casarse y divorciarse es de inclusión y no de inclusividad?</li>
+<li>¿Cómo se dibuja cada una de las cuatro restricciones?</li>
+</ol>
+<h2 id="bloque-6-generalizacion-y-especializacion">Bloque 6. Generalización y especialización<a class="headerlink" href="#bloque-6-generalizacion-y-especializacion" title="Permanent link">&para;</a></h2>
+<h3 id="61-superclases-y-subclases">6.1 Superclases y subclases<a class="headerlink" href="#61-superclases-y-subclases" title="Permanent link">&para;</a></h3>
+<p>Los conjuntos de entidades pueden tener <strong>características comunes</strong>. En lugar de repetir los mismos atributos en varias entidades, el modelo extendido permite organizarlas en una <strong>jerarquía</strong>.</p>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Crear un tipo de entidad de <strong>nivel superior</strong> (superclase) que incluya los rasgos compartidos.</p>
+<p><strong>DEFINICIÓN : Especialización</strong>
+ Dividir un conjunto de entidades en <strong>subgrupos</strong> (subclases) según sus rasgos diferenciadores.</p>
+<p><img alt="Generalización y especialización: EMPLEADO y sus subclases" src="../imagenes/UT2-diapositiva-09-es.png" /></p>
+<p>Cómo leer el diagrama:</p>
+<ul>
+<li><strong>EMPLEADO</strong> es la <strong>superclase</strong> (en otros libros, <em>supertipo</em>). Tiene los atributos que comparten todos: <code>Id_empleado</code> (la clave, subrayada), <code>Nombre</code>, <code>dirección</code> y <code>teléfono</code>.</li>
+<li><strong>DIRECTIVOS</strong>, <strong>TÉCNICOS</strong> y <strong>ADMINISTRATIVOS</strong> son las <strong>subclases</strong> (o <em>subtipos</em>). Cada una tiene solo sus atributos propios: los directivos, <code>Coche</code> y <code>prima</code>; los técnicos, <code>Titulación</code> y <code>Especialidad</code>; los administrativos, <code>Antigüedad</code>.</li>
+<li>El <strong>triángulo ISA</strong> une la superclase con las subclases. <em>ISA</em> viene del inglés <em>is a</em>, «es un»: un directivo <strong>es un</strong> empleado. En libros en castellano lo verás también como <strong>ES_UN</strong>.</li>
+</ul>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+</div>
+<p>La diferencia está en <strong>cómo llegas</strong> al diagrama, no en el resultado. <strong>Generalización</strong> = de abajo arriba: tienes DIRECTIVOS, TÉCNICOS y ADMINISTRATIVOS y descubres que comparten atributos, así que creas EMPLEADO. <strong>Especialización</strong> = de arriba abajo: tienes EMPLEADO y descubres que hay grupos con atributos propios, así que lo divides.</p>
+<h3 id="62-como-detectar-una-generalizacion-o-especializacion">6.2 Cómo detectar una generalización o especialización<a class="headerlink" href="#62-como-detectar-una-generalizacion-o-especializacion" title="Permanent link">&para;</a></h3>
+<p>Tres pasos:</p>
+<ol>
+<li>Busca un conjunto de entidades con <strong>atributos comunes</strong>.</li>
+<li>Esas entidades forman la <strong>superclase</strong>.</li>
+<li>Los <strong>atributos específicos</strong> dan lugar a la creación de <strong>subclases</strong>.</li>
+</ol>
+<p><img alt="La jerarquía de EMPLEADO" src="../imagenes/UT2-diapositiva-10-es.png" /></p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p>Frases como «los empleados pueden ser directivos, técnicos o administrativos», «de todos se guarda… y además, de los técnicos se guarda…» o «hay dos tipos de…» son pistas de una jerarquía. La palabra <strong>«además»</strong> suele marcar los atributos que van a las subclases.</p>
+<h3 id="63-jerarquias-y-herencia">6.3 Jerarquías y herencia<a class="headerlink" href="#63-jerarquias-y-herencia" title="Permanent link">&para;</a></h3>
+<p>Las jerarquías se caracterizan por la <strong>herencia</strong>:</p>
+<ul>
+<li>Las subclases <strong>heredan los atributos</strong> de su superclase.</li>
+<li>Si una superclase participa en una relación, sus subclases <strong>también participan automáticamente</strong>.</li>
+</ul>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p>Un técnico tiene sus propios atributos (<code>Titulación</code>, <code>Especialidad</code>) <strong>y además</strong> los de EMPLEADO (<code>Id_empleado</code>, <code>Nombre</code>, <code>dirección</code>, <code>teléfono</code>), aunque en el diagrama no se vuelvan a dibujar. Si EMPLEADO <em>trabaja en</em> DEPARTAMENTO, un técnico también trabaja en un departamento, sin necesidad de dibujar otra relación.</p>
+<p><strong>OJO : Los atributos comunes no se repiten</strong>
+ Un error típico es volver a colgar <code>Nombre</code> o <code>Id_empleado</code> de cada subclase. No hace falta, y además es incorrecto: en las subclases solo se dibujan los atributos <strong>propios</strong>. Lo común va una sola vez, en la superclase.</p>
+<h3 id="64-restricciones-semanticas-en-la-generalizacionespecializacion">6.4 Restricciones semánticas en la generalización/especialización<a class="headerlink" href="#64-restricciones-semanticas-en-la-generalizacionespecializacion" title="Permanent link">&para;</a></h3>
+<p>Una jerarquía se clasifica con dos preguntas:</p>
+<table>
+<thead>
+<tr>
+<th>Pregunta</th>
+<th>Respuesta</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>¿Toda instancia de la superclase pertenece a alguna subclase?</td>
+<td>Sí</td>
+<td><strong>Total</strong> (totalidad)</td>
+</tr>
+<tr>
+<td></td>
+<td>No, puede haber instancias que no estén en ninguna</td>
+<td><strong>Parcial</strong> (parcialidad)</td>
+</tr>
+<tr>
+<td>¿Una instancia puede pertenecer a más de una subclase?</td>
+<td>Sí</td>
+<td><strong>Solapada</strong> (solapamiento)</td>
+</tr>
+<tr>
+<td></td>
+<td>No, solo a una</td>
+<td><strong>Exclusiva</strong> (exclusividad)</td>
+</tr>
+</tbody>
+</table>
+<p>Combinando las dos respuestas salen <strong>cuatro tipos</strong>:</p>
+<p><img alt="Los cuatro tipos de jerarquía y su símbolo" src="../imagenes/UT2-diapositiva-12-es.png" /></p>
+<p><strong>Cómo se dibujan:</strong></p>
+<ul>
+<li><strong>Total:</strong> un <strong>círculo relleno</strong> sobre la línea que une el triángulo con la superclase. <strong>Parcial:</strong> la línea sin círculo.</li>
+<li><strong>Exclusiva:</strong> un <strong>arco</strong> que corta las líneas que van a las subclases. <strong>Solapada:</strong> sin arco.</li>
+</ul>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p><strong>Total / exclusiva:</strong> CUENTA → CUENTA CORRIENTE, CUENTA DE AHORRO, en un banco que solo tiene esos dos tipos: toda cuenta es de uno de ellos y solo de uno.
+ <strong>Total / solapada:</strong> MIEMBRO de un club → SOCIO, VOLUNTARIO, cuando todo miembro es al menos una de las dos cosas y puede ser ambas.
+ <strong>Parcial / exclusiva:</strong> VEHÍCULO → TURISMO, CAMIÓN, si también hay vehículos que no son ninguno de los dos (motos) y ninguno es las dos cosas.
+ <strong>Parcial / solapada:</strong> EMPLEADO → DELEGADO SINDICAL, SOCORRISTA: muchos empleados no son ninguna de las dos cosas y alguno puede ser ambas.</p>
+<p><strong>OJO : «Exclusividad» otra vez</strong>
+ La palabra <em>exclusividad</em> sale en el Bloque 5 (restricción entre dos relaciones) y aquí (tipo de jerarquía). La idea es parecida («solo una de las opciones»), pero el contexto y el dibujo son distintos: allí es un arco junto a una entidad que corta dos relaciones; aquí, un arco bajo el triángulo ISA que corta las líneas de las subclases.</p>
+<h3 id="65-ejemplo-turismos-y-camiones">6.5 Ejemplo: turismos y camiones<a class="headerlink" href="#65-ejemplo-turismos-y-camiones" title="Permanent link">&para;</a></h3>
+<p>El enunciado:</p>
+<blockquote>
+<p>Supongamos la existencia de dos entidades TURISMO y CAMION. Los atributos de la entidad TURISMO son: Num_bastidor, Fecha_fab, precio y Num_puertas. Los atributos de la entidad CAMION son: Num_bastidor, Fecha_fab, precio, Num_ejes y Tonelaje.</p>
+</blockquote>
+<p><img alt="De dos entidades separadas a una generalización en VEHÍCULO" src="../imagenes/UT2-diapositiva-14.png" /></p>
+<p>Aplicando los tres pasos del apartado 6.2:</p>
+<table>
+<thead>
+<tr>
+<th>Paso</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Atributos comunes</td>
+<td><code>Num_bastidor</code>, <code>Fecha_fab</code>, <code>precio</code></td>
+</tr>
+<tr>
+<td>2. Superclase</td>
+<td><strong>VEHÍCULO</strong>, con esos tres atributos (<code>Num_bastidor</code> es la clave)</td>
+</tr>
+<tr>
+<td>3. Subclases</td>
+<td><strong>TURISMO</strong> con <code>Num_puertas</code> , <strong>CAMIÓN</strong> con <code>Num_ejes</code> y <code>Tonelaje</code></td>
+</tr>
+</tbody>
+</table>
+<p>Es una <strong>generalización</strong>: se parte de dos entidades y se sube a una superclase. El dibujo lleva el <strong>arco</strong> de exclusiva bajo el triángulo y <strong>no</strong> lleva el círculo de total, así que, con la notación del apartado 6.4, se lee como <strong>parcial y exclusiva</strong>: un vehículo no puede ser turismo y camión a la vez.</p>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+</div>
+<p>Esta imagen viene de otro material y usa flechas en las líneas del triángulo. No cambia el significado: la superclase está arriba y las subclases abajo.</p>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+</div>
+<ol>
+<li>¿Qué diferencia hay entre generalización y especialización si el dibujo es el mismo?</li>
+<li>¿Qué significa ISA?</li>
+<li>¿Qué hereda una subclase de su superclase?</li>
+<li>Explica qué es una jerarquía total y solapada, y cómo se dibuja.</li>
+<li>En el ejemplo de VEHÍCULO, ¿qué atributos van en la superclase y por qué?</li>
+</ol>
+<h2 id="bloque-7-agregacion">Bloque 7. Agregación<a class="headerlink" href="#bloque-7-agregacion" title="Permanent link">&para;</a></h2>
+<h3 id="71-que-es-la-agregacion">7.1 Qué es la agregación<a class="headerlink" href="#71-que-es-la-agregacion" title="Permanent link">&para;</a></h3>
+<p>El modelo Entidad-Relación estándar <strong>no puede representar relaciones entre relaciones</strong>, y eso limita el modelado de situaciones reales complejas. La tercera extensión lo resuelve.</p>
+<div class="admonition definicion">
+<p class="admonition-title">Definición</p>
+</div>
+<p>Abstracción que trata las <strong>relaciones como entidades de nivel superior</strong>. Permite expresar relaciones <strong>entre relaciones</strong>, o <strong>entre entidades y relaciones</strong>, lo que aumenta la flexibilidad y la capacidad del modelo en el diseño de bases de datos. También se llaman <strong>entidades asociativas</strong>.</p>
+<p><strong>Cómo se dibuja:</strong> con un <strong>rectángulo grande</strong> que encierra la relación agregada y sus entidades. Ese rectángulo se comporta como si fuera una entidad más: se puede unir a otras relaciones.</p>
+<p><img alt="Ejemplo de agregación: Salas, Personal y Tareas" src="../imagenes/UT2-diapositiva-16.png" /></p>
+<p>Cómo leer el ejemplo:</p>
+<ul>
+<li>Dentro del rectángulo está la relación <strong>trabajan</strong> entre SALAS y PERSONAL (N:N), con el atributo compuesto <code>horario</code> (entrada, salida).</li>
+<li>Todo el bloque «personal que trabaja en una sala» se relaciona con <strong>TAREAS</strong> mediante <strong>realizan</strong>. Es decir, las tareas no se asignan a una persona ni a una sala por separado, sino a <strong>la persona trabajando en esa sala</strong>.</li>
+<li>Fíjate también en <code>teléfono*</code>: el asterisco es otra forma de marcar un atributo <strong>multivaluado</strong>, y <code>dirección</code> es un atributo <strong>compuesto</strong> (ciudad, calle, número). Son las notaciones de la Parte 1 dibujadas de otra manera.</li>
+</ul>
+<h3 id="72-el-problema-alumnos-deportes-y-profesores">7.2 El problema: alumnos, deportes y profesores<a class="headerlink" href="#72-el-problema-alumnos-deportes-y-profesores" title="Permanent link">&para;</a></h3>
+<p><strong>Contexto:</strong> tenemos la relación binaria N:M <strong>Practica</strong> entre ALUMNO y DEPORTE.</p>
+<p><strong>Situación:</strong> queremos registrar el <strong>PROFESOR</strong> responsable de entrenar a un alumno en un deporte concreto.</p>
+<p><strong>Primera idea:</strong> crear una relación <strong>ternaria</strong> llamada <strong>Entrena</strong>, entre ALUMNO, DEPORTE y PROFESOR. Así se recoge la asociación de las tres entidades y se puede saber qué profesor entrena a cada alumno en cada deporte.</p>
+<p><img alt="El diagrama con la ternaria Entrena" src="../imagenes/UT2-diapositiva-18-es.png" /></p>
+<p>Parece razonable, pero en el apartado siguiente verás por qué <strong>es un mal diagrama</strong>.</p>
+<h3 id="73-por-que-la-ternaria-esta-mal">7.3 Por qué la ternaria está mal<a class="headerlink" href="#73-por-que-la-ternaria-esta-mal" title="Permanent link">&para;</a></h3>
+<p>Hay dos relaciones que se pisan:</p>
+<table>
+<thead>
+<tr>
+<th>Relación</th>
+<th>Qué representa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Practica</strong></td>
+<td>La participación de los alumnos en los deportes</td>
+</tr>
+<tr>
+<td><strong>Entrena</strong></td>
+<td>La relación de entrenamiento entre alumnos, profesores y deportes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Diferencia clave.</strong> No todas las ocurrencias de <em>Practica</em> tendrán un PROFESOR asociado. Por tanto, <strong>fusionar</strong> <em>Practica</em> y <em>Entrena</em> en una sola ternaria no es correcto: perderíamos a los alumnos que practican un deporte sin entrenador.</p>
+<p><strong>Problema de redundancia.</strong> Si mantenemos las dos, <em>Entrena</em> contiene información <strong>redundante</strong>: toda combinación de ALUMNO y DEPORTE que aparece en <em>Entrena</em> ya está en <em>Practica</em>.</p>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p><em>Practica</em> guarda (Marta, baloncesto). <em>Entrena</em> guarda (Marta, baloncesto, Laura). La pareja (Marta, baloncesto) está <strong>dos veces</strong>. Si Marta deja el baloncesto y solo se borra de <em>Practica</em>, <em>Entrena</em> sigue diciendo que Laura la entrena en baloncesto: los datos ya no cuadran.</p>
+<p><strong>OJO : Conecta con la Parte 1</strong>
+ En el apartado 4.3 viste que una ternaria se usa cuando el hecho necesita las tres entidades a la vez (y que, mirándolas de dos en dos, lo normal es que salgan N:M). Aquí el problema es otro: la ternaria <strong>repite</strong> una relación binaria que ya existe (<em>Practica</em>). Cuando una ternaria contiene a una binaria que tiene vida propia, la solución suele ser la agregación.</p>
+<h3 id="74-la-solucion-con-agregacion">7.4 La solución con agregación<a class="headerlink" href="#74-la-solucion-con-agregacion" title="Permanent link">&para;</a></h3>
+<p><strong>Si el profesor fuera solo un valor</strong> (por ejemplo, un nombre sin más datos), bastaría con añadirlo como <strong>atributo de la relación</strong> <em>Practica</em>, como hacías en la Parte 1 con la calificación.</p>
+<p><strong>Pero el profesor es una entidad</strong> que ya existe, con sus propios atributos y relaciones, no un simple valor. Hace falta otro enfoque.</p>
+<p><strong>Solución:</strong> usar la <strong>agregación de entidades</strong>. Se trata la relación <em>Practica</em> entre ALUMNO y DEPORTE como una entidad de nivel superior llamada «Practica», y se relaciona esa entidad con PROFESOR mediante <em>Entrena</em>.</p>
+<p><img alt="La solución: agregación de Practica y relación Entrena con PROFESOR" src="../imagenes/UT2-diapositiva-21-es.png" /></p>
+<p>Cómo leer las cardinalidades:</p>
+<ul>
+<li>Cada práctica (un alumno en un deporte) tiene <strong>(0,1)</strong> profesor: puede no tener entrenador, y como mucho tiene uno.</li>
+<li>Cada profesor entrena <strong>(0,n)</strong> prácticas.</li>
+</ul>
+<p><strong>Ventajas de la agregación:</strong></p>
+<ul>
+<li>Permite incluir entidades adicionales (como PROFESOR) <strong>sin redundancia</strong>: la pareja (alumno, deporte) solo está en <em>Practica</em>.</li>
+<li>Facilita la representación de relaciones complejas <strong>manteniendo la claridad</strong> del modelo.</li>
+</ul>
+<div class="admonition ejemplo">
+<p class="admonition-title">Ejemplo</p>
+</div>
+<p><em>Practica</em> guarda (Marta, baloncesto) y (Pau, tenis). <em>Entrena</em> guarda solo (práctica «Marta-baloncesto», Laura). Pau practica tenis sin entrenador y no pasa nada. Si Marta deja el baloncesto, al borrar su práctica desaparece también el entrenamiento que dependía de ella.</p>
+<h3 id="75-otro-ejemplo-empleados-sucursales-y-managers">7.5 Otro ejemplo: empleados, sucursales y managers<a class="headerlink" href="#75-otro-ejemplo-empleados-sucursales-y-managers" title="Permanent link">&para;</a></h3>
+<p>El último ejemplo es un esquema hecho a mano, con notas en inglés y en castellano, que repite la misma idea con otro caso.</p>
+<p><img alt="Esquema a mano: agregación de Works_on y relación Supervises con MANAGER" src="../imagenes/UT2-diapositiva-22.png" /></p>
+<p><strong>Situación:</strong></p>
+<ul>
+<li>Los empleados pueden trabajar en distintos trabajos (<em>jobs</em>) en distintas sucursales (<em>branches</em>) de una empresa. Es la ternaria <strong>Works_on</strong> entre EMPLOYEE (1,N), JOB (1,M) y BRANCH (1,P).</li>
+<li>Queremos introducir <strong>managers</strong> que supervisen distintas asignaciones de tareas.</li>
+</ul>
+<p><strong>Lo que no funciona (las líneas rojas tachadas):</strong> unir MANAGER con EMPLOYEE, JOB y BRANCH por separado, es decir, intentar modelarlo con una <strong>cuaternaria</strong>. Las notas de la imagen explican por qué:</p>
+<ul>
+<li>En el modelo E/R no podemos hacer relaciones entre relaciones, así que se intenta con una cuaternaria.</li>
+<li>No captura bien la realidad: un manager supervisa <strong>una tarea de un empleado en una cierta sucursal</strong>, no a un empleado, un trabajo y una sucursal sueltos.</li>
+<li>Hay mucha redundancia.</li>
+<li>No podemos eliminar <em>Works_on</em>, porque puede haber tareas que no estén supervisadas.</li>
+</ul>
+<p><strong>La solución es utilizar agregación:</strong> el rectángulo verde convierte <em>Works_on</em> en una entidad de nivel superior, y <strong>Supervises</strong> la une con MANAGER. Cada asignación se supervisa (0,1) veces y cada manager supervisa (0,1) asignaciones (1:1 en el dibujo).</p>
+<div class="admonition ojo">
+<p class="admonition-title">Ojo</p>
+</div>
+<p>En los dos ejemplos hay una relación que tiene sentido por sí sola (<em>Practica</em>, <em>Works_on</em>) y un nuevo dato que depende de <strong>cada ocurrencia de esa relación</strong> (quién entrena, quién supervisa). Esa es la señal para usar agregación.</p>
+<div class="admonition comprueba">
+<p class="admonition-title">Comprueba</p>
+</div>
+<ol>
+<li>¿Qué no puede representar el modelo E/R estándar que sí permite la agregación?</li>
+<li>¿Por qué no se puede fusionar <em>Practica</em> en la ternaria <em>Entrena</em>?</li>
+<li>¿Qué información redundante tiene el diagrama con <em>Practica</em> y <em>Entrena</em> a la vez?</li>
+<li>¿Cuándo bastaría con un atributo en la relación en lugar de una agregación?</li>
+<li>¿Cómo se dibuja una agregación?</li>
+</ol>
+<h2 id="material-de-repaso">Material de repaso<a class="headerlink" href="#material-de-repaso" title="Permanent link">&para;</a></h2>
+<h3 id="glosario">Glosario<a class="headerlink" href="#glosario" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Atributo</strong></td>
+<td>Propiedad o característica de una entidad; se dibuja con un óvalo.</td>
+</tr>
+<tr>
+<td><strong>Atributo compuesto</strong></td>
+<td>Se puede dividir en subpartes con significado propio (dirección → calle, ciudad…).</td>
+</tr>
+<tr>
+<td><strong>Atributo de relación</strong></td>
+<td>Dato que pertenece a la asociación entre entidades, no a una entidad sola (la calificación).</td>
+</tr>
+<tr>
+<td><strong>Atributo derivado</strong></td>
+<td>Su valor se obtiene de otros atributos (edad a partir de la fecha de nacimiento); óvalo punteado.</td>
+</tr>
+<tr>
+<td><strong>Atributo monovaluado</strong></td>
+<td>Tiene un solo valor por ocurrencia.</td>
+</tr>
+<tr>
+<td><strong>Atributo multivaluado</strong></td>
+<td>Puede tener varios valores por ocurrencia; óvalo doble.</td>
+</tr>
+<tr>
+<td><strong>Atributo obligatorio</strong></td>
+<td>Siempre tiene valor. La clave es obligatoria.</td>
+</tr>
+<tr>
+<td><strong>Atributo opcional</strong></td>
+<td>Puede no tener valor en algunas ocurrencias.</td>
+</tr>
+<tr>
+<td><strong>Atributo simple</strong></td>
+<td>No se puede dividir en partes con significado.</td>
+</tr>
+<tr>
+<td><strong>Cardinalidad de entidad</strong></td>
+<td>Pareja (mín, máx) de asociaciones que puede tener cada instancia de una entidad en una relación.</td>
+</tr>
+<tr>
+<td><strong>Cardinalidad de relación</strong></td>
+<td>Número máximo de ocurrencias asociadas: 1:1, 1:N o N:M.</td>
+</tr>
+<tr>
+<td><strong>Clave o identificador</strong></td>
+<td>Atributo que distingue cada ocurrencia de las demás; se subraya.</td>
+</tr>
+<tr>
+<td><strong>Clave parcial o discriminante</strong></td>
+<td>Atributo que identifica a una entidad débil solo dentro de su entidad fuerte.</td>
+</tr>
+<tr>
+<td><strong>Dependencia de identificación (ID)</strong></td>
+<td>La entidad débil necesita a la fuerte para existir y para identificarse.</td>
+</tr>
+<tr>
+<td><strong>Dependencia existencial (E)</strong></td>
+<td>Si desaparece la instancia fuerte, desaparecen las débiles que dependen de ella.</td>
+</tr>
+<tr>
+<td><strong>Diagrama de conjuntos</strong></td>
+<td>Dibujo de las ocurrencias de dos entidades y de las parejas que forman en una relación.</td>
+</tr>
+<tr>
+<td><strong>Entidad débil</strong></td>
+<td>Entidad cuya existencia depende de otra; rectángulo doble.</td>
+</tr>
+<tr>
+<td><strong>Entidad fuerte</strong></td>
+<td>Entidad que existe de forma independiente; rectángulo.</td>
+</tr>
+<tr>
+<td><strong>Grado</strong></td>
+<td>Número de entidades que intervienen en una relación.</td>
+</tr>
+<tr>
+<td><strong>Modelo conceptual</strong></td>
+<td>Modelo de datos de la fase de análisis, independiente del SGBD. Ejemplo: el E/R.</td>
+</tr>
+<tr>
+<td><strong>Modelo de datos</strong></td>
+<td>Herramientas conceptuales para describir datos, relaciones, semántica y restricciones.</td>
+</tr>
+<tr>
+<td><strong>Modelo lógico</strong></td>
+<td>Modelo de datos de la fase de diseño, que ya depende del tipo de SGBD. Ejemplo: el relacional.</td>
+</tr>
+<tr>
+<td><strong>Ocurrencia o instancia</strong></td>
+<td>Caso concreto de una entidad o de una relación.</td>
+</tr>
+<tr>
+<td><strong>Participación obligatoria (total)</strong></td>
+<td>Cardinalidad mínima 1.</td>
+</tr>
+<tr>
+<td><strong>Participación opcional (parcial)</strong></td>
+<td>Cardinalidad mínima 0.</td>
+</tr>
+<tr>
+<td><strong>Pata de gallo</strong></td>
+<td>Notación que dibuja la cardinalidad con símbolos en los extremos de las líneas.</td>
+</tr>
+<tr>
+<td><strong>Relación</strong></td>
+<td>Asociación entre entidades; rombo con un verbo en singular.</td>
+</tr>
+<tr>
+<td><strong>Relación binaria</strong></td>
+<td>Relación de grado 2.</td>
+</tr>
+<tr>
+<td><strong>Relación doble</strong></td>
+<td>Dos entidades unidas por dos relaciones distintas.</td>
+</tr>
+<tr>
+<td><strong>Relación n-aria</strong></td>
+<td>Relación de grado mayor que 3; debe simplificarse.</td>
+</tr>
+<tr>
+<td><strong>Relación reflexiva o recursiva</strong></td>
+<td>Relación de grado 1: una entidad consigo misma, con papeles distintos.</td>
+</tr>
+<tr>
+<td><strong>Relación ternaria</strong></td>
+<td>Relación de grado 3.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mapa-resumen">Mapa resumen<a class="headerlink" href="#mapa-resumen" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>MODELO E/R (modelo conceptual: no depende de ningún SGBD)
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── ENTIDADES ........ fuerte [ RECTÁNGULO ]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│ débil [[ RECTÁNGULO DOBLE ]]
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│ ├─ dependencia existencial (E)
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│ └─ dependencia de identificación (ID) → rombo doble
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│ , siempre binaria , 1:1 o 1:N (N en el lado débil)
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│ , nunca N:M
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>├── ATRIBUTOS ........ ( ÓVALO )
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│ obligatorio / opcional clave → subrayado
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│ simple / compuesto compuesto → óvalos colgando
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│ monovaluado / multivaluado multivaluado → (( óvalo doble ))
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│ derivado derivado → ( óvalo punteado )
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>│
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>├── RELACIONES ....... &lt; ROMBO &gt; , verbo en singular , sin parejas repetidas
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>│ cardinalidad de la relación ... 1:1 , 1:N , N:M (se toman los máximos)
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>│ cardinalidad de entidad ....... (mín, máx): (0,1) (1,1) (0,N) (1,N)
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>│ mín 0 = opcional , mín 1 = obligatoria
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>│ atributos de relación ......... casi siempre en N:M (calificación)
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>│
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>├── GRADO ............ 1 reflexiva , 2 binaria , 3 ternaria , N n-aria
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>│ ternaria → el hecho necesita las tres a la vez (pista: parejas N:M)
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>│ doble → dos entidades, dos relaciones distintas
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>│
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>└── OTRAS NOTACIONES . pata de gallo: | uno , &lt; muchos , || uno y solo uno
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a> o| cero o uno , |&lt; uno o muchos , o&lt; cero o muchos
+</code></pre></div>
+<h3 id="autoevaluacion">Autoevaluación<a class="headerlink" href="#autoevaluacion" title="Permanent link">&para;</a></h3>
+<p><strong>Parte A. Preguntas cortas</strong></p>
+<ol>
+<li>Define modelo de datos.</li>
+<li>¿Qué es una entidad fuerte y cómo se representa?</li>
+<li>¿Qué diferencia hay entre una entidad y una ocurrencia de esa entidad?</li>
+<li>Explica la diferencia entre un atributo compuesto y uno multivaluado con un ejemplo de cada uno.</li>
+<li>¿Por qué <code>edad</code> suele ser un atributo derivado?</li>
+<li>¿Qué dice la regla fundamental de las relaciones?</li>
+<li>¿Qué tipo de palabra se usa para nombrar una relación? Pon tres ejemplos.</li>
+<li>Define cardinalidad de una relación y enumera sus tres tipos.</li>
+<li>¿Cuándo es obligatoria la participación de una entidad en una relación? ¿Y opcional?</li>
+<li>¿Qué es un atributo de relación? Pon un ejemplo.</li>
+<li>¿Qué es una clave parcial o discriminante?</li>
+<li>Enuncia las tres reglas de las relaciones con entidades débiles.</li>
+<li>¿Qué es una relación reflexiva? Pon un ejemplo distinto de <em>supervisa</em>.</li>
+<li>¿Qué hay que simplificar cuando aparece una relación n-aria?</li>
+<li>¿Qué es una relación doble?</li>
+</ol>
+<p><strong>Parte B. Tipo test</strong> (una sola respuesta correcta)</p>
+<ol>
+<li>Un atributo multivaluado se dibuja con:
+ a) óvalo punteado , b) óvalo doble , c) rectángulo doble , d) rombo doble</li>
+<li>Una entidad débil se dibuja con:
+ a) rectángulo doble , b) óvalo doble , c) rombo , d) rectángulo punteado</li>
+<li>La cardinalidad (0,N) significa:
+ a) obligatoria, una vez , b) opcional, máximo una , c) opcional, sin límite , d) obligatoria, al menos una</li>
+<li>«Un estudiante tiene un expediente y cada expediente pertenece a un estudiante» es:
+ a) 1:1 , b) 1:N , c) N:M , d) reflexiva</li>
+<li>La participación es obligatoria cuando:
+ a) la cardinalidad máxima es N , b) la mínima es 0 , c) la mínima es 1 , d) la máxima es 1</li>
+<li>Una relación con una entidad débil <strong>nunca</strong> puede ser:
+ a) 1:1 , b) 1:N , c) binaria , d) N:M</li>
+<li>Si <code>Room_number</code> solo identifica la habitación dentro de su hotel, la dependencia es:
+ a) existencial , b) de identificación , c) reflexiva , d) ternaria</li>
+<li>Una relación en la que interviene una sola entidad es:
+ a) binaria , b) doble , c) reflexiva , d) débil</li>
+<li>En una ternaria bien planteada, lo normal es que las relaciones binarias entre sus entidades sean:
+ a) 1:1 , b) 1:N , c) N:M , d) reflexivas</li>
+<li>En pata de gallo, un círculo junto a una raya significa:
+ a) uno y solo uno , b) cero o uno , c) uno o muchos , d) cero o muchos</li>
+</ol>
+<p><strong>Parte C. Razona</strong></p>
+<ol>
+<li>Una biblioteca guarda de cada <strong>socio</strong> su número de socio, nombre, varios teléfonos y su dirección (calle, ciudad y código postal). De cada <strong>libro</strong> guarda el ISBN y el título. Un socio puede tener prestados varios libros y un libro puede haber sido prestado a muchos socios a lo largo del tiempo; de cada préstamo interesa la <strong>fecha</strong>. Identifica las entidades, sus atributos con su tipo, la relación, su cardinalidad y dónde va el atributo <em>fecha</em>.</li>
+<li>En una empresa, cada empleado tiene exactamente un jefe, que también es empleado, excepto el director general, que no tiene jefe. Un jefe puede tener muchos empleados a su cargo. ¿De qué grado es la relación? Escribe su cardinalidad y las dos parejas (mín, máx).</li>
+<li>Un compañero modela un <strong>edificio</strong> y sus <strong>plantas</strong> como una relación N:M entre dos entidades fuertes. Explica qué ha hecho mal y cómo lo modelarías tú.</li>
+</ol>
+<h3 id="glosario-del-er-extendido">Glosario del E/R extendido<a class="headerlink" href="#glosario-del-er-extendido" title="Permanent link">&para;</a></h3>
+<h3 id="glosario_1">Glosario<a class="headerlink" href="#glosario_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Agregación</strong></td>
+<td>Abstracción que trata una relación como entidad de nivel superior para poder relacionarla con otras. También, <em>entidad asociativa</em>.</td>
+</tr>
+<tr>
+<td><strong>Especialización</strong></td>
+<td>Dividir una entidad en subclases según sus rasgos diferenciadores (de arriba abajo).</td>
+</tr>
+<tr>
+<td><strong>Generalización</strong></td>
+<td>Crear una superclase con los rasgos comunes de varias entidades (de abajo arriba).</td>
+</tr>
+<tr>
+<td><strong>Herencia</strong></td>
+<td>Las subclases reciben los atributos y las relaciones de su superclase.</td>
+</tr>
+<tr>
+<td><strong>ISA</strong></td>
+<td><em>Is a</em>, «es un». Triángulo que une superclase y subclases.</td>
+</tr>
+<tr>
+<td><strong>Jerarquía exclusiva</strong></td>
+<td>Una instancia de la superclase solo puede estar en una subclase. Arco bajo el triángulo.</td>
+</tr>
+<tr>
+<td><strong>Jerarquía parcial</strong></td>
+<td>Puede haber instancias de la superclase que no estén en ninguna subclase. Sin círculo.</td>
+</tr>
+<tr>
+<td><strong>Jerarquía solapada</strong></td>
+<td>Una instancia de la superclase puede estar en varias subclases. Sin arco.</td>
+</tr>
+<tr>
+<td><strong>Jerarquía total</strong></td>
+<td>Toda instancia de la superclase está en alguna subclase. Círculo relleno sobre la línea superior.</td>
+</tr>
+<tr>
+<td><strong>Modelo E/R extendido</strong></td>
+<td>E/R ampliado con restricciones sobre relaciones, generalización/especialización y agregación.</td>
+</tr>
+<tr>
+<td><strong>Restricción de exclusión</strong></td>
+<td>Una ocurrencia no puede estar unida a la misma ocurrencia de la otra entidad por las dos relaciones. Línea discontinua.</td>
+</tr>
+<tr>
+<td><strong>Restricción de exclusividad</strong></td>
+<td>Cada ocurrencia solo puede participar en una de las relaciones. Arco junto a la entidad.</td>
+</tr>
+<tr>
+<td><strong>Restricción de inclusión</strong></td>
+<td>Para participar en una relación con una ocurrencia, antes hay que estar unido a esa misma ocurrencia por la otra. Flecha discontinua.</td>
+</tr>
+<tr>
+<td><strong>Restricción de inclusividad</strong></td>
+<td>Para participar en una relación, antes hay que haber participado en la otra (mín, máx) veces. Arco con flecha.</td>
+</tr>
+<tr>
+<td><strong>Subclase</strong></td>
+<td>Entidad de nivel inferior de una jerarquía, con los atributos propios.</td>
+</tr>
+<tr>
+<td><strong>Superclase</strong></td>
+<td>Entidad de nivel superior de una jerarquía, con los atributos comunes.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mapa-resumen_1">Mapa resumen<a class="headerlink" href="#mapa-resumen_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>MODELO E/R EXTENDIDO = E/R + 3 extensiones
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├── 1) RESTRICCIONES SOBRE RELACIONES (2 entidades, 2 relaciones)
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│ ¿en general? ¿con la misma pareja?
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│ EXCLUSIVIDAD arco junto a entidad EXCLUSIÓN línea discontinua
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│ músico toca O dirige monitor no imparte y recibe
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>│ el MISMO curso
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│ INCLUSIVIDAD arco con flecha INCLUSIÓN flecha discontinua
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>│ + (mín,máx): recibir 2 cursos divorciarse de ella exige
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>│ antes de impartir estar casado con ella
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>│
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>├── 2) GENERALIZACIÓN / ESPECIALIZACIÓN
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>│ superclase (atributos comunes) ── ISA ── subclases (atributos propios)
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>│ generalización ↑ (de abajo arriba) , especialización ↓ (de arriba abajo)
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>│ herencia: atributos + relaciones de la superclase
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>│ total (círculo) / parcial exclusiva (arco) / solapada
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>│
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>└── 3) AGREGACIÓN (entidades asociativas)
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a> relación tratada como entidad → relaciones entre relaciones
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a> señal: ternaria que repite una binaria con vida propia
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a> [ ALUMNO - Practica - DEPORTE ] -- Entrena -- PROFESOR
+</code></pre></div>
+<h3 id="autoevaluacion_1">Autoevaluación<a class="headerlink" href="#autoevaluacion_1" title="Permanent link">&para;</a></h3>
+<p><strong>Parte A. Preguntas cortas</strong></p>
+<ol>
+<li>¿Por qué hizo falta ampliar el modelo E/R?</li>
+<li>Define la restricción de exclusividad y di cómo se dibuja.</li>
+<li>Define la restricción de exclusión y explica el ejemplo del monitor.</li>
+<li>¿Qué indica la cardinalidad que acompaña a una restricción de inclusividad?</li>
+<li>¿Qué exige la restricción de inclusión? Pon el ejemplo de casarse y divorciarse.</li>
+<li>¿Qué diferencia hay entre generalización y especialización?</li>
+<li>Enumera los tres pasos para detectar una generalización.</li>
+<li>¿Qué dos cosas heredan las subclases?</li>
+<li>¿Qué significa que una jerarquía sea total? ¿Y parcial?</li>
+<li>¿Qué significa que una jerarquía sea solapada? ¿Y exclusiva?</li>
+<li>¿Qué es la agregación?</li>
+<li>¿Por qué el diagrama con <em>Practica</em> y la ternaria <em>Entrena</em> tiene redundancia?</li>
+<li>¿En qué caso bastaría con añadir el profesor como atributo de <em>Practica</em>?</li>
+<li>En el esquema de empleados y managers, ¿por qué no se puede eliminar <em>Works_on</em>?</li>
+<li>¿Qué señal en un diagrama indica que conviene una agregación?</li>
+</ol>
+<p><strong>Parte B. Tipo test</strong> (una sola respuesta correcta)</p>
+<ol>
+<li>Un arco junto a una entidad que corta las líneas de dos relaciones indica:
+ a) inclusión , b) exclusividad , c) jerarquía total , d) agregación</li>
+<li>Una línea discontinua sin flecha entre dos rombos indica:
+ a) exclusión , b) inclusión , c) inclusividad , d) exclusividad</li>
+<li>«Para divorciarse de una mujer, hay que estar casado con ella» es una restricción de:
+ a) exclusividad , b) exclusión , c) inclusividad , d) inclusión</li>
+<li>En la inclusividad, (2,n) junto a la flecha significa:
+ a) como mucho 2 , b) al menos 2 , c) exactamente 2 , d) entre 0 y 2</li>
+<li>El triángulo ISA se lee:
+ a) «tiene un» , b) «es un» , c) «pertenece a» , d) «depende de»</li>
+<li>Pasar de TURISMO y CAMIÓN a VEHÍCULO es una:
+ a) especialización , b) agregación , c) generalización , d) exclusión</li>
+<li>Si toda instancia de la superclase está en alguna subclase, la jerarquía es:
+ a) total , b) parcial , c) solapada , d) exclusiva</li>
+<li>En la notación que usamos, una jerarquía exclusiva se marca con:
+ a) un círculo relleno , b) una flecha , c) un arco bajo el triángulo , d) una línea doble</li>
+<li>La agregación permite:
+ a) relaciones reflexivas , b) relaciones entre relaciones , c) atributos multivaluados , d) entidades débiles</li>
+<li>Si el profesor fuera solo un nombre sin más datos, lo correcto sería:
+ a) una ternaria , b) una agregación , c) un atributo de <em>Practica</em> , d) una jerarquía</li>
+</ol>
+<p><strong>Parte C. Razona</strong></p>
+<ol>
+<li>En un hospital, un MÉDICO puede participar en una OPERACIÓN como cirujano (relación <em>opera</em>) o como anestesista (relación <em>anestesia</em>). Puede hacer las dos cosas a lo largo de su carrera, pero nunca en la misma operación. ¿Qué restricción es y cómo la dibujarías? ¿Por qué no es exclusividad?</li>
+<li>Una empresa de alquiler tiene COCHES (matrícula, marca, modelo, plazas) y FURGONETAS (matrícula, marca, modelo, carga_máxima). Todo vehículo de la empresa es coche o furgoneta, nunca las dos cosas. Diseña la jerarquía, indica sus atributos y clasifícala.</li>
+<li>En una academia, los ALUMNOS se matriculan en ASIGNATURAS (N:M). De algunas matrículas, no de todas, se quiere guardar qué PROFESOR hace de tutor. Un compañero lo modela con una ternaria ALUMNO: ASIGNATURA: PROFESOR y elimina la relación de matrícula. ¿Qué problema tiene y cómo lo resolverías?</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../UT1-dosier/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: UT1. Almacenamiento de la información">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                UT1. Almacenamiento de la información
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../UT3-dosier/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: UT3. El modelo relacional">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                UT3. El modelo relacional
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Dustin Randel de Lara García, Sant Josep Obrer. Material docente del módulo 0484.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.top", "navigation.footer", "navigation.indexes", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
