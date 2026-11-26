@@ -14,6 +14,7 @@ Apuntes del módulo 0484, DAW/DAM, curso 2026-2027. Cada unidad de trabajo (UT) 
 | [UT4. Transformación y normalización](UT4-dosier.md) | Del diagrama E/R a tablas, dependencias y formas normales (1FN, 2FN y 3FN) |
 | [UT5. SQL: definir y consultar](UT5-dosier.md) | SQL declarativo, DDL y DML, transacciones y restricciones |
 | [UT6. SQL: unir tablas y resumir](UT6-dosier.md) | JOIN, agregación, LIKE, ORDER BY, LIMIT y UNION |
+| [UT7. SQL: procedimientos almacenados](UT7-dosier.md) | CALL, DELIMITER, IF, DECLARE, SELECT INTO y COALESCE |
 
 Cada dosier se puede descargar también en PDF desde Classroom.
 
